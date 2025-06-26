@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Zee Case",
-  "license": "ISC",
+  "license": "AGPL-3.0",
   "dependencies": {
     "node-cron": "^3.0.2"
   }
