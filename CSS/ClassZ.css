@@ -1,0 +1,206 @@
+:root {
+    --themeColor:#00680D;
+    --lightColor:#f1f1f1;
+    --mediumColor:#818181;
+    --darkColor:#111;
+}
+
+@font-face {
+    font-family: OpenDyslexic;
+    font-style: normal;
+    font-weight: normal;
+    src: url(/Fonts/OpenDyslexic/OpenDyslexic-Regular.otf) format("opentype"),
+        url(/Fonts/OpenDyslexic/OpenDyslexic3-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: OpenDyslexic;
+    font-weight: bold;
+    src: url(/Fonts/OpenDyslexic/OpenDyslexic-Bold.otf) format("opentype"),
+        url(/Fonts/OpenDyslexic/OpenDyslexic3-Bold.ttf) format('truetype');
+}
+
+body {
+    background-color: var(--mediumColor);
+    font-family: OpenDyslexic;
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    color: var(--themeColor);
+    text-align: center;
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 100px 100px auto;
+    grid-template-areas:
+        'time'
+        'menu'
+        'active';
+    height: 100vh;
+    min-width: 360px;
+    gap: 5px;
+    margin: 5px;
+}
+
+#time{
+    grid-area: time;
+    background-color: var(--themeColor);
+    color: var(--lightColor);
+    text-align: center;
+    border-radius: 10px;
+}
+
+#date{
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 1.2em;
+}
+#timeObj{
+    margin: 0;
+    padding: 0;
+    font-size: 2.0em;
+}
+
+#menu{
+    grid-area: menu;
+}
+
+#menuTable{
+    text-align: center;
+    background-color: var(--darkColor);
+    border-radius: 10px;
+}
+
+#menuTable img{
+    border-radius: 10px;
+    height: 50px;
+    width: 50px;
+}
+
+.inactiveImg{
+    background-color: var(--mediumColor);
+    border: solid 5px var(--mediumColor);
+}
+
+.activeImg{
+    background-color: var(--themeColor);
+    border: solid 5px var(--themeColor);
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#schedule {
+    color: var(--mediumColor);
+    background-color: var(--darkColor);
+    border-radius: 10px;
+}
+
+#scheduleTable {
+    text-align: left;
+    color: var(--lightColor);
+}
+
+#scheduleTable th {
+    font-size:1.2em;
+}
+
+#todo{
+    color: var(--themeColor);
+}
+
+#scheduleTable td{
+    padding-right: 10px;
+    vertical-align: top;
+}
+
+.pastTime, .pastActivity{
+    color: var(--mediumColor);
+}
+
+#currentActivity{
+    color: var(--themeColor);
+}
+
+#countdown{
+    color: var(--themeColor);
+    font-size: 0.8em;
+    text-align: center;
+}
+
+#activity, #store, #settings{
+    width: 100%;
+    background-color: var(--lightColor);
+    border-radius: 10px;
+}
+
+#settingsTable {
+    width: 100%;
+    text-align: right;
+    padding: 20px;
+    font-size: large;
+}
+
+.settingsName{
+    width:40%;
+    padding-right: 20px;
+}
+
+.settingsValue{
+    width: 60%;
+    text-align: left;
+    padding-left: 20px;
+    color: var(--mediumColor);
+}
+
+.settingsUser{
+    width:40%;
+    background-color: var(--mediumColor);
+    border-radius:10px;
+    padding-right: 20px;
+    color: var(--darkColor);
+}
+
+.settingsUserValue{
+    width: 60%;
+    text-align: left;
+    border-radius:10px;
+    padding-left: 20px;
+    background-color: var(--mediumColor);
+}
+
+@media only screen and (min-width: 769px) {
+
+    .content-grid {
+        grid-template-columns: 35% auto;
+        grid-template-rows: 100px auto;
+        grid-template-areas:
+            'time menu'
+            'schedule active';
+    }
+
+    #date{
+        font-size: 0.9em;
+    }
+
+    #schedule h1{
+        font-size: 1.5em;
+    }
+
+    #scheduleTable {
+        font-size: 0.9em;
+
+    }
+}
