@@ -37,8 +37,16 @@ a {
     text-decoration: none;
 }
 
-.content-grid {
+.grid-container {
     display: grid;
+    background-color: var(--lightColor);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    /*
     grid-template-columns: auto;
     grid-template-rows: 100px 100px auto;
     grid-template-areas:
@@ -48,7 +56,12 @@ a {
     height: 100vh;
     min-width: 360px;
     gap: 5px;
-    margin: 5px;
+    */
+
+}
+
+.grid-item {
+    border: solid 1px var(--themeColor);
 }
 
 #time{
@@ -181,6 +194,7 @@ a {
     background-color: var(--mediumColor);
 }
 
+/*
 @media only screen and (min-width: 769px) {
 
     .content-grid {
@@ -204,3 +218,4 @@ a {
 
     }
 }
+*/

@@ -14,9 +14,13 @@ export default class ContentManager extends Manager{
         this.activityManager = new ActivityManager();
         this.storeManager = new StoreManager();
         this.settingsManager = new SettingsManager();
+        this.grid = document.getElementsByClassName("grid-container")[0];
+        this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
         this.active = 3;
 
         this.setSettings();
+        this.setGrid();
         this.update();
     }
 
@@ -26,31 +30,73 @@ export default class ContentManager extends Manager{
     }
 
     update(){
-        let menuList = [];
-        let content = this.timeManager.content;
-        if(window.innerWidth >= 768){
-            if(this.active == 3)
-                this.active = 2;
-            menuList = [this.settingsManager,
-                         this.storeManager,
-                         this.activityManager];
-            content += this.getMenu(menuList) + this.scheduleManager.content + menuList[this.active].content;
-            super.update(content);
-            this.scheduleManager.update();
-        } else {
-            menuList = [this.settingsManager,
-                         this.storeManager,
-                         this.activityManager,
-                         this.scheduleManager];
-            content += this.getMenu(menuList) + menuList[this.active].content;
-            super.update(content);
-        }
-        this.timeManager.update();
-        menuList[this.active].update();
-        menuList.forEach(this.updateMenuButton, this);
 
-        if(menuList[this.active].id == "settings")
-            this.setInput();
+        if(this.screenWidth != window.innerWidth || this.screenHeight != window.innerHeight)
+            this.setGrid();
+
+        super.update(this.getGrid());
+
+        //let content = this.timeManager.content;
+        //let menuList = [];
+        //let content = this.timeManager.content;
+        //if(window.innerWidth >= 768){
+        //    if(this.active == 3)
+        //        this.active = 2;
+        //    menuList = [this.settingsManager,
+        //                 this.storeManager,
+        //                 this.activityManager];
+        //    content += this.getMenu(menuList) + this.scheduleManager.content + menuList[this.active].content;
+        //    super.update(content);
+        //    this.scheduleManager.update();
+        //} else {
+        //    menuList = [this.settingsManager,
+        //                 this.storeManager,
+        //                 this.activityManager,
+        //                 this.scheduleManager];
+        //    content += this.getMenu(menuList) + menuList[this.active].content;
+        //    super.update(content);
+        //}
+        //this.timeManager.update();
+        //menuList[this.active].update();
+        //menuList.forEach(this.updateMenuButton, this);
+//
+        //if(menuList[this.active].id == "settings")
+        //    this.setInput();
+    }
+
+    setGrid(){
+        this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
+
+        if(this.screenWidth > this.screenHeight){ //landscape
+            if((this.screenWidth/16) < (this.screenHeight/9)){ //full screen width
+                this.grid.style.width = '100vw';
+                this.grid.style.height = (this.screenWidth/16)*9 + 'px';
+            } else { //full screen height
+                this.grid.style.height = '100vh';
+                this.grid.style.width = (this.screenHeight/9)*16 + 'px';
+            }
+
+            this.grid.style.gridTemplateColumns = 'repeat(32, 1fr)';
+
+        } else { //portrait
+            if((this.screenHeight/16) < (this.screenWidth/9)){ //full screen height
+                this.grid.style.height = '100vh';
+                this.grid.style.width = (this.screenHeight/16)*9 + 'px';
+            } else { //full screen width
+                this.grid.style.width = '100vw';
+                this.grid.style.height = (this.screenWidth/9)*16 + 'px';
+            }
+            this.grid.style.gridTemplateColumns = 'repeat(18, 1fr)';
+        }
+    }
+
+    getGrid(){
+        let grid = '';
+        for(let x=0;x<576;x++)
+            grid += '<div class="grid-item" id="gridItem' + x + '"></div>';
+
+        return grid;
     }
 
     getMenu(menuList){
