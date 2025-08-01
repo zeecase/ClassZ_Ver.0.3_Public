@@ -2,24 +2,24 @@
 import Manager from '/JS/Core/Manager.js';
 /*  */
 
-/* Manage Activity elements */
-export default class ActivityManager extends Manager{
+/* Manage Goal elements */
+export default class GoalManager extends Manager{
 
 /* Set properties */
     constructor() {
         //Set ID//
-        super("activity");
+        super("goal");
     }
 
 /* Update */
-    /* Update Activity view */
+    /* Update Goal view */
     update(){
 
-        //TODO: Get activity//
+        //TODO: Get goals//
         //TODO: Set view//
 
         //Update view//
-        super.update("<h1>Activity</h1>");
+        super.update("<h1>Goals</h1>");
     }
 }
 /*  */

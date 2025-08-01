@@ -1,64 +1,95 @@
-import Manager from '/JS/Manager.js';
+/* Import */
+import Manager from '/JS/Core/Manager.js';
+/*  */
 
+/* Manages Time elements */
 export default class TimeManager extends Manager{
+
+/* Set properties */
     constructor() {
+
+        //Set ID//
         super("time");
+
+        //Set Date//
         this.dateObject = new Date();
         this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        //Set defaults//
         this.subscribeList = [];
     }
 
+/* Update */
+    /* Update Time view */
     update() {
+
+        //Create date//
         this.dateObject = new Date();
+
+        //Add date elements//
         let date = this.daysOfWeek[this.dateObject.getDay()] + ", ";
         date += this.months[this.dateObject.getMonth()] + " ";
         date += String(this.dateObject.getDate()).padStart(2, '0') + ", ";
         date += this.dateObject.getFullYear();
+
+        //Create time and view//
         let time = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
         let content = "<p id='date'>" + date + "</p><p id='timeObj'>" + time + "</p>";
+
+        //Update view//
         super.update(content);
+
+        //Update subscribers//
         for (let x=0;x<this.subscribeList.length;x++)
             this.subscribeList[x].update();
+
+        //Repeat in 1 second//
         setTimeout(()=>{this.update();}, 1000);
     }
 
-    getDateSpeech(){
-        return "Today is " + this.daysOfWeek[dayOfWeek] + " " + this.months[month] + " " + day + " " + year;
-    }
+/* Get */
 
-    getTimeSpeech(){
-        return this.time;
-    }
-
+    /* Get date view */
     getDateString(dateObj){
+        //Return date mm/dd/yyyy
         return "" + (dateObj.getMonth()+1) + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
     }
 
+    /* Get time view */
     getTimeString(hr, min) {
-        var t = "";
-        if(hr > 12) {
-            t = String(hr - 12).padStart(2, '0') +
-                ":" + String(min).padStart(2, '0') + " PM";
 
+        //Create time view
+        let time = "";
+
+        //Add time 00:00 AM/PM
+        if(hr > 12) {
+            time = String(hr - 12).padStart(2, '0') +
+                ":" + String(min).padStart(2, '0') + " PM";
         } else if(hr == 12) {
-            t = String(hr).padStart(2, '0') +
+            time = String(hr).padStart(2, '0') +
                 ":" + String(min).padStart(2, '0') + " PM";
         } else {
-            t = String(hr).padStart(2, '0') +
+            time = String(hr).padStart(2, '0') +
                 ":" + String(min).padStart(2, '0') + " AM";
         }
 
-        return t;
+        //Return time view
+        return time;
     }
 
-    subscribe(manager){
+/* Set */
+    /* Add to subscribe list*/
+    setSubscribe(manager){
         if (!this.subscribeList.includes(manager))
             this.subscribeList.push(manager);
     }
 }
+/*  */
 
+/* Prototype time format*/
 Number.prototype.pad = function(n) {
-            for (var r = this.toString(); r.length < n; r = 0 + r);
-                return r;
-    };
+    for (var r = this.toString(); r.length < n; r = 0 + r);
+        return r;
+};
+/*  */

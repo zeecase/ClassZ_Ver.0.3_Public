@@ -1,7 +1,11 @@
-import Manager from '/JS/Manager.js';
+/* Import */
+import Manager from '/JS/Core/Manager.js';
+/*  */
 
+/* Manage Settings elements */
 export default class SettingsManager extends Manager{
 
+/* Set properties */
     constructor() {
         super("settings");
         this.themeColors = ["#A04040", "#FFA500","#E3D12F", "#00680D","#0473AD","#9107A8"];
@@ -14,8 +18,14 @@ export default class SettingsManager extends Manager{
         this.notifications = true;
     }
 
+/* Update */
+    /* Update Settings view */
     update(){
+
+        //Create view//
         let settings = "<h1>Settings</h1>";
+
+        //Add settings elements
         settings += "<table id='settingsTable'>";
         settings += "<tr><td class='settingsUser'><b><p>Class Code&rarr;</p><p>Name&rarr;</p></b></td><td class='settingsUserValue'>" +
             "<p><input type='text' id='classCode' name='classCode' placeholder='Enter Code' value='" +
@@ -36,14 +46,19 @@ export default class SettingsManager extends Manager{
             "<input type='checkbox' id='notificationInput'></td></tr>";
         settings += "</table>";
 
+        /* Update view */
         super.update(settings);
 
+        /* Update inputs */
         document.getElementById("alarmInput").checked = this.alarm;
         document.getElementById("textSpeechInput").checked = this.useTextSpeech;
         document.getElementById("notificationInput").checked = this.notifications;
     }
 
+/* Get */
+    /* Get settings properties */
     getSettings(){
+        //Return properties object//
         return {classCode: this.classCode,
                 username: this.username,
                 activeTheme: this.activeTheme,
@@ -52,8 +67,10 @@ export default class SettingsManager extends Manager{
                 useTextSpeech: this.useTextSpeech,
                 notifications: this.notifications};
     }
-    setSettings(settingsData){
 
+/* Set */
+    /* Set settings properties */
+    setSettings(settingsData){
         this.classCode = settingsData.classCode;
         this.username = settingsData.username;
         this.activeTheme = settingsData.activeTheme;
@@ -62,5 +79,5 @@ export default class SettingsManager extends Manager{
         this.useTextSpeech = settingsData.useTextSpeech;
         this.notifications = settingsData.notifications;
     }
-
 }
+/*  */

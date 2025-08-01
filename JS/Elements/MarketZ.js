@@ -2,24 +2,24 @@
 import Manager from '/JS/Core/Manager.js';
 /*  */
 
-/* Manage Activity elements */
-export default class ActivityManager extends Manager{
+/* Manage MarketZ elements */
+export default class MarketZ extends Manager{
 
 /* Set properties */
     constructor() {
         //Set ID//
-        super("activity");
+        super("marketZ");
     }
 
 /* Update */
-    /* Update Activity view */
+    /* Update MarketZ view */
     update(){
 
-        //TODO: Get activity//
+        //TODO: Get market//
         //TODO: Set view//
 
         //Update view//
-        super.update("<h1>Activity</h1>");
+        super.update("<h1>MarketZ</h1>");
     }
 }
 /*  */

@@ -1,2 +1,2 @@
 # ClassZ
-Simple productivity app: Daily Routine, Calendar, accessibility features, life skills and lessons
+Simple productivity app: Routine, Goals, Activities + lessons, tools, accessibility features
