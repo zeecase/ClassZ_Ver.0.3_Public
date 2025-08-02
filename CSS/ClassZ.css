@@ -1,5 +1,5 @@
 
-/*  CSS properties */
+/* CSS properties */
 :root {
     --themeColor:#00680D;
     --lightColor:#f1f1f1;
@@ -32,16 +32,22 @@ body {
 }
 
 /* Grid */
-.grid-container {
-    display: grid;
-    background-color: var(--lightColor);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
 
-.grid-item {
-    border: solid 1px var(--themeColor);
-}
+    /* Classes */
+    .grid-container {
+        display: grid;
+    }
+
+    .grid-item {
+        background-color: var(--lightColor);
+        border: solid 1px var(--themeColor);
+    }
+
+    /* IDs */
+    #content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
