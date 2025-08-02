@@ -7,19 +7,9 @@ export default class ActivityManager extends Manager{
 
 /* Set properties */
     constructor() {
+
         //Set ID//
         super("activity");
-    }
-
-/* Update */
-    /* Update Activity view */
-    update(){
-
-        //TODO: Get activity//
-        //TODO: Set view//
-
-        //Update view//
-        super.update("<h1>Activity</h1>");
     }
 }
 /*  */

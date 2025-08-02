@@ -3,12 +3,12 @@ import Manager from '/JS/Core/Manager.js';
 /*  */
 
 /* Manage MarketZ elements */
-export default class MarketZ extends Manager{
+export default class MarketManager extends Manager{
 
 /* Set properties */
     constructor() {
         //Set ID//
-        super("marketZ");
+        super("market");
     }
 
 /* Update */
@@ -19,7 +19,7 @@ export default class MarketZ extends Manager{
         //TODO: Set view//
 
         //Update view//
-        super.update("<h1>MarketZ</h1>");
+        super.update("<h1>Market</h1>");
     }
 }
 /*  */

@@ -1,7 +1,9 @@
 /* Import */
 import Manager from '/JS/Core/Manager.js';
 import ActivityManager from '/JS/Managers/ActivityManager.js';
+import ElementsManager from '/JS/Managers/ElementsManager.js';
 import GoalManager from '/JS/Managers/GoalManager.js';
+import MarketManager from '/JS/Managers/MarketManager.js';
 import RoutineManager from '/JS/Managers/RoutineManager.js';
 import SettingsManager from '/JS/Managers/SettingsManager.js';
 import TimeManager from '/JS/Managers/TimeManager.js';
@@ -13,15 +15,8 @@ export default class ContentManager extends Manager{
 /* Set properties */
     constructor() {
 
-        //Set id//
+        //Set ID//
         super("content");
-
-        //Set Managers//
-        this.timeManager = new TimeManager();
-        this.activityManager = new ActivityManager();
-        this.goalManager = new GoalManager();
-        this.routineManager = new RoutineManager(this.timeManager);
-        this.settingsManager = new SettingsManager();
 
         //Set defaults//
         this.screenWidth = -1;
@@ -30,16 +25,18 @@ export default class ContentManager extends Manager{
         this.gridHeight = -1;
         this.numColumns = -1;
         this.numRows = -1;
-        this.activeElementID = "null";
 
         //Set grid//
         this.grid = document.getElementById("content");
         this.setGrid();
         this.setGridListener();
 
-        //Update view//
-        this.setSettings();
-        this.update();
+        //Set elements//
+        this.elementsManager = new ElementsManager(this);
+
+        //Set activity//
+        this.activityManager = new ActivityManager();
+        this.setActivity(this.elementsManager.activeElement);
     }
 
 /* Update */
@@ -52,7 +49,9 @@ export default class ContentManager extends Manager{
             this.setGrid();
 
         //Update view//
-        super.update(this.getGrid());
+        let view = this.getGrid();
+        //TODO: add elements to view
+        super.update(view);
     }
 
 /* Get */
@@ -93,13 +92,7 @@ export default class ContentManager extends Manager{
 
 /* Set */
 
-    /* Set view theme and manager properties */
-    setSettings(){
-        document.documentElement.style.setProperty('--themeColor', this.settingsManager.activeTheme);
-        this.routineManager.countdownLength = this.settingsManager.countdownLength;
-    }
-
-    /* Set grid to 16:9 fullscreen centered */
+    /* Set grid to 16:9 or 9:16 fullscreen centered */
     setGrid(){
 
         //Get screen size//
@@ -176,7 +169,18 @@ export default class ContentManager extends Manager{
         //Get number of grid item //
         let gridItem = this.getGridItem(event);
 
-        //TODO: Set activeElementID containing gridItem
+        //Get active Element//
+        let activeElement = this.elementsManager.getActiveElement(gridItem);
+
+        //Set active element//
+        this.setActivity(activeElement);
+    }
+
+    /* Set activity view */
+    setActivity(element){
+
+        //Set element view to activity//
+        //this.activityManager.update(element.content);
 
         //Update view//
         this.update();
