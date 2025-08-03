@@ -50,6 +50,10 @@ export default class ElementsManager extends Manager{
         this.setActivity();
         this.activeElement.update();
 
+        //TODO: Set active display and menu elements//
+        //TODO: Time display//
+        //TODO: Settings menu//
+
         //Set View//
         let view = this.activityManager.view;
 
