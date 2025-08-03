@@ -11,7 +11,7 @@ export default class SettingsManager extends Manager{
         this.themeColors = ["#A04040", "#FFA500","#E3D12F", "#00680D","#0473AD","#9107A8"];
         this.classCode = "";
         this.username = "";
-        this.activeTheme = "#A04040";
+        this.activeTheme = "#FFA500";
         this.countdownLength = 5;
         this.alarm = false;
         this.useTextSpeech = false;

@@ -50,6 +50,7 @@ export default class ViewManager extends Manager{
         //Add elements to view//
         let view = this.getGrid() + this.elementsManager.view;
 
+
         //console.log(view);
 
         //Update view//
@@ -100,10 +101,14 @@ export default class ViewManager extends Manager{
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
 
+        let background = document.getElementById("background");
+
         //Set Landscape//
         if(this.screenWidth > this.screenHeight){
 
             this.isLandscape = true;
+
+            background.style.background = "linear-gradient(90deg, var(--darkColor) 50%, var(--themeColor) 100%)";
 
             //set full width
             if((this.screenWidth/16) < (this.screenHeight/9)){
@@ -132,6 +137,8 @@ export default class ViewManager extends Manager{
         }else{
 
             this.isLandscape = false;
+
+            background.style.background = "linear-gradient(0deg, var(--darkColor) 50%, var(--themeColor) 100%)";
 
             //set full height
             if((this.screenHeight/16) < (this.screenWidth/9)){
