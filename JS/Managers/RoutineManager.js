@@ -30,10 +30,17 @@ export default class RoutineManager extends Manager{
         //Get routine//
         this.routine = this.getRoutine();
 
-        //TODO: Set view//
+        //Set view//
+        let view = "<h1>Routine</h1>";
+        for(let x=0; x<this.routine.length;x++){
+            let d = new Date(this.routine[x].time);
+            let t = this.time.getTimeString(d.getHours(), d.getMinutes());
+            let a = this.routine[x].activity;
+            view += "<p>" + t + " -> " + a + "</p>";
+        }
 
         //Update view//
-        super.update("<h1>Routine</h1>");
+        super.update(view);
      }
 
 /* Get */

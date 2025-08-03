@@ -1,13 +1,13 @@
 /* Import */
-import ContentManager from '/JS/Managers/ContentManager.js';
+import ViewManager from '/JS/Managers/ViewManager.js';
 /*  */
 
 /* Set Properties */
-const contentManager = new ContentManager(this);
+const viewManager = new ViewManager(this);
 /*  */
 
 /* Update view */
 window.onresize = function(event) {
-    contentManager.update();
+    viewManager.update();
 };
 /*  */

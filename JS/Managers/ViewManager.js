@@ -1,22 +1,16 @@
 /* Import */
 import Manager from '/JS/Core/Manager.js';
-import ActivityManager from '/JS/Managers/ActivityManager.js';
 import ElementsManager from '/JS/Managers/ElementsManager.js';
-import GoalManager from '/JS/Managers/GoalManager.js';
-import MarketManager from '/JS/Managers/MarketManager.js';
-import RoutineManager from '/JS/Managers/RoutineManager.js';
-import SettingsManager from '/JS/Managers/SettingsManager.js';
-import TimeManager from '/JS/Managers/TimeManager.js';
 /*  */
 
-/* Manage the grid view and content managers */
-export default class ContentManager extends Manager{
+/* Manage the grid view */
+export default class ViewManager extends Manager{
 
 /* Set properties */
     constructor() {
 
         //Set ID//
-        super("content");
+        super("view");
 
         //Set defaults//
         this.screenWidth = -1;
@@ -25,32 +19,40 @@ export default class ContentManager extends Manager{
         this.gridHeight = -1;
         this.numColumns = -1;
         this.numRows = -1;
+        this.gridItemSize = -1;
+        this.isLandscape = false;
 
         //Set grid//
-        this.grid = document.getElementById("content");
+        this.element = document.getElementById("view");
         this.setGrid();
         this.setGridListener();
 
         //Set elements//
         this.elementsManager = new ElementsManager(this);
-
-        //Set activity//
-        this.activityManager = new ActivityManager();
-        this.setActivity(this.elementsManager.activeElement);
+        this.update();
+        this.elementsManager.element = document.getElementById("elements");
+        this.elementsManager.activityManager.element = document.getElementById("activity");
+        this.elementsManager.update();
+        this.update();
     }
 
 /* Update */
 
-    /* Update content view */
+    /* Update view */
     update(){
 
         //Update view size//
-        if((this.screenWidth != window.innerWidth) || (this.screenHeight != window.innerHeight))
+        if((this.screenWidth != window.innerWidth) || (this.screenHeight != window.innerHeight)){
             this.setGrid();
+            this.elementsManager.update();
+        }
+
+        //Add elements to view//
+        let view = this.getGrid() + this.elementsManager.view;
+
+        //console.log(view);
 
         //Update view//
-        let view = this.getGrid();
-        //TODO: add elements to view
         super.update(view);
     }
 
@@ -78,8 +80,8 @@ export default class ContentManager extends Manager{
         let y = event.clientY;
 
         //Get offset//
-        let left = this.grid.offsetLeft - this.gridWidth/2;
-        let top = this.grid.offsetTop - this.gridHeight/2;
+        let left = this.element.offsetLeft - this.gridWidth/2;
+        let top = this.element.offsetTop - this.gridHeight/2;
 
         //Get grid col and row//
         let col = Math.floor((x - left)/(this.gridWidth/this.numColumns));
@@ -88,7 +90,6 @@ export default class ContentManager extends Manager{
         //Return grid item number//
         return row * this.numColumns + col;
     }
-
 
 /* Set */
 
@@ -102,23 +103,25 @@ export default class ContentManager extends Manager{
         //Set Landscape//
         if(this.screenWidth > this.screenHeight){
 
+            this.isLandscape = true;
+
             //set full width
             if((this.screenWidth/16) < (this.screenHeight/9)){
 
                 this.gridWidth = this.screenWidth;
-                this.grid.style.width = '100vw';
+                this.element.style.width = '100vw';
 
                 this.gridHeight = (this.screenWidth/16)*9;
-                this.grid.style.height = this.gridHeight + 'px';
+                this.element.style.height = this.gridHeight + 'px';
 
             //set full height
             }else{
 
                 this.gridWidth = (this.screenHeight/9)*16;
-                this.grid.style.width = this.gridWidth + 'px';
+                this.element.style.width = this.gridWidth + 'px';
 
                 this.gridHeight = this.screenHeight;
-                this.grid.style.height = '100vh';
+                this.element.style.height = '100vh';
             }
 
             //set num columns and rows
@@ -128,23 +131,25 @@ export default class ContentManager extends Manager{
         //Set portrait//
         }else{
 
+            this.isLandscape = false;
+
             //set full height
             if((this.screenHeight/16) < (this.screenWidth/9)){
 
                 this.gridWidth = (this.screenHeight/16)*9;
-                this.grid.style.width = this.gridWidth + 'px';
+                this.element.style.width = this.gridWidth + 'px';
 
                 this.gridHeight = this.screenHeight;
-                this.grid.style.height = '100vh';
+                this.element.style.height = '100vh';
 
             //set full width
             }else{
 
-                this.grid.style.width = '100vw';
+                this.element.style.width = '100vw';
                 this.gridWidth = this.screenWidth;
 
                 this.gridHeight = (this.screenWidth/9)*16;
-                this.grid.style.height = this.gridHeight + 'px';
+                this.element.style.height = this.gridHeight + 'px';
             }
 
             //set num columns and rows
@@ -152,38 +157,31 @@ export default class ContentManager extends Manager{
             this.numRows = 32;
         }
 
+        this.gridItemSize = this.gridWidth/this.numColumns;
+
         //Set number of columns//
-        this.grid.style.gridTemplateColumns = 'repeat(' + this.numColumns + ', 1fr)';
+        this.element.style.gridTemplateColumns = 'repeat(' + this.numColumns + ', 1fr)';
+
+        //console.log(this.element);
     }
 
     /* Set grid click listener */
     setGridListener(){
         //OnClick set active grid item
         let self = this;
-        this.grid.addEventListener("click", function(event){self.setElement(event);});
+        this.element.addEventListener("click", function(event){self.onClick(event);});
     }
 
     /* Set active grid item */
-    setElement(event){
+    onClick(event){
 
         //Get number of grid item //
         let gridItem = this.getGridItem(event);
 
-        //Get active Element//
-        let activeElement = this.elementsManager.getActiveElement(gridItem);
+        console.log('Grid-item: ' + gridItem);
 
         //Set active element//
-        this.setActivity(activeElement);
-    }
-
-    /* Set activity view */
-    setActivity(element){
-
-        //Set element view to activity//
-        //this.activityManager.update(element.content);
-
-        //Update view//
-        this.update();
+        this.elementsManager.setActivity(gridItem);
     }
 }
 /*  */

@@ -4,23 +4,50 @@ export default class Manager {
 /* Set properties */
     constructor(id) {
         this.id = id;
-        this._content = "";
+        this._view = "";
+        this.gridWidth = 0;
+        this.gridHeight = 0;
+        this.gridColStart = 0;
+        this.gridRowStart = 0;
+        this._element = null;
     }
 
 /* Update */
-    update(content){
+    update(view){
 
-        //Set content//
-        if(this._content != content) {
-            this._content = content;
-            document.getElementById(this.id).innerHTML = content;
+        //Set view//
+        if(this._view != view) {
+            this._view = view;
+            this._element.innerHTML = view;
         }
     }
 
 /* Get */
-    get content(){
+    get view(){
         //Return view//
-        return "<div id='" + this.id + "'>" + this._content + "</div>";
+        return "<div class='element' id='" + this.id + "'>" + this._view + "</div>";
+    }
+
+    get element(){
+        //Return element//
+        return this._element;
+    }
+
+/* Set */
+    set view(view){
+        this._view =  view;
+    }
+
+    set element(element){
+        this._element =  element;
+    }
+
+    /* Set size and start position on grid */
+    setGridProperties(w, h, c, r){
+        this.gridWidth = w;
+        this.gridHeight = h;
+        this.gridColStart = c;
+        this.gridRowStart = r;
     }
 }
 /*  */

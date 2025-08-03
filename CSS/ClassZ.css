@@ -31,23 +31,43 @@ body {
     padding: 0;
 }
 
+h1 {
+    text-align: center;
+    font-size: large;
+}
+
+p {
+    padding-left: 20px;
+    font-size: medium;
+}
+
 /* Grid */
 
-    /* Classes */
-    .grid-container {
-        display: grid;
-    }
+/* Classes */
+.grid-container {
+    display: grid;
+}
 
-    .grid-item {
-        background-color: var(--lightColor);
-        border: solid 1px var(--themeColor);
-    }
+.grid-item {
+    border: dashed 1px var(--themeColor);
+}
 
-    /* IDs */
-    #content {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-    }
+.element {
+    position: fixed;
+}
+
+/* IDs */
+#view {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#activity {
+    background-color: var(--lightColor);
+    border-radius: 20px;
+}
+
+

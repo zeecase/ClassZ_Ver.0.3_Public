@@ -35,10 +35,10 @@ export default class TimeManager extends Manager{
 
         //Create time and view//
         let time = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
-        let content = "<p id='date'>" + date + "</p><p id='timeObj'>" + time + "</p>";
+        let view = "<p id='date'>" + date + "</p><p id='timeObj'>" + time + "</p>";
 
         //Update view//
-        super.update(content);
+        super.update(view);
 
         //Update subscribers//
         for (let x=0;x<this.subscribeList.length;x++)

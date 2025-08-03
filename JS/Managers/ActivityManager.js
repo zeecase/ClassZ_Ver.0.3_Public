@@ -7,7 +7,6 @@ export default class ActivityManager extends Manager{
 
 /* Set properties */
     constructor() {
-
         //Set ID//
         super("activity");
     }
