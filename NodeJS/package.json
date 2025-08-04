@@ -1,7 +1,7 @@
 {
   "name": "ClassZ",
-  "version": "0.3.0",
-  "description": "Simple productivity app: Daily Routine, Calendar, accessibility features, life skills and lessons",
+  "version": "0.3.1",
+  "description": "Simple productivity app: Routine, Goals, Activities + lessons, tools, accessibility features",
   "main": "ClassZ.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

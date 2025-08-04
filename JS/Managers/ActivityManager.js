@@ -1,11 +1,14 @@
-import Manager from '/JS/Manager.js';
+/* Import */
+import Manager from '/JS/Core/Manager.js';
+/*  */
 
+/* Manage Activity elements */
 export default class ActivityManager extends Manager{
+
+/* Set properties */
     constructor() {
+        //Set ID//
         super("activity");
     }
-
-    update(){
-        super.update("<h1>Activity</h1>");
-    }
 }
+/*  */
