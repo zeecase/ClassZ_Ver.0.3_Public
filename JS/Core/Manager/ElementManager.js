@@ -1,35 +1,42 @@
 /* Import */
-import Manager from '/JS/Core/Manager.js';
-import ViewManager from '/JS/Managers/ViewManager.js';
-import ActivityManager from '/JS/Managers/ActivityManager.js';
-import GoalManager from '/JS/Managers/GoalManager.js';
-import MarketManager from '/JS/Managers/MarketManager.js';
-import RoutineManager from '/JS/Managers/RoutineManager.js';
-import SettingsManager from '/JS/Managers/SettingsManager.js';
-import TimeManager from '/JS/Managers/TimeManager.js';
+//Core Manager//
+import DataManager from '/JS/Core/Manager/DataManager.js';
+import ViewManager from '/JS/Core/Manager/ViewManager.js';
+
+//Core Object//
+import ActivityZ from '/JS/Core/Object/ActivityZ.js';
+import ToolZ from '/JS/Core/Object/ToolZ.js';
+
+//Activity//
+import GoalZ from '/JS/Elements/Activity/GoalZ.js';
+import MarketZ from '/JS/Elements/Activity/MarketZ.js';
+import RoutineZ from '/JS/Elements/Activity/RoutineZ.js';
+
+//Tool//
+import SettingsZ from '/JS/Elements/Tool/SettingZ.js';
+import TimeZ from '/JS/Elements/Tool/TimeZ.js';
 /*  */
 
 /* Manage Activity elements */
-export default class ElementsManager extends Manager{
+export default class ElementManager{
 
 /* Set properties */
-    constructor(view) {
+    init(dataManager, viewManager) {
 
-        //Set ID//
-        super("elements");
+        //Set manager//
+        this.dataManager = dataManager;
+        this.viewManager = viewManager;
 
-        //Set managers//
-        this.viewManager = view;
-        this.settingsManager = new SettingsManager();
-        this.timeManager = new TimeManager();
-        this.activityManager = new ActivityManager();
-        this.goalManager = new GoalManager();
-        this.marketManager = new MarketManager();
-        this.routineManager = new RoutineManager(this.timeManager);
+        //Set activity//
+        this.goalZ = new GoalZ(this);
+        this.marketZ = new MarketZ(this);
+        this.routineZ = new RoutineZ(this);
+
+        //Set tool//
+        this.settingZ = new SettingsZ(this);
+        this.timeZ = new TimeZ(this);
 
         //Set defaults//
-        this.activeGridItem = -1;
-        this.activeElement = this.routineManager;
         this.displayDictionary = {};
         this.activityDictionary = {};
         this.activityManager.view = this.activeElement.view;
@@ -40,25 +47,6 @@ export default class ElementsManager extends Manager{
 
         //Set element dictionaries//
         this.setDictionaries();
-    }
-
-/* Update */
-    /* Update elements view */
-    update(){
-
-        //Set activity//
-        this.setActivity();
-        this.activeElement.update();
-
-        //TODO: Set active display and menu elements//
-        //TODO: Time display//
-        //TODO: Settings menu//
-
-        //Set View//
-        let view = this.activityManager.view;
-
-        //Update view//
-        super.update(view);
     }
 
 /* Set */

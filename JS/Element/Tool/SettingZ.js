@@ -1,13 +1,14 @@
 /* Import */
-import Manager from '/JS/Core/Manager.js';
+import ToolZ from '/JS/Core/Object/ToolZ.js';
 /*  */
 
 /* Manage Settings elements */
-export default class SettingsManager extends Manager{
+export default class SettingZ extends ToolZ{
 
 /* Set properties */
-    constructor() {
-        super("settings");
+    constructor(elementManager) {
+        super(elementManager, "settingZ");
+
         this.themeColors = ["#A04040", "#FFA500","#E3D12F", "#00680D","#0473AD","#9107A8"];
         this.classCode = "";
         this.username = "";

@@ -1,23 +1,19 @@
 /* Import */
-import Manager from '/JS/Core/Manager.js';
+import ToolZ from '/JS/Core/Object/ToolZ.js';
 /*  */
 
 /* Manages Time elements */
-export default class TimeManager extends Manager{
+export default class TimeZ extends ToolZ{
 
 /* Set properties */
-    constructor() {
-
-        //Set ID//
-        super("time");
+    constructor(elementManager) {
+        super(elementManager, "timeZ");
 
         //Set Date//
         this.dateObject = new Date();
         this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        //Set defaults//
-        this.subscribeList = [];
     }
 
 /* Update */
@@ -76,13 +72,6 @@ export default class TimeManager extends Manager{
 
         //Return time view
         return time;
-    }
-
-/* Set */
-    /* Add to subscribe list*/
-    setSubscribe(manager){
-        if (!this.subscribeList.includes(manager))
-            this.subscribeList.push(manager);
     }
 }
 /*  */
