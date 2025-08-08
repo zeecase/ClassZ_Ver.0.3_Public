@@ -8,8 +8,7 @@ import ActivityZ from '/Core/JS/Object/ActivityZ.js';
 import ToolZ from '/Core/JS/Object/ToolZ.js';
 
 //Activity//
-import GoalZ from '/Core/JS/Element/Activity/GoalZ.js';
-import MarketZ from '/Core/JS/Element/Activity/MarketZ.js';
+import BoardZ from '/Core/JS/Element/Activity/BoardZ.js';
 import RoutineZ from '/Core/JS/Element/Activity/RoutineZ.js';
 
 //Tool//
@@ -45,8 +44,7 @@ export default class ElementManager{
 
         //Set activityZ//
         this.activityZDictionary = {};
-        this.goalZ = new GoalZ(this);
-        this.marketZ = new MarketZ(this);
+        this.boardZ = new BoardZ(this);
         this.routineZ = new RoutineZ(this);
         this.setActivityZ();
 
@@ -119,8 +117,7 @@ export default class ElementManager{
     }
 
     setActivityZ(){
-        this.activityZDictionary[this.goalZ.id] = this.goalZ;
-        this.activityZDictionary[this.marketZ.id] = this.MarketZ;
+        this.activityZDictionary[this.boardZ.id] = this.boardZ;
         this.activityZDictionary[this.routineZ.id] = this.routineZ;
     }
 
