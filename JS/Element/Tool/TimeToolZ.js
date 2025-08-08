@@ -3,11 +3,11 @@ import ToolZ from '/JS/Core/Object/ToolZ.js';
 /*  */
 
 /* Manages Time elements */
-export default class TimeZ extends ToolZ{
+export default class TimeToolZ extends ToolZ{
 
 /* Set properties */
     constructor(elementManager) {
-        super(elementManager, "timeZ");
+        super(elementManager, "timeToolZ");
 
         //Set Date//
         this.dateObject = new Date();

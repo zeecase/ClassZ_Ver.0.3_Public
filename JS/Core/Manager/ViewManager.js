@@ -18,17 +18,12 @@ export default class ViewManager{
         this.isLandscape = false;
         this.gridWidth = 0;
         this.gridHeight = 0;
-        this.gridColStart = 0;
-        this.gridRowStart = 0;
-        this.gridWidth = -1;
-        this.gridHeight = -1;
         this.numColumns = -1;
         this.numRows = -1;
         this.gridItemSize = -1;
 
         //Set grid//
-        //this.element = document.getElementById("view");
-        //this.setGrid();
+        this.setGrid();
         //this.setGridListener();
     }
 
@@ -37,15 +32,9 @@ export default class ViewManager{
     /* Update view */
     update(){
 
-        //Update view size//
-        if((this.screenWidth != window.innerWidth) || (this.screenHeight != window.innerHeight)){
-            this.setGrid();
-        }
-
+        this.setGrid();
         //console.log(view);
 
-        //Update view//
-        super.update(view);
     }
 
 /* Get */
@@ -182,12 +171,22 @@ export default class ViewManager{
         this.elementsManager.setActivity(gridItem);
     }
 
-     /* Set size and start position on grid */
-    setGridProperties(w, h, c, r){
-        this.gridWidth = w;
-        this.gridHeight = h;
-        this.gridColStart = c;
-        this.gridRowStart = r;
+     /* Set element width, height, and starting position */
+    setElementOnGrid(element){
+
+        //Get properties//
+        let w = element.gridWidth * this.gridItemSize;
+        let h = element.gridHeight * this.gridItemSize;
+        let c = element.gridColStart * this.gridItemSize;
+        let r = element.gridRowStart * this.gridItemSize;
+
+        //Set properties//
+        element.style.width = w + 'px';
+        element.style.height = h + 'px';
+        element.style.left = c + 'px';
+        element.style.top = r + 'px';
+
+        //console.log(this.activeElement.element);
     }
 }
 /*  */

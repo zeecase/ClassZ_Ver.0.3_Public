@@ -8,16 +8,16 @@ import ActivityZ from '/JS/Core/Object/ActivityZ.js';
 import ToolZ from '/JS/Core/Object/ToolZ.js';
 
 //Activity//
-import GoalZ from '/JS/Elements/Activity/GoalZ.js';
-import MarketZ from '/JS/Elements/Activity/MarketZ.js';
-import RoutineZ from '/JS/Elements/Activity/RoutineZ.js';
+import GoalZ from '/JS/Element/Activity/GoalZ.js';
+import MarketZ from '/JS/Element/Activity/MarketZ.js';
+import RoutineZ from '/JS/Element/Activity/RoutineZ.js';
 
 //Tool//
-import SettingsZ from '/JS/Elements/Tool/SettingZ.js';
-import TimeZ from '/JS/Elements/Tool/TimeZ.js';
+import SettingToolZ from '/JS/Element/Tool/SettingToolZ.js';
+import TimeToolZ from '/JS/Element/Tool/TimeToolZ.js';
 /*  */
 
-/* Manage Activity elements */
+/* Manage CSS and elements */
 export default class ElementManager{
 
 /* Set properties */
@@ -27,97 +27,107 @@ export default class ElementManager{
         this.dataManager = dataManager;
         this.viewManager = viewManager;
 
-        //Set activity//
+        //Set CSS//
+        this.style = document.createElement('style');
+        this.setCSS();
+
+        //Set view//
+        this.background = document.createElement('background');
+        this.grid = document.createElement('gridContainer');
+        this.setBackground();
+        this.setGrid();
+
+        //Set toolZ//
+        this.toolZDictionary = {};
+        this.settingToolZ = new SettingToolZ(this);
+        this.timeToolZ = new TimeToolZ(this);
+        this.setToolZ();
+
+        //Set activityZ//
+        this.activityZDictionary = {};
         this.goalZ = new GoalZ(this);
         this.marketZ = new MarketZ(this);
         this.routineZ = new RoutineZ(this);
+        this.setActivityZ();
 
-        //Set tool//
-        this.settingZ = new SettingsZ(this);
-        this.timeZ = new TimeZ(this);
+        //TODO: Set user//
 
-        //Set defaults//
-        this.displayDictionary = {};
-        this.activityDictionary = {};
-        this.activityManager.view = this.activeElement.view;
-        this.view = this.activityManager.view;
-
-        //Set settings//
-        this.setSettings();
-
-        //Set element dictionaries//
-        this.setDictionaries();
+        //Set settingZ//
+        this.setSettingZ();
     }
 
 /* Set */
 
+    setCSS(){
+        this.style.type = 'text/css';
+
+        //Set CSS Variables//
+        let root = ':root { --themeColor:#00680D; --lightColor:#f1f1f1; --mediumColor:#818181; --darkColor:#111;}';
+        this.style.insertAdjacentHTML('beforeend', root);
+
+        //Set Font//
+        let font = "@font-face { font-family: OpenDyslexic; font-style: normal; font-weight: normal; ";
+        font += "src: url(/Assets/Fonts/OpenDyslexic/OpenDyslexic-Regular.otf) format('opentype'),";
+        font += "url(/Assets/Fonts/OpenDyslexic/OpenDyslexic3-Regular.ttf) format('truetype');}";
+        font += "@font-face { font-family: OpenDyslexic; font-weight: bold;";
+        font += "src: url(/Assets/Fonts/OpenDyslexic/OpenDyslexic-Bold.otf) format('opentype'),";
+        font += "url(/Assets/Fonts/OpenDyslexic/OpenDyslexic3-Bold.ttf) format('truetype');}";
+        this.style.insertAdjacentHTML('beforeend', font);
+
+        //Set body//
+        let body = "body { background-color: var(--mediumColor); font-family: OpenDyslexic; margin: 0; padding: 0;}";
+        body += "h1 { text-align: center; font-size: large; }";
+        body += "p { padding-left: 20px; font-size: medium; }";
+        this.style.insertAdjacentHTML('beforeend', body);
+
+        //Set classes//
+        let classes = ".grid-container { display: grid; }";
+        classes += ".grid-item { border: dashed 1px #00680D; }";
+        classes += ".element { position: fixed; }";
+        this.style.insertAdjacentHTML('beforeend', classes);
+
+        //Set background//
+        let background = "#background{ width: 100vw; height:100vh;}";
+        this.style.insertAdjacentHTML('beforeend', background);
+
+        //Set view//
+        let view = "#view { position: fixed; top: 50%; left: 50%; ";
+        view += "-webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}";
+        this.style.insertAdjacentHTML('beforeend', view);
+
+        console.log(this.style);
+        document.head.appendChild(this.style);
+    }
+
+    setBackground(){
+
+
+        console.log(this.background);
+        document.body.appendChild(this.background);
+    }
+
+    setGrid(){
+
+
+        console.log(this.grid);
+        document.body.appendChild(this.grid);
+    }
+
+    setToolZ(){
+        this.toolZDictionary[this.settingToolZ.id] = this.settingToolZ;
+        this.toolZDictionary[this.timeToolZ.id] = this.timeToolZ;
+    }
+
+    setActivityZ(){
+        this.activityZDictionary[this.goalZ.id] = this.goalZ;
+        this.activityZDictionary[this.marketZ.id] = this.MarketZ;
+        this.activityZDictionary[this.routineZ.id] = this.routineZ;
+    }
+
     /* Set view theme and manager properties */
-    setSettings(){
-        document.documentElement.style.setProperty('--themeColor', this.settingsManager.activeTheme);
-        this.routineManager.countdownLength = this.settingsManager.countdownLength;
-    }
-
-    /* Set element dictionaries*/
-    setDictionaries(){
-
-        //Set core display elements//
-        this.displayDictionary[this.timeManager.id] = this.timeManager;
-
-        //Set core activity elements//
-        this.activityDictionary[this.settingsManager.id] = this.settingsManager;
-        this.activityDictionary[this.routineManager.id] = this.routineManager;
-        this.activityDictionary[this.goalManager.id] = this.goalManager;
-        this.activityDictionary[this.marketManager.id] = this.MarketManager;
-
-        //TODO: Set user elements//
-    }
-
-    /* Set active element */
-    setActiveElement(gridItem){
-
-        //Set active gridItem
-        this.activeGridItem = gridItem;
-
-        //TODO: check which element contains gridItem//
-        //TODO: update activeElement//
-        this.update();
-    }
-
-    /* Set activity view */
-    setActivity(){
-
-        //Set grid properties//
-        if(this.viewManager.isLandscape)
-            this.activityManager.setGridProperties(18,18,8,0);
-        else
-            this.activityManager.setGridProperties(18,18,0,6);
-
-        //Set on grid//
-        this.setElementOnGrid(this.activityManager);
-
-        //Set active element size to fullscreen activity//
-        this.activeElement.element = document.getElementById(this.activeElement.id);
-        this.activeElement.element.style.width = this.activityManager.element.style.width;
-        this.activeElement.element.style.height = this.activityManager.element.style.height;
-        //console.log(this.activeElement);
-    }
-
-    /* Set element width, height, and starting position */
-    setElementOnGrid(manager){
-
-        //Get properties//
-        let w = manager.gridWidth * this.viewManager.gridItemSize;
-        let h = manager.gridHeight * this.viewManager.gridItemSize;
-        let c = manager.gridColStart * this.viewManager.gridItemSize;
-        let r = manager.gridRowStart * this.viewManager.gridItemSize;
-
-        //Set properties//
-        manager.element.style.width = w + 'px';
-        manager.element.style.height = h + 'px';
-        manager.element.style.left = c + 'px';
-        manager.element.style.top = r + 'px';
-
-        //console.log(this.activeElement.element);
+    setSettingZ(){
+        document.documentElement.style.setProperty('--themeColor', this.settingToolZ.activeTheme);
+        this.routineZ.countdownLength = this.settingToolZ.countdownLength;
     }
 }
 /*  */

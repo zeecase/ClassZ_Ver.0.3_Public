@@ -1,24 +1,40 @@
 /* Import */
 //Core//
-import DataManager from '/JS/Core/Manager/ElementManager.js';
+import ElementManager from '/JS/Core/Manager/ElementManager.js';
 import ViewManager from '/JS/Core/Manager/ViewManager.js';
 /*  */
 
+/* Manage External connections */
+export default class DataManager{
 /* Set Properties */
-const viewManager = new ViewManager();
-const elementsManager = new ElementsManager();
-this.screenWidth = window.innerWidth;
-this.screenHeight = window.innerHeight;
+    init(){
+
+        //Set Screen//
+        this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
+
+        //Set Manager//
+        this.elementManager = new ElementManager(this);
+        this.viewManager = new ViewManager(this);
+        this.elementManager.init(this, this.viewManager);
+        this.viewManager.init(this, this.elementManager);
+    }
+
+    update(){
+        this.ViewManager.update();
+    }
+}
 /*  */
 
-
+/* On Load */
+const dataManager = new DataManager();
 document.addEventListener('DOMContentLoaded', function() {
-    viewManager.init(this, elementManager);
-    elementManager.init(this, viewManager);
+    dataManager.init();
 });
+/*  */
 
-/* Update view */
+/* Atar listeners*/
 window.onresize = function(event) {
-    viewManager.update();
+    dataManager.update();
 };
 /*  */

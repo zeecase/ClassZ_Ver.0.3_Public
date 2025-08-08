@@ -1,5 +1,5 @@
 /* Import */
-import ActivityZ from '/JS/Core/Objects/ActivityZ.js';
+import ActivityZ from '/JS/Core/Object/ActivityZ.js';
 /*  */
 
 /* Manage Goal elements */

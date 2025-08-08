@@ -3,11 +3,11 @@ import ToolZ from '/JS/Core/Object/ToolZ.js';
 /*  */
 
 /* Manage Settings elements */
-export default class SettingZ extends ToolZ{
+export default class SettingToolZ extends ToolZ{
 
 /* Set properties */
     constructor(elementManager) {
-        super(elementManager, "settingZ");
+        super(elementManager, "settingToolZ");
 
         this.themeColors = ["#A04040", "#FFA500","#E3D12F", "#00680D","#0473AD","#9107A8"];
         this.classCode = "";
