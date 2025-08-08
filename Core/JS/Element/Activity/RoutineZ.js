@@ -1,5 +1,5 @@
 /* Import */
-import ActivityZ from '/JS/Core/Object/ActivityZ.js';
+import ActivityZ from '/Core/JS/Object/ActivityZ.js';
 /*  */
 
 /* Manage Routine elements */
@@ -7,7 +7,7 @@ export default class RoutineZ extends ActivityZ{
 
 /* Set properties */
     constructor(elementManager) {
-        super(elementManager, "marketZ");
+        super(elementManager, "routineZ");
 
         //Set defaults//
         this.routine = [];

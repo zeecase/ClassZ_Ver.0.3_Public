@@ -1,7 +1,7 @@
 /* Import */
 //Core//
-import ElementManager from '/JS/Core/Manager/ElementManager.js';
-import ViewManager from '/JS/Core/Manager/ViewManager.js';
+import ElementManager from '/Core/JS/Manager/ElementManager.js';
+import ViewManager from '/Core/JS/Manager/ViewManager.js';
 /*  */
 
 /* Manage External connections */

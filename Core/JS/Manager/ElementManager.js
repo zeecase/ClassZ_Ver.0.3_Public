@@ -1,20 +1,20 @@
 /* Import */
 //Core Manager//
-import DataManager from '/JS/Core/Manager/DataManager.js';
-import ViewManager from '/JS/Core/Manager/ViewManager.js';
+import DataManager from '/Core/JS/Manager/DataManager.js';
+import ViewManager from '/Core/JS/Manager/ViewManager.js';
 
 //Core Object//
-import ActivityZ from '/JS/Core/Object/ActivityZ.js';
-import ToolZ from '/JS/Core/Object/ToolZ.js';
+import ActivityZ from '/Core/JS/Object/ActivityZ.js';
+import ToolZ from '/Core/JS/Object/ToolZ.js';
 
 //Activity//
-import GoalZ from '/JS/Element/Activity/GoalZ.js';
-import MarketZ from '/JS/Element/Activity/MarketZ.js';
-import RoutineZ from '/JS/Element/Activity/RoutineZ.js';
+import GoalZ from '/Core/JS/Element/Activity/GoalZ.js';
+import MarketZ from '/Core/JS/Element/Activity/MarketZ.js';
+import RoutineZ from '/Core/JS/Element/Activity/RoutineZ.js';
 
 //Tool//
-import SettingToolZ from '/JS/Element/Tool/SettingToolZ.js';
-import TimeToolZ from '/JS/Element/Tool/TimeToolZ.js';
+import SettingToolZ from '/Core/JS/Element/Tool/SettingToolZ.js';
+import TimeToolZ from '/Core/JS/Element/Tool/TimeToolZ.js';
 /*  */
 
 /* Manage CSS and elements */
@@ -67,11 +67,11 @@ export default class ElementManager{
 
         //Set Font//
         let font = "@font-face { font-family: OpenDyslexic; font-style: normal; font-weight: normal; ";
-        font += "src: url(/Assets/Fonts/OpenDyslexic/OpenDyslexic-Regular.otf) format('opentype'),";
-        font += "url(/Assets/Fonts/OpenDyslexic/OpenDyslexic3-Regular.ttf) format('truetype');}";
+        font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Regular.otf) format('opentype'),";
+        font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Regular.ttf) format('truetype');}";
         font += "@font-face { font-family: OpenDyslexic; font-weight: bold;";
-        font += "src: url(/Assets/Fonts/OpenDyslexic/OpenDyslexic-Bold.otf) format('opentype'),";
-        font += "url(/Assets/Fonts/OpenDyslexic/OpenDyslexic3-Bold.ttf) format('truetype');}";
+        font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Bold.otf) format('opentype'),";
+        font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Bold.ttf) format('truetype');}";
         this.style.insertAdjacentHTML('beforeend', font);
 
         //Set body//

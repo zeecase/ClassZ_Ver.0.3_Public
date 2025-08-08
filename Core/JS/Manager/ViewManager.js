@@ -1,7 +1,7 @@
 /* Import */
 //Core//
-import DataManager from '/JS/Core/Manager/DataManager.js';
-import ElementManager from '/JS/Core/Manager/ElementManager.js';
+import DataManager from '/Core/JS/Manager/DataManager.js';
+import ElementManager from '/Core/JS/Manager/ElementManager.js';
 /*  */
 
 /* Manage the grid view */

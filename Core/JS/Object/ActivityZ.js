@@ -1,5 +1,5 @@
 /* Import */
-import  ObjZ from '/JS/Core/Object/ObjZ.js';
+import  ObjZ from '/Core/JS/Object/ObjZ.js';
 /*  */
 
 /* Manage Activity elements */

@@ -1,5 +1,5 @@
 /* Import */
-import ElementManager from '/JS/Core/Manager/ElementManager.js';
+import ElementManager from '/Core/JS/Manager/ElementManager.js';
 /*  */
 
 /* ObjZ element */

@@ -1,5 +1,5 @@
 /* Import */
-import ToolZ from '/JS/Core/Object/ToolZ.js';
+import ToolZ from '/Core/JS/Object/ToolZ.js';
 /*  */
 
 /* Manage Settings elements */
