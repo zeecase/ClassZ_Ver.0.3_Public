@@ -21,7 +21,27 @@ export default class DataManager{
     }
 
     update(){
-        this.ViewManager.update();
+        this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
+
+        this.elementManager.update();
+        this.viewManager.update();
+    }
+
+    getOrientetion(){
+        //Get screen orientation//
+        if(this.screenHeight > this.screenWidth - this.screenWidth*0.1)
+            if(this.screenHeight < this.screenWidth + this.screenWidth*0.1 )
+                return "square";
+            else
+                return "portrait";
+
+        return "landscape";
+    }
+
+    getBackgroundURL(){
+        //Default//
+        return "/Core/Asset/Image/Background/ClassZ_Background.jpg";
     }
 }
 /*  */

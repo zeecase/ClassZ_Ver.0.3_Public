@@ -26,15 +26,22 @@ export default class ElementManager{
         this.dataManager = dataManager;
         this.viewManager = viewManager;
 
-        //Set CSS//
-        this.style = document.createElement('style');
-        this.setCSS();
+        //Set colors//
+        this.themeColor = "#FFA500";
+        this.lightColor = "#f1f1f1";
+        this.darkColor = "#111111";
 
-        //Set view//
-        this.background = document.createElement('background');
-        this.grid = document.createElement('gridContainer');
+        //Set body//
+        this.body = document.body;
+        this.setBody();
+
+        //Set background//
+        this.background = document.createElement('div');
+        this.backgroundImg = document.createElement("img");
+        this.backgroundFilter = document.createElement("div");
         this.setBackground();
-        this.setGrid();
+
+        //TODO: Set grid//
 
         //Set toolZ//
         this.toolZDictionary = {};
@@ -54,61 +61,62 @@ export default class ElementManager{
         this.setSettingZ();
     }
 
-/* Set */
+    update(){
+        this.updateOrientation();
+    }
 
-    setCSS(){
-        this.style.type = 'text/css';
+    updateOrientation(){
+        let gradient = "linear-gradient(";
+        if(this.dataManager.getOrientetion() == "landscape")
+            gradient+= "9";
+        gradient += "0deg, " + this.darkColor + " 50%, " + this.themeColor + " 100%)";
+        this.backgroundFilter.style.setProperty("background", gradient);
+    }
 
-        //Set CSS Variables//
-        let root = ':root { --themeColor:#00680D; --lightColor:#f1f1f1; --mediumColor:#818181; --darkColor:#111;}';
-        this.style.insertAdjacentHTML('beforeend', root);
+    //setCSS(){
+        //let font = "@font-face { font-family: OpenDyslexic; font-style: normal; font-weight: normal; ";
+        //font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Regular.otf) format('opentype'),";
+        //font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Regular.ttf) format('truetype');}";
+        //font += "@font-face { font-family: OpenDyslexic; font-weight: bold;";
+        //font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Bold.otf) format('opentype'),";
+        //font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Bold.ttf) format('truetype');}";
+        //this.style.insertAdjacentHTML('beforeend', font);
+    //}
 
-        //Set Font//
-        let font = "@font-face { font-family: OpenDyslexic; font-style: normal; font-weight: normal; ";
-        font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Regular.otf) format('opentype'),";
-        font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Regular.ttf) format('truetype');}";
-        font += "@font-face { font-family: OpenDyslexic; font-weight: bold;";
-        font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Bold.otf) format('opentype'),";
-        font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Bold.ttf) format('truetype');}";
-        this.style.insertAdjacentHTML('beforeend', font);
-
-        //Set body//
-        let body = "body { background-color: var(--mediumColor); font-family: OpenDyslexic; margin: 0; padding: 0;}";
-        body += "h1 { text-align: center; font-size: large; }";
-        body += "p { padding-left: 20px; font-size: medium; }";
-        this.style.insertAdjacentHTML('beforeend', body);
-
-        //Set classes//
-        let classes = ".grid-container { display: grid; }";
-        classes += ".grid-item { border: dashed 1px #00680D; }";
-        classes += ".element { position: fixed; }";
-        this.style.insertAdjacentHTML('beforeend', classes);
-
-        //Set background//
-        let background = "#background{ width: 100vw; height:100vh;}";
-        this.style.insertAdjacentHTML('beforeend', background);
-
-        //Set view//
-        let view = "#view { position: fixed; top: 50%; left: 50%; ";
-        view += "-webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}";
-        this.style.insertAdjacentHTML('beforeend', view);
-
-        console.log(this.style);
-        document.head.appendChild(this.style);
+    setBody(){
+        this.body.style.setProperty("margin", "0");
+        this.body.style.setProperty("padding", "0");
     }
 
     setBackground(){
 
+        //Set Default//
+        this.background.style.setProperty("width", "100vw");
+        this.background.style.setProperty("height", "100vh");
+        this.background.appendChild(this.backgroundImg);
+        this.background.appendChild(this.backgroundFilter);
 
+        this.backgroundImg.src = this.dataManager.getBackgroundURL();
+        this.backgroundImg.style.setProperty("position", "fixed");
+        this.backgroundImg.style.setProperty("top", "50%");
+        this.backgroundImg.style.setProperty("left", "50%");
+        this.backgroundImg.style.setProperty("-webkit-transform", "translate(-50%, -50%)");
+        this.backgroundImg.style.setProperty("transform", "translate(-50%, -50%)");
+
+        this.backgroundFilter.style.setProperty("position", "fixed");
+        this.backgroundFilter.style.setProperty("width", "100%");
+        this.backgroundFilter.style.setProperty("height", "100%");
+        this.backgroundFilter.style.setProperty("opacity", "75%");
+        this.updateOrientation();
+
+        console.log("Background:");
         console.log(this.background);
-        document.body.appendChild(this.background);
+        this.viewManager.setBackground(this.background);
     }
 
     setGrid(){
 
-
-        console.log(this.grid);
-        document.body.appendChild(this.grid);
+        //console.log(this.grid);
     }
 
     setToolZ(){
