@@ -11,12 +11,16 @@ export default class TimeToolZ extends ToolZ{
 
         //Create date//
         this.dateObject = null;
-        this.date = "";
-        this.time = "";
+        this.date = null;
+        this.time = null;
+        this.dateText = "";
+        this.timeText = "";
 
         //Set Date//
         this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        this.setStyle();
 
         this.update();
     }
@@ -26,26 +30,41 @@ export default class TimeToolZ extends ToolZ{
     update() {
         //Set time data//
         this.dateObject = new Date();
-        this.date = this.getDateString(this.dateObject);
-        this.time = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
+
+        let dateText = this.getDateString(this.dateObject);
+        if(this.date && dateText != this.dateText){
+            this.dateText = dateText;
+            this.date.innerHTML= this.dateText;
+            //this.elementManager.update();
+        }
+
+        let timeText = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
+        if(this.time && timeText != this.timeText){
+            this.timeText = timeText;
+            this.time.innerHTML= this.timeText;
+            //this.elementManager.update();
+        }
 
         //Repeat in 1 second//
         setTimeout(()=>{this.update();}, 1000);
     }
 
-/* Get */
-
-    getTimeElement(){
-        let time = document.createElement("p");
-        time.innerHTML = this.time;
+    setStyle(){
         this.style.setProperty("background", this.elementManager.mediumColor);
         this.style.setProperty("padding", "0");
         this.style.setProperty("overflow-wrap", "break-word");
         this.style.setProperty("text-align", "center");
-        time.style.setProperty("font-size", "24px");
-        time.style.setProperty("margin-top", "10%");
-        time.style.setProperty("padding", "0");
-        this.object.appendChild(time);
+    }
+
+/* Get */
+
+    getTimeElement(){
+        this.time = document.createElement("p");
+        this.time.style.setProperty("font-size", "24px");
+        this.time.style.setProperty("margin-top", "10%");
+        this.time.style.setProperty("padding", "0");
+
+        this.object.appendChild(this.time);
 
         return this.object;
     }
