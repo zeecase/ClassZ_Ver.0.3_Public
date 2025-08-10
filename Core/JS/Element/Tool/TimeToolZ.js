@@ -50,9 +50,10 @@ export default class TimeToolZ extends ToolZ{
     }
 
     setStyle(){
-        this.style.setProperty("background", this.elementManager.mediumColor);
+        this.style.setProperty("background-image", "url("+ this.elementManager.getBackgroundTexture("small") + ")");
         this.style.setProperty("padding", "0");
         this.style.setProperty("overflow-wrap", "break-word");
+        this.style.fontFamily = "OpenDyslexic";
         this.style.setProperty("text-align", "center");
     }
 
@@ -60,8 +61,8 @@ export default class TimeToolZ extends ToolZ{
 
     getTimeElement(){
         this.time = document.createElement("p");
-        this.time.style.setProperty("font-size", "24px");
-        this.time.style.setProperty("margin-top", "10%");
+        this.time.style.setProperty("font-size", "1em");
+        this.time.style.setProperty("margin-top", "5%");
         this.time.style.setProperty("padding", "0");
 
         this.object.appendChild(this.time);

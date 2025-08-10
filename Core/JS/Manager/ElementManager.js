@@ -16,6 +16,9 @@ import SettingToolZ from '/Core/JS/Element/Tool/SettingToolZ.js';
 import TimeToolZ from '/Core/JS/Element/Tool/TimeToolZ.js';
 /*  */
 
+const backgroundFolder = "/Core/Asset/Image/Background/";
+const fontFolder = "/Core/Asset/Font/";
+
 /* Manage CSS and elements */
 export default class ElementManager{
 
@@ -50,22 +53,15 @@ export default class ElementManager{
         this.grid = document.createElement('div');
         this.setGrid();
 
+        //Set Font
+        this.OpenDyslexic = new FontFace('OpenDyslexic', 'url("' + fontFolder + 'OpenDyslexic/OpenDyslexic3-Regular.ttf")');
+        document.fonts.add(this.OpenDyslexic);
+
         //Set toolZ//
         this.toolZDictionary = {};
-        this.settingToolZ = new SettingToolZ(this);
         this.timeToolZ = new TimeToolZ(this);
         this.setToolZ();
 
-        //Set activityZ//
-        this.activityZDictionary = {};
-        this.boardZ = new BoardZ(this);
-        this.routineZ = new RoutineZ(this);
-        this.setActivityZ();
-
-        //TODO: Set user//
-
-        //Set settingZ//
-        this.setSettingZ();
     }
 
     update(){
@@ -104,7 +100,7 @@ export default class ElementManager{
         this.background.appendChild(this.backgroundImg);
         this.background.appendChild(this.backgroundFilter);
 
-        this.backgroundImg.src = this.dataManager.getBackgroundURL();
+        this.backgroundImg.src = this.getBackgroundTexture();
         this.backgroundImg.style.setProperty("position", "fixed");
         this.backgroundImg.style.setProperty("top", "50%");
         this.backgroundImg.style.setProperty("left", "50%");
@@ -148,23 +144,21 @@ export default class ElementManager{
     }
 
     setToolZ(){
-        this.toolZDictionary[this.settingToolZ.id] = this.settingToolZ;
         this.toolZDictionary[this.timeToolZ.id] = this.timeToolZ;
 
         let time = this.timeToolZ.getTimeElement();
-        console.log(time);
         this.viewManager.setTime(time);
     }
 
-    setActivityZ(){
-        this.activityZDictionary[this.boardZ.id] = this.boardZ;
-        this.activityZDictionary[this.routineZ.id] = this.routineZ;
-    }
-
-    /* Set view theme and manager properties */
-    setSettingZ(){
-        document.documentElement.style.setProperty('--themeColor', this.settingToolZ.activeTheme);
-        this.routineZ.countdownLength = this.settingToolZ.countdownLength;
+    getBackgroundTexture(size){
+        if(size == "large")
+            return backgroundFolder + "Texture_Large.jpg";
+        else if(size == "medium")
+            return backgroundFolder + "Texture_Medium.jpg";
+        else if(size == "small")
+            return backgroundFolder + "Texture_Small.jpg";
+        else
+            return backgroundFolder + "Texture_Full.jpg";
     }
 }
 /*  */

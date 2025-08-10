@@ -38,11 +38,6 @@ export default class DataManager{
 
         return "landscape";
     }
-
-    getBackgroundURL(){
-        //Default//
-        return "/Core/Asset/Image/Background/ClassZ_Background.jpg";
-    }
 }
 /*  */
 
