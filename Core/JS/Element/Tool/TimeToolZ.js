@@ -9,42 +9,46 @@ export default class TimeToolZ extends ToolZ{
     constructor(elementManager) {
         super(elementManager, "timeToolZ");
 
+        //Create date//
+        this.dateObject = null;
+        this.date = "";
+        this.time = "";
+
         //Set Date//
-        this.dateObject = new Date();
         this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+        this.update();
     }
 
 /* Update */
     /* Update Time view */
     update() {
-
-        //Create date//
+        //Set time data//
         this.dateObject = new Date();
-
-        //Add date elements//
-        let date = this.daysOfWeek[this.dateObject.getDay()] + ", ";
-        date += this.months[this.dateObject.getMonth()] + " ";
-        date += String(this.dateObject.getDate()).padStart(2, '0') + ", ";
-        date += this.dateObject.getFullYear();
-
-        //Create time and view//
-        let time = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
-        let view = "<p id='timeObj'>" + time + "</p>";
-
-        //Update view//
-        super.update(view);
-
-        //Update subscribers//
-        for (let x=0;x<this.subscribeList.length;x++)
-            this.subscribeList[x].update();
+        this.date = this.getDateString(this.dateObject);
+        this.time = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
 
         //Repeat in 1 second//
         setTimeout(()=>{this.update();}, 1000);
     }
 
 /* Get */
+
+    getTimeElement(){
+        let time = document.createElement("p");
+        time.innerHTML = this.time;
+        this.style.setProperty("background", this.elementManager.mediumColor);
+        this.style.setProperty("padding", "0");
+        this.style.setProperty("overflow-wrap", "break-word");
+        this.style.setProperty("text-align", "center");
+        time.style.setProperty("font-size", "24px");
+        time.style.setProperty("margin-top", "10%");
+        time.style.setProperty("padding", "0");
+        this.object.appendChild(time);
+
+        return this.object;
+    }
 
     /* Get date view */
     getDateString(dateObj){

@@ -79,9 +79,6 @@ export default class ElementManager{
             gradient+= "9";
         gradient += "0deg, " + this.darkColor + " 50%, " + this.themeColor + " 100%)";
         this.backgroundFilter.style.setProperty("background", gradient);
-
-        console.log("Update Background:");
-        console.log(this.background);
     }
 
     updateGrid(){
@@ -91,20 +88,8 @@ export default class ElementManager{
         this.grid.innerHTML = "";
         this.setGridItems();
 
-        console.log("Update Grid:");
-        console.log(this.grid);
         console.log("Col:" + this.numColumns + " Row:" + this.numRows);
     }
-
-    //setCSS(){
-        //let font = "@font-face { font-family: OpenDyslexic; font-style: normal; font-weight: normal; ";
-        //font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Regular.otf) format('opentype'),";
-        //font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Regular.ttf) format('truetype');}";
-        //font += "@font-face { font-family: OpenDyslexic; font-weight: bold;";
-        //font += "src: url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic-Bold.otf) format('opentype'),";
-        //font += "url(/Core/Asset/Font/OpenDyslexic/OpenDyslexic3-Bold.ttf) format('truetype');}";
-        //this.style.insertAdjacentHTML('beforeend', font);
-    //}
 
     setBody(){
         this.body.style.setProperty("margin", "0");
@@ -132,8 +117,6 @@ export default class ElementManager{
         this.backgroundFilter.style.setProperty("opacity", "75%");
         this.updateOrientation();
 
-        console.log("Background:");
-        console.log(this.background);
         this.viewManager.setBackground(this.background);
     }
 
@@ -145,10 +128,6 @@ export default class ElementManager{
         this.grid.style.setProperty("left", "0");
 
         this.updateGrid();
-
-        console.log("Grid:");
-        console.log(this.grid);
-        console.log("Col:" + this.numColumns + " Row:" + this.numRows);
         this.viewManager.setGrid(this.grid);
     }
 
@@ -171,6 +150,10 @@ export default class ElementManager{
     setToolZ(){
         this.toolZDictionary[this.settingToolZ.id] = this.settingToolZ;
         this.toolZDictionary[this.timeToolZ.id] = this.timeToolZ;
+
+        let time = this.timeToolZ.getTimeElement();
+        console.log(time);
+        this.viewManager.setTime(time);
     }
 
     setActivityZ(){

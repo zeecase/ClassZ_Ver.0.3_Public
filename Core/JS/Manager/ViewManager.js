@@ -35,6 +35,11 @@ export default class ViewManager{
         document.body.appendChild(grid);
     }
 
+    setTime(time){
+        document.body.appendChild(time);
+        console.log(document.body);
+    }
+
     /* Get active grid item */
     getGridItem(event){
 
@@ -71,24 +76,6 @@ export default class ViewManager{
 
         //Set active element//
         this.elementsManager.setActivity(gridItem);
-    }
-
-     /* Set element width, height, and starting position */
-    setElementOnGrid(element){
-
-        //Get properties//
-        let w = element.gridWidth * this.gridItemSize;
-        let h = element.gridHeight * this.gridItemSize;
-        let c = element.gridColStart * this.gridItemSize;
-        let r = element.gridRowStart * this.gridItemSize;
-
-        //Set properties//
-        element.style.width = w + 'px';
-        element.style.height = h + 'px';
-        element.style.left = c + 'px';
-        element.style.top = r + 'px';
-
-        //console.log(this.activeElement.element);
     }
 }
 /*  */
