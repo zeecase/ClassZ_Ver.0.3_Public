@@ -29,6 +29,7 @@ export default class ElementManager{
         //Set colors//
         this.themeColor = "#FFA500";
         this.lightColor = "#f1f1f1";
+        this.mediumColor = "#818181";
         this.darkColor = "#111111";
 
         //Set body//
@@ -41,7 +42,13 @@ export default class ElementManager{
         this.backgroundFilter = document.createElement("div");
         this.setBackground();
 
-        //TODO: Set grid//
+        //Set grid//
+        this.gridItemSize = 25;
+        this.numColumns = 0;
+        this.numRows = 0;
+        this.showGrid = false;
+        this.grid = document.createElement('div');
+        this.setGrid();
 
         //Set toolZ//
         this.toolZDictionary = {};
@@ -63,6 +70,7 @@ export default class ElementManager{
 
     update(){
         this.updateOrientation();
+        this.updateGrid();
     }
 
     updateOrientation(){
@@ -71,6 +79,21 @@ export default class ElementManager{
             gradient+= "9";
         gradient += "0deg, " + this.darkColor + " 50%, " + this.themeColor + " 100%)";
         this.backgroundFilter.style.setProperty("background", gradient);
+
+        console.log("Update Background:");
+        console.log(this.background);
+    }
+
+    updateGrid(){
+        this.numColumns = Math.floor(this.dataManager.screenWidth/this.gridItemSize)-1;
+        this.numRows = Math.floor(this.dataManager.screenHeight/this.gridItemSize)-1;
+        this.grid.style.gridTemplateColumns = 'repeat(' + this.numColumns + ', 1fr)';
+        this.grid.innerHTML = "";
+        this.setGridItems();
+
+        console.log("Update Grid:");
+        console.log(this.grid);
+        console.log("Col:" + this.numColumns + " Row:" + this.numRows);
     }
 
     //setCSS(){
@@ -116,7 +139,33 @@ export default class ElementManager{
 
     setGrid(){
 
-        //console.log(this.grid);
+        this.grid.style.setProperty("display", "grid");
+        this.grid.style.setProperty("position", "fixed");
+        this.grid.style.setProperty("top", "0");
+        this.grid.style.setProperty("left", "0");
+
+        this.updateGrid();
+
+        console.log("Grid:");
+        console.log(this.grid);
+        console.log("Col:" + this.numColumns + " Row:" + this.numRows);
+        this.viewManager.setGrid(this.grid);
+    }
+
+    setGridItems(){
+        for(let x=0;x<this.numColumns*this.numRows;x++){
+            let gridItem = document.createElement('div');
+            gridItem.className = "gridItem";
+            gridItem.id = "gridItem" + x;
+            gridItem.style.setProperty("width", this.gridItemSize + "px");
+            gridItem.style.setProperty("height", this.gridItemSize + "px");
+            if(this.showGrid){
+                gridItem.style.borderWidth = "1px";
+                gridItem.style.borderStyle = "dashed";
+                gridItem.style.borderColor = "#00680D";
+            }
+            this.grid.appendChild(gridItem);
+        }
     }
 
     setToolZ(){

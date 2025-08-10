@@ -13,13 +13,6 @@ export default class ViewManager{
         //Set managers//
         this.dataManager = dataManager;
         this.elementManager = elementManager;
-
-        //Grid defaults//
-        this.gridWidth = 0;
-        this.gridHeight = 0;
-        this.numColumns = -1;
-        this.numRows = -1;
-        this.gridItemSize = -1;
     }
 
     /* Update view */
@@ -38,7 +31,9 @@ export default class ViewManager{
         document.body.appendChild(image);
     }
 
-
+    setGrid(grid){
+        document.body.appendChild(grid);
+    }
 
     /* Get active grid item */
     getGridItem(event){
