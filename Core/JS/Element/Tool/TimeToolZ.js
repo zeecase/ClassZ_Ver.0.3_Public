@@ -7,7 +7,7 @@ export default class TimeToolZ extends ToolZ{
 
 /* Set properties */
     constructor(elementManager) {
-        super(elementManager, "timeToolZ");
+        super(elementManager);
 
         //Create date//
         this.dateObject = null;
@@ -20,14 +20,12 @@ export default class TimeToolZ extends ToolZ{
         this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        this.setStyle();
-
-        this.update();
+        this.timeLoop();
     }
 
 /* Update */
     /* Update Time view */
-    update() {
+    timeLoop() {
         //Set time data//
         this.dateObject = new Date();
 
@@ -46,26 +44,45 @@ export default class TimeToolZ extends ToolZ{
         }
 
         //Repeat in 1 second//
-        setTimeout(()=>{this.update();}, 1000);
-    }
-
-    setStyle(){
-        this.style.setProperty("background-image", "url("+ this.elementManager.getBackgroundTexture("small") + ")");
-        this.style.setProperty("padding", "0");
-        this.style.setProperty("overflow-wrap", "break-word");
-        this.style.fontFamily = "OpenDyslexic";
-        this.style.setProperty("text-align", "center");
+        setTimeout(()=>{this.timeLoop();}, 1000);
     }
 
 /* Get */
 
-    getTimeElement(){
+    getElement(active){
         this.time = document.createElement("p");
-        this.time.style.setProperty("font-size", "1em");
-        this.time.style.setProperty("margin-top", "5%");
-        this.time.style.setProperty("padding", "0");
 
-        this.object.appendChild(this.time);
+        if(active){
+            this.style.setProperty("background", this.elementManager.lightColor);
+            this.style.setProperty("padding", "0");
+            this.style.setProperty("overflow-wrap", "break-word");
+            this.style.fontFamily = "OpenDyslexic";
+            this.style.setProperty("text-align", "center");
+
+            this.date = document.createElement("p");
+
+            this.date.style.setProperty("font-size", "2em");
+            this.time.style.setProperty("font-size", "2em");
+
+            this.setViewActive();
+
+            this.object.appendChild(this.date);
+            this.object.appendChild(this.time);
+        } else {
+            this.style.setProperty("background-image", "url("+ this.elementManager.getBackgroundTexture("small") + ")");
+            this.style.setProperty("padding", "0");
+            this.style.setProperty("overflow-wrap", "break-word");
+            this.style.fontFamily = "OpenDyslexic";
+            this.style.setProperty("text-align", "center");
+
+            this.time.style.setProperty("font-size", "1em");
+            this.time.style.setProperty("margin-top", "5%");
+            this.time.style.setProperty("padding", "0");
+
+            this.setViewCollapsed(0,0);
+
+            this.object.appendChild(this.time);
+        }
 
         return this.object;
     }
@@ -73,7 +90,7 @@ export default class TimeToolZ extends ToolZ{
     /* Get date view */
     getDateString(dateObj){
         //Return date mm/dd/yyyy
-        return "" + (dateObj.getMonth()+1) + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
+        return this.daysOfWeek[this.dateObject.getDay()] + ", " + this.months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
     }
 
     /* Get time view */

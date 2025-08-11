@@ -67,6 +67,7 @@ export default class ElementManager{
     update(){
         this.updateOrientation();
         this.updateGrid();
+        this.updateToolZ();
     }
 
     updateOrientation(){
@@ -85,6 +86,10 @@ export default class ElementManager{
         this.setGridItems();
 
         console.log("Col:" + this.numColumns + " Row:" + this.numRows);
+    }
+
+    updateToolZ(){
+        this.timeToolZ.update();
     }
 
     setBody(){
@@ -146,7 +151,7 @@ export default class ElementManager{
     setToolZ(){
         this.toolZDictionary[this.timeToolZ.id] = this.timeToolZ;
 
-        let time = this.timeToolZ.getTimeElement();
+        let time = this.timeToolZ.getElement(false);
         this.viewManager.setTime(time);
     }
 
