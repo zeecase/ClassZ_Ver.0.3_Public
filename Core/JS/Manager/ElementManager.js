@@ -40,6 +40,7 @@ export default class ElementManager{
         this.setBody();
 
         //Set background//
+        this.orientation = this.dataManager.getOrientetion();
         this.background = document.createElement('div');
         this.backgroundImg = document.createElement("img");
         this.backgroundFilter = document.createElement("div");
@@ -62,18 +63,26 @@ export default class ElementManager{
         this.timeToolZ = new TimeToolZ(this);
         this.setToolZ();
 
+        //Set activityZ//
+        this.activityZDictionary = {};
+        this.boardZ = new BoardZ(this);
+        this.setActivityZ();
+
     }
 
     update(){
         this.updateOrientation();
         this.updateGrid();
         this.updateToolZ();
+        this.updateActivityZ();
     }
 
     updateOrientation(){
+        this.orientation = this.dataManager.getOrientetion();
+
         let gradient = "linear-gradient(";
-        if(this.dataManager.getOrientetion() == "landscape")
-            gradient+= "9";
+        if( this.orientation == "landscape")
+            gradient+= "-9";
         gradient += "0deg, " + this.darkColor + " 50%, " + this.themeColor + " 100%)";
         this.backgroundFilter.style.setProperty("background", gradient);
     }
@@ -90,6 +99,10 @@ export default class ElementManager{
 
     updateToolZ(){
         this.timeToolZ.update();
+    }
+
+    updateActivityZ(){
+        this.boardZ.update();
     }
 
     setBody(){
@@ -118,7 +131,7 @@ export default class ElementManager{
         this.backgroundFilter.style.setProperty("opacity", "75%");
         this.updateOrientation();
 
-        this.viewManager.setBackground(this.background);
+        this.viewManager.setElement(this.background);
     }
 
     setGrid(){
@@ -129,7 +142,7 @@ export default class ElementManager{
         this.grid.style.setProperty("left", "0");
 
         this.updateGrid();
-        this.viewManager.setGrid(this.grid);
+        this.viewManager.setElement(this.grid);
     }
 
     setGridItems(){
@@ -152,7 +165,14 @@ export default class ElementManager{
         this.toolZDictionary[this.timeToolZ.id] = this.timeToolZ;
 
         let time = this.timeToolZ.getElement(false);
-        this.viewManager.setTime(time);
+        this.viewManager.setElement(time);
+    }
+
+    setActivityZ(){
+        this.activityZDictionary[this.boardZ.id] = this.boardToolZ;
+
+        let board = this.boardZ.getElement(true);
+        this.viewManager.setElement(board);
     }
 
     getBackgroundTexture(size){

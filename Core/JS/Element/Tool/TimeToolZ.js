@@ -9,10 +9,12 @@ export default class TimeToolZ extends ToolZ{
     constructor(elementManager) {
         super(elementManager);
 
+        this.id = "timeToolZ";
+
         //Create date//
         this.dateObject = null;
-        this.date = null;
-        this.time = null;
+        this.date = document.createElement("p");
+        this.time = document.createElement("p");
         this.dateText = "";
         this.timeText = "";
 
@@ -33,14 +35,12 @@ export default class TimeToolZ extends ToolZ{
         if(this.date && dateText != this.dateText){
             this.dateText = dateText;
             this.date.innerHTML= this.dateText;
-            //this.elementManager.update();
         }
 
         let timeText = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
         if(this.time && timeText != this.timeText){
             this.timeText = timeText;
             this.time.innerHTML= this.timeText;
-            //this.elementManager.update();
         }
 
         //Repeat in 1 second//
@@ -50,7 +50,6 @@ export default class TimeToolZ extends ToolZ{
 /* Get */
 
     getElement(active){
-        this.time = document.createElement("p");
 
         if(active){
             this.style.setProperty("background", this.elementManager.lightColor);
@@ -58,8 +57,6 @@ export default class TimeToolZ extends ToolZ{
             this.style.setProperty("overflow-wrap", "break-word");
             this.style.fontFamily = "OpenDyslexic";
             this.style.setProperty("text-align", "center");
-
-            this.date = document.createElement("p");
 
             this.date.style.setProperty("font-size", "2em");
             this.time.style.setProperty("font-size", "2em");

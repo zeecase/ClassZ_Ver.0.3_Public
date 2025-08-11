@@ -15,29 +15,12 @@ export default class ViewManager{
         this.elementManager = elementManager;
     }
 
-    /* Update view */
     update(){
 
-        //this.setGrid();
-        //console.log(view);
-
     }
 
-    setCSS(style){
-        document.head.appendChild(style);
-    }
-
-    setBackground(image){
-        document.body.appendChild(image);
-    }
-
-    setGrid(grid){
-        document.body.appendChild(grid);
-    }
-
-    setTime(time){
-        document.body.appendChild(time);
-        console.log(document.body);
+    setElement(element){
+        document.body.appendChild(element);
     }
 
     /* Get active grid item */
