@@ -49,9 +49,9 @@ export default class TimeToolZ extends ToolZ{
 
 /* Get */
 
-    getElement(active){
+    getElement(){
 
-        if(active){
+        if(this.active){
             this.style.setProperty("background", this.elementManager.lightColor);
             this.style.setProperty("padding", "0");
             this.style.setProperty("overflow-wrap", "break-word");

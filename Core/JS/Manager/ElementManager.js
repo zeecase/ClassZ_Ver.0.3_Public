@@ -58,16 +58,13 @@ export default class ElementManager{
         this.OpenDyslexic = new FontFace('OpenDyslexic', 'url("' + fontFolder + 'OpenDyslexic/OpenDyslexic3-Regular.ttf")');
         document.fonts.add(this.OpenDyslexic);
 
-        //Set toolZ//
-        this.toolZDictionary = {};
+        //Set elements//
+        this.active = "routineZ";
         this.timeToolZ = new TimeToolZ(this);
+        this.toolZList = this.getToolZ();
         this.setToolZ();
-
-        //Set activityZ//
-        this.activityZDictionary = {};
-        this.boardZ = new BoardZ(this);
+        this.activityZList = this.getActivityZ();
         this.setActivityZ();
-
     }
 
     update(){
@@ -98,11 +95,32 @@ export default class ElementManager{
     }
 
     updateToolZ(){
-        this.timeToolZ.update();
+        for(let x=0; x<this.toolZList.length; x++)
+            this.toolZList[x].update();
     }
 
     updateActivityZ(){
-        this.boardZ.update();
+        for(let x=0; x<this.activityZList.length; x++)
+            this.activityZList[x].update();
+    }
+
+    getBackgroundTexture(size){
+        if(size == "large")
+            return backgroundFolder + "Texture_Large.jpg";
+        else if(size == "medium")
+            return backgroundFolder + "Texture_Medium.jpg";
+        else if(size == "small")
+            return backgroundFolder + "Texture_Small.jpg";
+        else
+            return backgroundFolder + "Texture_Full.jpg";
+    }
+
+    getToolZ(){
+        return [this.timeToolZ];
+    }
+
+    getActivityZ(){
+        return [new BoardZ(this), new RoutineZ(this)];
     }
 
     setBody(){
@@ -162,28 +180,33 @@ export default class ElementManager{
     }
 
     setToolZ(){
-        this.toolZDictionary[this.timeToolZ.id] = this.timeToolZ;
+        for(let x=0; x<this.toolZList.length; x++){
+            let element = this.toolZList[x];
+            if(x < 2)
+                element.favorite = x;
 
-        let time = this.timeToolZ.getElement(false);
-        this.viewManager.setElement(time);
+            if(element.id == this.active)
+                element.active = true;
+            else
+                element.active = false;
+
+            this.viewManager.setElement(element.getElement());
+        }
     }
 
     setActivityZ(){
-        this.activityZDictionary[this.boardZ.id] = this.boardToolZ;
+        for(let x=0; x<this.activityZList.length; x++){
+            let element = this.activityZList[x];
+            if(x < 2)
+                element.favorite = x;
 
-        let board = this.boardZ.getElement(true);
-        this.viewManager.setElement(board);
-    }
+            if(element.id == this.active)
+                element.active = true;
+            else
+                element.active = false;
 
-    getBackgroundTexture(size){
-        if(size == "large")
-            return backgroundFolder + "Texture_Large.jpg";
-        else if(size == "medium")
-            return backgroundFolder + "Texture_Medium.jpg";
-        else if(size == "small")
-            return backgroundFolder + "Texture_Small.jpg";
-        else
-            return backgroundFolder + "Texture_Full.jpg";
+            this.viewManager.setElement(element.getElement());
+        }
     }
 }
 /*  */
