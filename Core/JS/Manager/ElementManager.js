@@ -6,6 +6,7 @@ import * as Core from '/Core/JS/Element/Elements.js';
 
 const backgroundFolder = "/Core/Asset/Image/Background/";
 const fontFolder = "/Core/Asset/Font/";
+const minSize = 320;
 
 /* Manage CSS and elements */
 export default class ElementManager{
@@ -73,11 +74,13 @@ export default class ElementManager{
     }
 
     updateGrid(){
-        this.numColumns = Math.floor(this.dataManager.screenWidth/this.gridItemSize)-1;
-        this.numRows = Math.floor(this.dataManager.screenHeight/this.gridItemSize)-1;
-        this.grid.style.gridTemplateColumns = 'repeat(' + this.numColumns + ', 1fr)';
-        this.grid.innerHTML = "";
-        this.setGridItems();
+        if(this.dataManager.screenWidth > minSize && this.dataManager.screenHeight > minSize){
+            this.numColumns = Math.floor(this.dataManager.screenWidth/this.gridItemSize)-1;
+            this.numRows = Math.floor(this.dataManager.screenHeight/this.gridItemSize)-1;
+            this.grid.style.gridTemplateColumns = 'repeat(' + this.numColumns + ', 1fr)';
+            this.grid.innerHTML = "";
+            this.setGridItems();
+        }
 
         console.log("Col:" + this.numColumns + " Row:" + this.numRows);
     }
@@ -104,7 +107,7 @@ export default class ElementManager{
     }
 
     getActive(){
-        return "routineZ";
+        return "timeToolZ";
     }
 
     getToolZ(){

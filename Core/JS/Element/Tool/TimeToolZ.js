@@ -52,25 +52,17 @@ export default class TimeToolZ extends ToolZ{
     getElement(){
 
         if(this.active){
-            this.style.setProperty("margin", "3px");
-            this.style.setProperty("padding", "0");
-            this.style.setProperty("overflow-wrap", "break-word");
-            this.style.fontFamily = "OpenDyslexic";
-            this.style.setProperty("text-align", "center");
-            this.style.borderRadius = '10px'; // standard
-            this.style.MozBorderRadius = '10px'; // Mozilla
-            this.style.WebkitBorderRadius = '10px'; // WebKit
-            this.style.borderWidth = "3px";
-            this.style.borderStyle = "solid";
-            this.style.borderColor = this.elementManager.darkColor;
-
-            this.date.style.setProperty("font-size", "2em");
-            this.time.style.setProperty("font-size", "2em");
-
             this.setViewActive();
 
-            this.object.appendChild(this.date);
-            this.object.appendChild(this.time);
+            this.style.setProperty("overflow-wrap", "break-word");
+            this.style.fontFamily = "OpenDyslexic";
+            this.style.textAlign = "center";
+
+            this.date.style.setProperty("font-size", "1.2em");
+            this.time.style.setProperty("font-size", "1.2em");
+
+            this.board.appendChild(this.date);
+            this.board.appendChild(this.time);
 
         } else {
             this.style.setProperty("background-color", this.elementManager.mediumColor);

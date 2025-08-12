@@ -15,12 +15,21 @@ export default class BoardZ extends ActivityZ {
 
     getElement() {
         if (this.active) {
-            this.style.setProperty("background", this.elementManager.lightColor);
-            this.style.setProperty("margin", "3px");
+            this.style.setProperty("background", this.elementManager.mediumColor);
+            this.style.setProperty("color", this.elementManager.lightColor);
             this.style.setProperty("padding", "0");
+            this.style.setProperty("padding-left", "25px");
             this.style.setProperty("overflow-wrap", "break-word");
             this.style.fontFamily = "OpenDyslexic";
-            this.style.setProperty("text-align", "center");
+            this.style.setProperty("text-align", "left");
+            this.style.borderRadius = '10px'; // standard
+            this.style.MozBorderRadius = '10px'; // Mozilla
+            this.style.WebkitBorderRadius = '10px'; // WebKit
+            this.style.borderWidth = "3px";
+            this.style.borderStyle = "solid";
+            this.style.borderColor = this.elementManager.darkColor;
+
+
 
             this.board.innerHTML = ""; //TODO: get board
 
