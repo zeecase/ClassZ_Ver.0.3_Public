@@ -35,8 +35,8 @@ export default class ObjZ{
         this.style.setProperty("-webkit-transform", "translate(-50%, -50%)");
         this.style.setProperty("transform", "translate(-50%, -50%)");
         this.style.setProperty("z-index", "0");
-        this.width = this.elementManager.numColumns+1;
-        this.height = this.elementManager.numRows+1;
+        this.width = this.elementManager.numColumns;
+        this.height = this.elementManager.numRows;
 
         if(this.elementManager.orientation == "landscape"){
             this.colStart = (this.width - this.height)/2;
@@ -54,13 +54,7 @@ export default class ObjZ{
 
     setObject(){
         this.style.setProperty("position", "fixed");
-        this.style.setProperty("margin", "1px");
-        this.style.borderRadius = '10px'; // standard
-        this.style.MozBorderRadius = '10px'; // Mozilla
-        this.style.WebkitBorderRadius = '10px'; // WebKit
-        this.style.borderWidth = "3px";
-        this.style.borderStyle = "solid";
-        this.style.borderColor = this.elementManager.darkColor;
+
         this.style.width = this.width * this.elementManager.gridItemSize - 2 + "px";
         this.style.height =this.height *this.elementManager.gridItemSize - 2 + "px";
     }

@@ -1,19 +1,7 @@
 /* Import */
-//Core Manager//
 import DataManager from '/Core/JS/Manager/DataManager.js';
 import ViewManager from '/Core/JS/Manager/ViewManager.js';
-
-//Core Object//
-import ActivityZ from '/Core/JS/Object/ActivityZ.js';
-import ToolZ from '/Core/JS/Object/ToolZ.js';
-
-//Activity//
-import BoardZ from '/Core/JS/Element/Activity/BoardZ.js';
-import RoutineZ from '/Core/JS/Element/Activity/RoutineZ.js';
-
-//Tool//
-import SettingToolZ from '/Core/JS/Element/Tool/SettingToolZ.js';
-import TimeToolZ from '/Core/JS/Element/Tool/TimeToolZ.js';
+import * as Core from '/Core/JS/Element/Elements.js';
 /*  */
 
 const backgroundFolder = "/Core/Asset/Image/Background/";
@@ -32,7 +20,7 @@ export default class ElementManager{
         //Set colors//
         this.themeColor = "#FFA500";
         this.lightColor = "#f1f1f1";
-        this.mediumColor = "#818181";
+        this.mediumColor = "#373a38";
         this.darkColor = "#111111";
 
         //Set body//
@@ -59,8 +47,8 @@ export default class ElementManager{
         document.fonts.add(this.OpenDyslexic);
 
         //Set elements//
-        this.active = "routineZ";
-        this.timeToolZ = new TimeToolZ(this);
+        this.active = this.getActive();
+        this.timeToolZ = new Core.TimeToolZ(this);
         this.toolZList = this.getToolZ();
         this.setToolZ();
         this.activityZList = this.getActivityZ();
@@ -115,12 +103,16 @@ export default class ElementManager{
             return backgroundFolder + "Texture_Full.jpg";
     }
 
+    getActive(){
+        return "routineZ";
+    }
+
     getToolZ(){
         return [this.timeToolZ];
     }
 
     getActivityZ(){
-        return [new BoardZ(this), new RoutineZ(this)];
+        return [new Core.BoardZ(this), new Core.RoutineZ(this)];
     }
 
     setBody(){

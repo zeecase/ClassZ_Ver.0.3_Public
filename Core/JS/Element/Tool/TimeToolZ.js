@@ -52,11 +52,17 @@ export default class TimeToolZ extends ToolZ{
     getElement(){
 
         if(this.active){
-            this.style.setProperty("background", this.elementManager.lightColor);
+            this.style.setProperty("margin", "3px");
             this.style.setProperty("padding", "0");
             this.style.setProperty("overflow-wrap", "break-word");
             this.style.fontFamily = "OpenDyslexic";
             this.style.setProperty("text-align", "center");
+            this.style.borderRadius = '10px'; // standard
+            this.style.MozBorderRadius = '10px'; // Mozilla
+            this.style.WebkitBorderRadius = '10px'; // WebKit
+            this.style.borderWidth = "3px";
+            this.style.borderStyle = "solid";
+            this.style.borderColor = this.elementManager.darkColor;
 
             this.date.style.setProperty("font-size", "2em");
             this.time.style.setProperty("font-size", "2em");
@@ -65,20 +71,45 @@ export default class TimeToolZ extends ToolZ{
 
             this.object.appendChild(this.date);
             this.object.appendChild(this.time);
+
         } else {
-            this.style.setProperty("background-image", "url("+ this.elementManager.getBackgroundTexture("small") + ")");
+            this.style.setProperty("background-color", this.elementManager.mediumColor);
+            this.style.setProperty("color", this.elementManager.lightColor);
+            this.style.setProperty("margin", "3px");
             this.style.setProperty("padding", "0");
             this.style.setProperty("overflow-wrap", "break-word");
             this.style.fontFamily = "OpenDyslexic";
             this.style.setProperty("text-align", "center");
+            this.style.borderRadius = '10px'; // standard
+            this.style.MozBorderRadius = '10px'; // Mozilla
+            this.style.WebkitBorderRadius = '10px'; // WebKit
+            this.style.borderWidth = "3px";
+            this.style.borderStyle = "solid";
+            this.style.borderColor = this.elementManager.darkColor;
 
+            let gradient = "linear-gradient(";
+            if( this.elementManager.orientation == "landscape")
+                gradient+= "-9";
+            gradient += "0deg, " + this.elementManager.mediumColor + " 0%, " + this.elementManager.themeColor + " 100%)";
+            this.time.style.setProperty("background", gradient);
+            this.time.style.setProperty("position", "absolute");
+            this.time.style.setProperty("top", "0");
+            this.time.style.setProperty("bottom", "0");
+            this.time.style.setProperty("width", "100%");
+            this.time.style.setProperty("height", "100%");
+            this.time.style.setProperty("opacity", "50%");
             this.time.style.setProperty("font-size", "1em");
-            this.time.style.setProperty("margin-top", "5%");
+            this.time.style.setProperty("margin", "0");
+            this.time.style.setProperty("margin-bottom", "3px");
             this.time.style.setProperty("padding", "0");
+            this.time.style.borderRadius = '10px'; // standard
+            this.time.style.MozBorderRadius = '10px'; // Mozilla
+            this.time.style.WebkitBorderRadius = '10px'; // WebKit
 
             this.setViewCollapsed(0,0);
 
             this.object.appendChild(this.time);
+
         }
 
         return this.object;

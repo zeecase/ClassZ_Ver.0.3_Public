@@ -15,17 +15,25 @@ export default class RoutineZ extends ActivityZ{
         this.currentActivity = 0;
 
         this.board = document.createElement('p');
+        this.title = document.createElement('p');
     }
 
     getElement(){
 
         if(this.active){
-            this.style.setProperty("background", this.elementManager.lightColor);
+            this.style.setProperty("background", this.elementManager.mediumColor);
+            this.style.setProperty("color", this.elementManager.lightColor);
             this.style.setProperty("padding", "0");
             this.style.setProperty("padding-left", "25px");
             this.style.setProperty("overflow-wrap", "break-word");
             this.style.fontFamily = "OpenDyslexic";
             this.style.setProperty("text-align", "left");
+            this.style.borderRadius = '10px'; // standard
+            this.style.MozBorderRadius = '10px'; // Mozilla
+            this.style.WebkitBorderRadius = '10px'; // WebKit
+            this.style.borderWidth = "3px";
+            this.style.borderStyle = "solid";
+            this.style.borderColor = this.elementManager.darkColor;
 
             this.routine = this.getRoutine();
             let view = "<h1 style='text-align:center'>Routine</h1>";
@@ -40,6 +48,7 @@ export default class RoutineZ extends ActivityZ{
             this.setViewActive();
         } else {
             this.style.setProperty("background-image", "url("+ this.elementManager.getBackgroundTexture("small") + ")");
+            this.style.setProperty("margin", "3px");
             this.style.setProperty("padding", "0");
             this.style.setProperty("overflow-wrap", "break-word");
             this.style.fontFamily = "OpenDyslexic";
@@ -49,7 +58,8 @@ export default class RoutineZ extends ActivityZ{
             this.board.style.setProperty("margin-top", "5%");
             this.board.style.setProperty("padding", "0");
 
-            this.board.innerHTML = "Routine";
+            this.title.innerHTML = "Routine";
+            this.object.appendChild(title);
 
             this.setViewCollapsed(0,0);
         }
