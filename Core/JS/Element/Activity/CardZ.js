@@ -8,8 +8,6 @@ export default class CardZ extends ActivityZ {
     constructor(elementManager) {
         super(elementManager);
         this.id = "cardZ";
-
-        this.title = document.createElement("p");
     }
 
     getElement() {
@@ -28,12 +26,27 @@ export default class CardZ extends ActivityZ {
             this.board.style.borderStyle = "solid";
             this.board.style.borderColor = this.elementManager.darkColor;
 
+            this.card.style.setProperty("font-size", "1em");
+            this.card.style.setProperty("position", "absolute");
+            this.card.style.setProperty("top", "0");
+            this.card.style.setProperty("bottom", "0");
+            this.card.style.setProperty("width", "100%");
+            this.card.style.setProperty("height", "100%");
+            this.card.style.setProperty("opacity", "20%");
+            this.card.style.setProperty("margin", "0");
+            this.card.style.setProperty("margin-bottom", "3px");
+            this.card.style.setProperty("padding", "0");
+            this.card.style.setProperty("padding-top", "15px");
+            this.card.style.borderRadius = "10px"; // standard
+            this.card.style.MozBorderRadius = "10px"; // Mozilla
+            this.card.style.WebkitBorderRadius = "10px"; // WebKit
             this.card.innerHTML = ""; //TODO: get card
 
             this.setViewActive();
         } else {
             this.board.style.setProperty("background-color", this.elementManager.mediumColor);
             this.board.style.setProperty("color", this.elementManager.lightColor);
+            this.board.style.setProperty("font-size", "0.8em");
             this.board.style.setProperty("margin", "3px");
             this.board.style.setProperty("padding", "0");
             this.board.style.setProperty("overflow-wrap", "break-word");
@@ -46,22 +59,7 @@ export default class CardZ extends ActivityZ {
             this.board.style.borderStyle = "solid";
             this.board.style.borderColor = this.elementManager.darkColor;
 
-            this.card.style.setProperty("font-size", "1em");
-            this.card.style.setProperty("position", "absolute");
-            this.card.style.setProperty("top", "0");
-            this.card.style.setProperty("bottom", "0");
-            this.card.style.setProperty("width", "100%");
-            this.card.style.setProperty("height", "100%");
-            this.card.style.setProperty("opacity", "20%");
-            this.card.style.setProperty("font-size", "1em");
-            this.card.style.setProperty("margin", "0");
-            this.card.style.setProperty("margin-bottom", "3px");
-            this.card.style.setProperty("padding", "0");
-            this.card.style.setProperty("padding-top", "15px");
-            this.card.style.borderRadius = "10px"; // standard
-            this.card.style.MozBorderRadius = "10px"; // Mozilla
-            this.card.style.WebkitBorderRadius = "10px"; // WebKit
-
+            this.title.style.setProperty("margin-top", "20px");
             this.title.innerHTML = "CardZ";
             this.board.appendChild(this.title);
 

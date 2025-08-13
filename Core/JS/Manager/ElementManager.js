@@ -23,7 +23,11 @@ export default class ElementManager{
         this.lightColor = "#f1f1f1";
         this.mediumColor = "#373a38";
         this.darkColor = "#111111";
-        this.darkMode = true;
+
+        this.guide = new Core.GuideZ(this);
+        this.timeToolZ = new Core.TimeToolZ(this);
+        this.active = this.getActive();
+        this.darkMode = this.timeToolZ.isNight();
 
         //Set body//
         this.body = document.body;
@@ -49,9 +53,6 @@ export default class ElementManager{
         document.fonts.add(this.OpenDyslexic);
 
         //Set elements//
-        this.guide = new Core.GuideZ(this);
-        this.timeToolZ = new Core.TimeToolZ(this);
-        this.active = this.getActive();
         this.toolZList = this.getToolZ();
         this.setToolZ();
         this.activityZList = this.getActivityZ();
@@ -59,22 +60,23 @@ export default class ElementManager{
     }
 
     update(){
-        this.updateOrientation();
+        this.updateBackground();
         this.updateGrid();
         this.updateToolZ();
         this.updateActivityZ();
     }
 
-    updateOrientation(){
+    updateBackground(){
         this.orientation = this.dataManager.getOrientetion();
 
         let gradient = "linear-gradient(";
         if( this.orientation == "landscape")
             gradient+= "-9";
+        gradient += "0deg, " + this.darkColor + " 50%, ";
         if(this.darkMode)
-            gradient += "0deg, " + this.darkColor + " 50%, " + this.darkColor + " 100%)";
+            gradient += this.mediumColor + " 100%)";
         else
-            gradient += "0deg, " + this.darkColor + " 50%, " + this.themeColor + " 100%)";
+            gradient += this.themeColor + " 100%)";
         this.backgroundFilter.style.setProperty("background", gradient);
     }
 
@@ -87,7 +89,7 @@ export default class ElementManager{
             this.setGridItems();
         }
 
-        console.log("Col:" + this.numColumns + " Row:" + this.numRows);
+        //console.log("Col:" + this.numColumns + " Row:" + this.numRows);
     }
 
     updateToolZ(){
@@ -147,7 +149,7 @@ export default class ElementManager{
         this.backgroundFilter.style.setProperty("width", "100%");
         this.backgroundFilter.style.setProperty("height", "100%");
         this.backgroundFilter.style.setProperty("opacity", "75%");
-        this.updateOrientation();
+        this.updateBackground();
 
         this.viewManager.setElement(this.background);
     }

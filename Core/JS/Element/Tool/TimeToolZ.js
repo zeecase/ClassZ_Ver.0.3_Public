@@ -1,11 +1,10 @@
 /* Import */
-import ToolZ from '/Core/JS/Object/ToolZ.js';
+import ToolZ from "/Core/JS/Object/ToolZ.js";
 /*  */
 
 /* Manages Time elements */
-export default class TimeToolZ extends ToolZ{
-
-/* Set properties */
+export default class TimeToolZ extends ToolZ {
+    /* Set properties */
     constructor(elementManager) {
         super(elementManager);
 
@@ -20,38 +19,52 @@ export default class TimeToolZ extends ToolZ{
 
         //Set Date//
         this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        this.months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
 
         this.timeLoop();
     }
 
-/* Update */
+    /* Update */
     /* Update Time view */
     timeLoop() {
         //Set time data//
         this.dateObject = new Date();
 
         let dateText = this.getDateString(this.dateObject);
-        if(this.date && dateText != this.dateText){
+        if (this.date && dateText != this.dateText) {
             this.dateText = dateText;
-            this.date.innerHTML= this.dateText;
+            this.date.innerHTML = this.dateText;
         }
 
         let timeText = this.getTimeString(this.dateObject.getHours(), this.dateObject.getMinutes());
-        if(this.time && timeText != this.timeText){
+        if (this.time && timeText != this.timeText) {
             this.timeText = timeText;
-            this.time.innerHTML= this.timeText;
+            this.time.innerHTML = this.timeText;
         }
 
         //Repeat in 1 second//
-        setTimeout(()=>{this.timeLoop();}, 1000);
+        setTimeout(() => {
+            this.timeLoop();
+        }, 1000);
     }
 
-/* Get */
+    /* Get */
 
-    getElement(){
-
-        if(this.active){
+    getElement() {
+        if (this.active) {
             this.setViewActive();
 
             this.board.style.setProperty("overflow-wrap", "break-word");
@@ -63,7 +76,6 @@ export default class TimeToolZ extends ToolZ{
 
             this.card.appendChild(this.date);
             this.card.appendChild(this.time);
-
         } else {
             this.board.style.setProperty("background-color", this.elementManager.mediumColor);
             this.board.style.setProperty("color", this.elementManager.lightColor);
@@ -72,17 +84,17 @@ export default class TimeToolZ extends ToolZ{
             this.board.style.setProperty("overflow-wrap", "break-word");
             this.board.style.fontFamily = "OpenDyslexic";
             this.board.style.setProperty("text-align", "center");
-            this.board.style.borderRadius = '10px'; // standard
-            this.board.style.MozBorderRadius = '10px'; // Mozilla
-            this.board.style.WebkitBorderRadius = '10px'; // WebKit
+            this.board.style.borderRadius = "10px"; // standard
+            this.board.style.MozBorderRadius = "10px"; // Mozilla
+            this.board.style.WebkitBorderRadius = "10px"; // WebKit
             this.board.style.borderWidth = "3px";
             this.board.style.borderStyle = "solid";
             this.board.style.borderColor = this.elementManager.darkColor;
 
             let gradient = "linear-gradient(";
-            if( this.elementManager.orientation == "landscape")
-                gradient+= "-9";
-            gradient += "0deg, " + this.elementManager.mediumColor + " 0%, " + this.elementManager.themeColor + " 100%)";
+            if (this.elementManager.orientation == "landscape") gradient += "-9";
+            gradient +=
+                "0deg, " + this.elementManager.mediumColor + " 0%, " + this.elementManager.themeColor + " 100%)";
             this.time.style.setProperty("background", gradient);
             this.time.style.setProperty("position", "absolute");
             this.time.style.setProperty("top", "0");
@@ -94,52 +106,63 @@ export default class TimeToolZ extends ToolZ{
             this.time.style.setProperty("margin", "0");
             this.time.style.setProperty("margin-bottom", "3px");
             this.time.style.setProperty("padding", "0");
-            this.time.style.borderRadius = '10px'; // standard
-            this.time.style.MozBorderRadius = '10px'; // Mozilla
-            this.time.style.WebkitBorderRadius = '10px'; // WebKit
+            this.time.style.borderRadius = "10px"; // standard
+            this.time.style.MozBorderRadius = "10px"; // Mozilla
+            this.time.style.WebkitBorderRadius = "10px"; // WebKit
 
-            this.setViewCollapsed(0,0);
+            this.setViewCollapsed(0, 0);
 
             this.board.appendChild(this.time);
-
         }
 
         return this.board;
     }
 
     /* Get date view */
-    getDateString(dateObj){
+    getDateString(dateObj) {
         //Return date mm/dd/yyyy
-        return this.daysOfWeek[this.dateObject.getDay()] + ", " + this.months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
+        return (
+            this.daysOfWeek[this.dateObject.getDay()] +
+            ", " +
+            this.months[dateObj.getMonth()] +
+            " " +
+            dateObj.getDate() +
+            ", " +
+            dateObj.getFullYear()
+        );
     }
 
     /* Get time view */
     getTimeString(hr, min) {
-
         //Create time view
         let time = "";
 
         //Add time 00:00 AM/PM
-        if(hr > 12) {
-            time = String(hr - 12).padStart(2, '0') +
-                ":" + String(min).padStart(2, '0') + " PM";
-        } else if(hr == 12) {
-            time = String(hr).padStart(2, '0') +
-                ":" + String(min).padStart(2, '0') + " PM";
+        if (hr > 12) {
+            time = String(hr - 12).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
+        } else if (hr == 12) {
+            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
         } else {
-            time = String(hr).padStart(2, '0') +
-                ":" + String(min).padStart(2, '0') + " AM";
+            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " AM";
         }
 
         //Return time view
         return time;
     }
+
+    isNight() {
+        let hr = this.dateObject.getHours();
+        if (hr < 6 || hr >= 20)
+            return true;
+        else
+            return false;
+    }
 }
 /*  */
 
 /* Prototype time format*/
-Number.prototype.pad = function(n) {
+Number.prototype.pad = function (n) {
     for (var r = this.toString(); r.length < n; r = 0 + r);
-        return r;
+    return r;
 };
 /*  */
