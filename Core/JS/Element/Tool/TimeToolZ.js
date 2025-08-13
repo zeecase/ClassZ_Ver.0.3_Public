@@ -54,30 +54,30 @@ export default class TimeToolZ extends ToolZ{
         if(this.active){
             this.setViewActive();
 
-            this.style.setProperty("overflow-wrap", "break-word");
-            this.style.fontFamily = "OpenDyslexic";
-            this.style.textAlign = "center";
+            this.board.style.setProperty("overflow-wrap", "break-word");
+            this.board.style.fontFamily = "OpenDyslexic";
+            this.board.style.textAlign = "center";
 
             this.date.style.setProperty("font-size", "1.2em");
             this.time.style.setProperty("font-size", "1.2em");
 
-            this.board.appendChild(this.date);
-            this.board.appendChild(this.time);
+            this.card.appendChild(this.date);
+            this.card.appendChild(this.time);
 
         } else {
-            this.style.setProperty("background-color", this.elementManager.mediumColor);
-            this.style.setProperty("color", this.elementManager.lightColor);
-            this.style.setProperty("margin", "3px");
-            this.style.setProperty("padding", "0");
-            this.style.setProperty("overflow-wrap", "break-word");
-            this.style.fontFamily = "OpenDyslexic";
-            this.style.setProperty("text-align", "center");
-            this.style.borderRadius = '10px'; // standard
-            this.style.MozBorderRadius = '10px'; // Mozilla
-            this.style.WebkitBorderRadius = '10px'; // WebKit
-            this.style.borderWidth = "3px";
-            this.style.borderStyle = "solid";
-            this.style.borderColor = this.elementManager.darkColor;
+            this.board.style.setProperty("background-color", this.elementManager.mediumColor);
+            this.board.style.setProperty("color", this.elementManager.lightColor);
+            this.board.style.setProperty("margin", "3px");
+            this.board.style.setProperty("padding", "0");
+            this.board.style.setProperty("overflow-wrap", "break-word");
+            this.board.style.fontFamily = "OpenDyslexic";
+            this.board.style.setProperty("text-align", "center");
+            this.board.style.borderRadius = '10px'; // standard
+            this.board.style.MozBorderRadius = '10px'; // Mozilla
+            this.board.style.WebkitBorderRadius = '10px'; // WebKit
+            this.board.style.borderWidth = "3px";
+            this.board.style.borderStyle = "solid";
+            this.board.style.borderColor = this.elementManager.darkColor;
 
             let gradient = "linear-gradient(";
             if( this.elementManager.orientation == "landscape")
@@ -100,11 +100,11 @@ export default class TimeToolZ extends ToolZ{
 
             this.setViewCollapsed(0,0);
 
-            this.object.appendChild(this.time);
+            this.board.appendChild(this.time);
 
         }
 
-        return this.object;
+        return this.board;
     }
 
     /* Get date view */

@@ -1,25 +1,19 @@
 /* Import */
-import ActivityZ from '/Core/JS/Object/ActivityZ.js';
+import ActivityZ from "/Core/JS/Object/ActivityZ.js";
 /*  */
 
-/* Manage Routine elements */
-export default class RoutineZ extends ActivityZ{
-
-/* Set properties */
+/* Manage Goal elements */
+export default class CardZ extends ActivityZ {
+    /* Set properties */
     constructor(elementManager) {
         super(elementManager);
-        this.id = "routineZ";
+        this.id = "cardZ";
 
-        //Set defaults//
-        this.routine = [];
-        this.currentActivity = 0;
-
-        this.title = document.createElement('p');
+        this.title = document.createElement("p");
     }
 
-    getElement(){
-
-        if(this.active){
+    getElement() {
+        if (this.active) {
             this.board.style.setProperty("background", this.elementManager.mediumColor);
             this.board.style.setProperty("color", this.elementManager.lightColor);
             this.board.style.setProperty("padding", "0");
@@ -34,15 +28,7 @@ export default class RoutineZ extends ActivityZ{
             this.board.style.borderStyle = "solid";
             this.board.style.borderColor = this.elementManager.darkColor;
 
-            this.routine = this.getRoutine();
-            let view = "<h1 style='text-align:center'>Routine</h1>";
-            for(let x=0; x<this.routine.length;x++){
-                let d = new Date(this.routine[x].time);
-                let t = this.elementManager.timeToolZ.getTimeString(d.getHours(), d.getMinutes());
-                let a = this.routine[x].activity;
-                view += "<p>" + t + " -> " + a + "</p>";
-            }
-            this.card.innerHTML = view;
+            this.card.innerHTML = ""; //TODO: get card
 
             this.setViewActive();
         } else {
@@ -76,25 +62,14 @@ export default class RoutineZ extends ActivityZ{
             this.card.style.MozBorderRadius = "10px"; // Mozilla
             this.card.style.WebkitBorderRadius = "10px"; // WebKit
 
-            this.title.innerHTML = "Routine";
+            this.title.innerHTML = "CardZ";
             this.board.appendChild(this.title);
 
-
-            this.setViewCollapsed(0,0);
+            this.setViewCollapsed(0, 0);
         }
 
         this.board.appendChild(this.card);
         return this.board;
-    }
-
-    /* Get routine */
-    getRoutine() {
-        //Return routine list//
-        return [
-            {time: "2024-11-14T15:30:00.000Z", activity: "Morning Routine"},
-            {time: "2024-11-14T20:00:00.000Z", activity: "Lunch"},
-            {time: "2024-11-15T06:00:00.000Z", activity: "End of Day"}
-        ];
     }
 }
 /*  */

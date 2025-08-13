@@ -1,9 +1,9 @@
 /* Import */
-import  ObjZ from '/Core/JS/Object/ObjZ.js';
+import  BoardZ from '/Core/JS/Object/BoardZ.js';
 /*  */
 
 /* Manage Tool elements */
-export default class ToolZ extends ObjZ{
+export default class ToolZ extends BoardZ{
     constructor(elementManager) {
         super(elementManager);
         this.favorite = -1;
@@ -21,30 +21,30 @@ export default class ToolZ extends ObjZ{
             if(this.favorite == 0){
                 let left = (this.colStart * this.elementManager.gridItemSize);
                 let top = (this.rowStart * this.elementManager.gridItemSize);
-                this.style.setProperty("left", left + "px");
-                this.style.setProperty("top", top + "px");
+                this.board.style.setProperty("left", left + "px");
+                this.board.style.setProperty("top", top + "px");
             } else if(this.favorite == 1){
                 let left = (this.colStart * this.elementManager.gridItemSize);
                 let bottom = (this.rowStart * this.elementManager.gridItemSize);
-                this.style.setProperty("left", left + "px");
-                this.style.setProperty("bottom", bottom + "px");
+                this.board.style.setProperty("left", left + "px");
+                this.board.style.setProperty("bottom", bottom + "px");
             }
         } else {
             if(this.favorite == 0){
                 let left = (this.colStart * this.elementManager.gridItemSize);
                 let top = (this.rowStart * this.elementManager.gridItemSize);
-                this.style.setProperty("left", left + "px");
-                this.style.setProperty("top", top + "px");
+                this.board.style.setProperty("left", left + "px");
+                this.board.style.setProperty("top", top + "px");
             } else if(this.favorite == 1){
                 let right = (this.colStart * this.elementManager.gridItemSize);
                 let top = (this.rowStart * this.elementManager.gridItemSize);
-                this.style.setProperty("right", right + "px");
-                this.style.setProperty("top", top + "px");
+                this.board.style.setProperty("right", right + "px");
+                this.board.style.setProperty("top", top + "px");
             }
         }
 
         this.style.setProperty("z-index", "1");
 
-        this.setObject();
+        this.setBoard();
     }
 }

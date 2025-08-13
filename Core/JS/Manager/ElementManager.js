@@ -23,6 +23,7 @@ export default class ElementManager{
         this.lightColor = "#f1f1f1";
         this.mediumColor = "#373a38";
         this.darkColor = "#111111";
+        this.darkMode = true;
 
         //Set body//
         this.body = document.body;
@@ -48,8 +49,9 @@ export default class ElementManager{
         document.fonts.add(this.OpenDyslexic);
 
         //Set elements//
-        this.active = this.getActive();
+        this.guide = new Core.GuideZ(this);
         this.timeToolZ = new Core.TimeToolZ(this);
+        this.active = this.getActive();
         this.toolZList = this.getToolZ();
         this.setToolZ();
         this.activityZList = this.getActivityZ();
@@ -69,7 +71,10 @@ export default class ElementManager{
         let gradient = "linear-gradient(";
         if( this.orientation == "landscape")
             gradient+= "-9";
-        gradient += "0deg, " + this.darkColor + " 50%, " + this.themeColor + " 100%)";
+        if(this.darkMode)
+            gradient += "0deg, " + this.darkColor + " 50%, " + this.darkColor + " 100%)";
+        else
+            gradient += "0deg, " + this.darkColor + " 50%, " + this.themeColor + " 100%)";
         this.backgroundFilter.style.setProperty("background", gradient);
     }
 
@@ -115,7 +120,7 @@ export default class ElementManager{
     }
 
     getActivityZ(){
-        return [new Core.BoardZ(this), new Core.RoutineZ(this)];
+        return [new Core.CardZ(this), new Core.RoutineZ(this)];
     }
 
     setBody(){
