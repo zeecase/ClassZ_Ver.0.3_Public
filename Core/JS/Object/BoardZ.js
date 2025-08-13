@@ -31,16 +31,19 @@ export default class BoardZ{
 
     setViewActive(){
         this.active = true;
+        this.width = this.elementManager.numColumns;
+        this.height = this.elementManager.numRows;
+
         this.board.style.setProperty("background-color", this.elementManager.mediumColor);
+        if(this.elementManager.darkMode)
+            this.board.style.setProperty("color", this.elementManager.lightColor);
+        else
+            this.board.style.setProperty("color", this.elementManager.darkColor);
         this.board.style.setProperty("top", "50%");
         this.board.style.setProperty("left", "50%");
         this.board.style.setProperty("-webkit-transform", "translate(-50%, -50%)");
         this.board.style.setProperty("transform", "translate(-50%, -50%)");
         this.board.style.setProperty("background", this.elementManager.mediumColor);
-        if(this.elementManager.darkMode)
-            this.board.style.setProperty("color", this.elementManager.lightColor);
-        else
-            this.board.style.setProperty("color", this.elementManager.darkColor);
         this.board.style.setProperty("padding", "0");
         this.board.style.setProperty("overflow-wrap", "break-word");
         this.board.style.fontFamily = "OpenDyslexic";
@@ -50,8 +53,6 @@ export default class BoardZ{
         this.board.style.borderWidth = "3px";
         this.board.style.borderStyle = "solid";
         this.board.style.borderColor = this.elementManager.darkColor;
-        this.width = this.elementManager.numColumns;
-        this.height = this.elementManager.numRows;
 
         if(this.elementManager.orientation == "landscape"){
             this.colStart = (this.width - this.height)/2;

@@ -22,11 +22,15 @@ export default class ActivityZ extends BoardZ{
             let top = (this.rowStart * this.elementManager.gridItemSize);
             this.board.style.setProperty("right", right + "px");
             this.board.style.setProperty("top", top + "px");
+            this.board.style.setProperty("left", "auto");
+            this.board.style.setProperty("bottom", "auto");
          } else if(this.favorite == 1){
             let right = (this.colStart * this.elementManager.gridItemSize);
             let bottom = (this.rowStart * this.elementManager.gridItemSize);
             this.board.style.setProperty("right", right + "px");
             this.board.style.setProperty("bottom", bottom + "px");
+            this.board.style.setProperty("left", "auto");
+            this.board.style.setProperty("top", "auto");
          }
       } else {
          if(this.favorite == 0){
@@ -34,11 +38,15 @@ export default class ActivityZ extends BoardZ{
             let bottom = (this.rowStart * this.elementManager.gridItemSize);
             this.board.style.setProperty("left", left + "px");
             this.board.style.setProperty("bottom", bottom + "px");
+            this.board.style.setProperty("right", "auto");
+            this.board.style.setProperty("top", "auto");
          } else if(this.favorite == 1){
             let right = (this.colStart * this.elementManager.gridItemSize);
             let bottom = (this.rowStart * this.elementManager.gridItemSize);
             this.board.style.setProperty("right", right + "px");
             this.board.style.setProperty("bottom", bottom + "px");
+            this.board.style.setProperty("left", "auto");
+                this.board.style.setProperty("top", "auto");
          }
       }
 
