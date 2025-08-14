@@ -1,17 +1,22 @@
 /* Import */
-import ActivityZ from "/Core/JS/Object/ActivityZ.js";
+import ViewZ from '/Core/Code/Element/View/ViewZ.js';
 /*  */
 
-/* Manage Goal elements */
-export default class CardZ extends ActivityZ {
-    /* Set properties */
+/* Manage Routine elements */
+export default class ViewzRoutineZ extends ViewZ{
+
+/* Set properties */
     constructor(elementManager) {
         super(elementManager);
-        this.id = "cardZ";
+        this.id = "routineZ";
+
+        //Set defaults//
+        this.routine = [];
+        this.currentActivity = 0;
     }
 
-    getElement() {
-        if (this.active) {
+    getElement(active) {
+        if (active == this.id) {
             this.board.style.setProperty("background", this.elementManager.mediumColor);
             this.board.style.setProperty("color", this.elementManager.lightColor);
             this.board.style.setProperty("padding", "0");
@@ -25,6 +30,15 @@ export default class CardZ extends ActivityZ {
             this.board.style.borderWidth = "3px";
             this.board.style.borderStyle = "solid";
             this.board.style.borderColor = this.elementManager.darkColor;
+
+            this.routine = this.getRoutine();
+            let view = "<h1 style='text-align:center'>Routine</h1>";
+            for(let x=0; x<this.routine.length;x++){
+                let d = new Date(this.routine[x].time);
+                let t = this.elementManager.timeToolZ.getTimeString(d.getHours(), d.getMinutes());
+                let a = this.routine[x].activity;
+                view += "<p>" + t + " -> " + a + "</p>";
+            }
 
             this.card.style.setProperty("font-size", "1em");
             this.card.style.setProperty("position", "absolute");
@@ -40,7 +54,8 @@ export default class CardZ extends ActivityZ {
             this.card.style.borderRadius = "10px"; // standard
             this.card.style.MozBorderRadius = "10px"; // Mozilla
             this.card.style.WebkitBorderRadius = "10px"; // WebKit
-            this.card.innerHTML = ""; //TODO: get card
+
+            this.card.innerHTML = view;
 
             this.setViewActive();
         } else {
@@ -60,14 +75,25 @@ export default class CardZ extends ActivityZ {
             this.board.style.borderColor = this.elementManager.darkColor;
 
             this.title.style.setProperty("margin-top", "20px");
-            this.title.innerHTML = "CardZ";
+            this.title.innerHTML = "RoutineZ";
             this.board.appendChild(this.title);
 
-            this.setViewCollapsed(0, 0);
+
+            this.setViewCollapsed(0,0);
         }
 
         this.board.appendChild(this.card);
         return this.board;
+    }
+
+    /* Get routine */
+    getRoutine() {
+        //Return routine list//
+        return [
+            {time: "2024-11-14T15:30:00.000Z", activity: "Morning Routine"},
+            {time: "2024-11-14T20:00:00.000Z", activity: "Lunch"},
+            {time: "2024-11-15T06:00:00.000Z", activity: "End of Day"}
+        ];
     }
 }
 /*  */

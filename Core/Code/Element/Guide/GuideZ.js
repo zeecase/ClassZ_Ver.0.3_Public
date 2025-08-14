@@ -1,15 +1,14 @@
 /* Import */
-import ElementManager from '/Core/JS/Manager/ElementManager.js';
+import ElementController from '/Core/Code/Controller/ElementController.js';
 /*  */
 
 /* ObjZ element */
 export default class GuideZ{
 
-    constructor(elementManager) {
+    constructor(elementController) {
 
-        //Set element manager//
-        this.elementManager = elementManager;
-
+        //Set element controller//
+        this.elementController = elementController;
     }
 
     update(){
@@ -19,7 +18,7 @@ export default class GuideZ{
     getGuide(){
 
         let guide = document.createElement("div");
-        guide.style.setProperty("background-color", this.elementManager.darkColor);
+        guide.style.setProperty("background-color", this.elementController.darkColor);
         guide.style.setProperty("position", "fixed");
         guide.style.setProperty("top", "3px");
         guide.style.setProperty("left", "50%");
@@ -28,7 +27,7 @@ export default class GuideZ{
         guide.style.width = "20%";
         guide.style.height = "20%";
         guide.style.setProperty("border-radius", "50%");
-        //guide.style.setProperty("box-shadow", "0 0 0 3px " + this.elementManager.darkColor);
+        //guide.style.setProperty("box-shadow", "0 0 0 3px " + this.elementController.darkColor);
 
         let guideImg = document.createElement("img");
         guideImg.src = "/Core/Asset/Image/Guide/FuZ.png";
