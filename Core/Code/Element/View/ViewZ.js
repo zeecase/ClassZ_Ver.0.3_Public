@@ -149,6 +149,7 @@ export default class ViewZ{
             this.card.style.height = "100%";
             this.setViewCollapsed();
         }
+        console.log(this.id + " view update");
     }
 
      getElement(){

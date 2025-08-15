@@ -23,8 +23,10 @@ export default class ToolZTimeZ extends ToolZ {
     timeLoop() {
         //Set time data//
         this.date = new Date();
-        if(this.currentTime != this.getTime())
+        if(this.currentTime != this.getTime()){
+            this.currentTime = this.getTime();
             this.elementController.updateTime();
+        }
         //Repeat in 1 second//
         setTimeout(() => {
             this.timeLoop();

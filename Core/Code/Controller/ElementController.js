@@ -44,8 +44,6 @@ export default class ElementController{
         //Set elements//
         viewController.setElement(this.background.getBackground());
         this.setViewZ();
-
-        this.update();
     }
 
     update(){

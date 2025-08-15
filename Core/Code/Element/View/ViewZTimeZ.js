@@ -18,6 +18,7 @@ export default class ViewzTimeZ extends ViewZ {
     updateTime(){
         this.date.innerHTML = this.elementController.getDate();
         this.time.innerHTML = this.elementController.getTime();
+        console.log(this.id + " time update");
     }
 
     setViewActive(){
