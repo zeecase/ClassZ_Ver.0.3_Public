@@ -44,9 +44,8 @@ export default class ViewController{
         else
             this.isMin = false;
 
-        if(this.showGrid)
-            this.updateGrid();
-        console.log("resized");
+        this.updateGrid();
+
         elementController.update();
     }
 

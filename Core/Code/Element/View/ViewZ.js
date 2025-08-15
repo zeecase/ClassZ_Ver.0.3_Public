@@ -25,13 +25,13 @@ export default class ViewZ{
         this.viewBottom = document.createElement("div");
     }
 
-    update(){
+    updateView(){
         this.card.innerHTML = "";
 
         if(this.elementController.getActive() == this.id){
             this.viewTop.appendChild(this.guide);
-            this.view.appendChild(this.viewTop);
             this.view.appendChild(this.card);
+            this.view.appendChild(this.viewTop);
             this.view.appendChild(this.viewBottom);
 
             this.view.style.height = this.elementController.getSize(maxSize) + "px";
@@ -66,6 +66,9 @@ export default class ViewZ{
             this.viewTop.style.borderStyle = "solid";
             this.viewTop.style.borderColor = this.elementController.darkColor;
 
+            let scale = parseInt(this.viewTop.style.height)/parseInt(this.guide.style.height);
+            this.guide.style.zoom = scale;
+
             this.card.style.setProperty("position", "fixed");
             this.card.style.setProperty("top", "50%");
             this.card.style.setProperty("left", "50%");
@@ -77,7 +80,7 @@ export default class ViewZ{
             this.card.style.width = size + "px";
             this.card.style.height = size*0.5625 + "px";
 
-            let scale = parseInt(this.view.style.width)/size;
+            scale = parseInt(this.view.style.width)/size;
             this.card.style.zoom = scale;
 
             this.viewBottom.style.setProperty("position", "fixed");
@@ -149,7 +152,7 @@ export default class ViewZ{
     }
 
      getElement(){
-        this.update();
+        this.updateView();
         return this.view;
      }
 }

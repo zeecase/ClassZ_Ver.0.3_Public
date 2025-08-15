@@ -7,9 +7,6 @@ import * as User from '/User/Code/Element/ElementZ.js';
 
 const fontFolder = "/Core/Asset/Font/";
 const backgroundFolder = "/Core/Asset/Image/Background/";
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const months = ["January", "February", "March", "April", "May", "June", "July",
-               "August", "September", "October", "November", "December"];
 
 let dataController = null;
 let viewController = null;
@@ -35,7 +32,9 @@ export default class ElementController{
         let openDyslexic = new FontFace('OpenDyslexic', 'url("' + fontFolder + 'OpenDyslexic/OpenDyslexic3-Regular.ttf")');
         viewController.addFont(openDyslexic);
 
-        this.timeLoop();
+        this.toolZList = this.getToolZ();
+        this.timeTool = this.toolZList[0];
+        this.timeTool.init();
 
         //Create element//
         this.background = new Core.BackgroundZ(this);
@@ -49,26 +48,23 @@ export default class ElementController{
         this.update();
     }
 
-    timeLoop() {
-        //Set time data//
-        this.date = new Date();
-        this.orientation = viewController.getOrientation();
-        this.darkMode = this.isNight();
-        this.active = this.getActive();
-        //Repeat in 1 second//
-        setTimeout(() => {
-            this.timeLoop();
-        }, 1000);
-    }
-
     update(){
         this.background.update();
         this.updateViewZ();
     }
 
+    updateTime(){
+        this.orientation = viewController.getOrientation();
+        this.darkMode = this.timeTool.isNight();
+        this.active = this.getActive();
+
+        for(let x=0; x<this.timeTool.subscribers.length;x++)
+            this.timeTool.subscribers[x].updateTime();
+    }
+
     updateViewZ(){
         for(let x=0; x<this.viewZList.length; x++)
-            this.viewZList[x].update();
+            this.viewZList[x].updateView();
     }
 
     setViewZ(){
@@ -96,33 +92,11 @@ export default class ElementController{
     }
 
     getDate() {
-        //Return date string//
-        return (
-            daysOfWeek[this.date.getDay()] +
-            ", " +
-            months[this.date.getMonth()] +
-            " " +
-            this.date.getDate() +
-            ", " +
-            this.date.getFullYear()
-        );
+        return this.timeTool.getDate();
     }
 
     getTime() {
-        let hr = this.date.getHours();
-        let min = this.date.getMinutes();
-        let time = "";
-        //Add time 00:00 AM/PM
-        if (hr > 12) {
-            time = String(hr - 12).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
-        } else if (hr == 12) {
-            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
-        } else {
-            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " AM";
-        }
-
-        //Return time string//
-        return time;
+        return this.timeTool.getTime();
     }
 
     getRoutine() {
@@ -132,6 +106,10 @@ export default class ElementController{
             {time: "2024-11-14T20:00:00.000Z", activity: "Lunch"},
             {time: "2024-11-15T06:00:00.000Z", activity: "End of Day"}
         ];
+    }
+
+    getToolZ(){
+        return [new Core.ToolZTimeZ(this)];
     }
 
     getViewZ(){
@@ -147,17 +125,8 @@ export default class ElementController{
         return "timeZ";
     }
 
-    isNight() {
-        let hr = this.date.getHours();
-        if (hr < 6 || hr >= 20)
-            return true;
-        else
-            return false;
+    timeSubscribe(element){
+        this.timeTool.addSubscriber(element);
     }
 }
 /*  */
-
-Number.prototype.pad = function (n) {
-    for (var r = this.toString(); r.length < n; r = 0 + r);
-    return r;
-};

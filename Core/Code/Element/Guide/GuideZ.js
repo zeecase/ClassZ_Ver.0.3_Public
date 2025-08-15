@@ -2,6 +2,8 @@
 import ElementController from '/Core/Code/Controller/ElementController.js';
 /*  */
 
+const states = ["away", "focus", "rest", "happy", "super"];
+
 /* ObjZ element */
 export default class GuideZ{
 
@@ -9,6 +11,10 @@ export default class GuideZ{
 
         //Set element controller//
         this.elementController = elementController;
+        this.state = "away";
+        this.guide = document.createElement("div");
+        this.guideImg = document.createElement("img");
+        this.guideFilter = document.createElement("div");
     }
 
     update(){
@@ -17,30 +23,40 @@ export default class GuideZ{
 
     getGuide(){
 
-        let guide = document.createElement("div");
-        guide.style.setProperty("background-color", this.elementController.darkColor);
-        guide.style.setProperty("position", "fixed");
+        if(this.state != "away"){
+            this.guide.style.setProperty("background-color", this.elementController.darkColor);
+            this.guide.style.setProperty("position", "fixed");
+            this.guide.style.setProperty("left", "50%");
+            this.guide.style.setProperty("-webkit-transform", "translate(-50%, 0)");
+            this.guide.style.setProperty("transform", "translate(-50%, 0)");
+            this.guide.style.height = "100px";
+            this.guide.style.width = "100px";
+            this.guide.style.setProperty("border-radius", "50%");
 
-        guide.style.setProperty("left", "50%");
-        guide.style.setProperty("-webkit-transform", "translate(-50%, 0)");
-        guide.style.setProperty("transform", "translate(-50%, 0)");
-        guide.style.width = this.elementController.getSize(2) + "px";
-        guide.style.height = this.elementController.getSize(2) + "px";
-        guide.style.setProperty("border-radius", "50%");
-        //guide.style.setProperty("box-shadow", "0 0 0 3px " + this.elementController.darkColor);
+            this.guideImg.src = "/Core/Asset/Image/Guide/FuZ/FuZ_"+this.state+".png";
+            this.guideImg.style.setProperty("position", "fixed");
+            this.guideImg.style.setProperty("top", "5%");
+            this.guideImg.style.setProperty("left", "50%");
+            this.guideImg.style.setProperty("-webkit-transform", "translate(-50%, 0)");
+            this.guideImg.style.setProperty("transform", "translate(-50%, 0)");
+            this.guideImg.style.width = "90%";
+            this.guideImg.style.height = "90%";
 
-        let guideImg = document.createElement("img");
-        guideImg.src = "/Core/Asset/Image/Guide/FuZ.png";
-        guideImg.style.setProperty("position", "fixed");
-        guideImg.style.setProperty("top", "5%");
-        guideImg.style.setProperty("left", "50%");
-        guideImg.style.setProperty("-webkit-transform", "translate(-50%, 0)");
-        guideImg.style.setProperty("transform", "translate(-50%, 0)");
-        guideImg.style.width = "90%";
-        guideImg.style.height = "90%";
+            this.guideFilter.style.setProperty("background-color", this.elementController.themeColor);
+            this.guideFilter.style.setProperty("position", "fixed");
+            this.guideFilter.style.setProperty("top", "5%");
+            this.guideFilter.style.setProperty("left", "50%");
+            this.guideFilter.style.setProperty("opacity", "25%");
+            this.guideFilter.style.setProperty("-webkit-transform", "translate(-50%, 0)");
+            this.guideFilter.style.setProperty("transform", "translate(-50%, 0)");
+            this.guideFilter.style.height = "90%";
+            this.guideFilter.style.width = "90%";
+            this.guideFilter.style.setProperty("border-radius", "50%");
 
-        guide.appendChild(guideImg);
+            this.guide.appendChild(this.guideImg);
+            this.guide.appendChild(this.guideFilter);
+        }
 
-        return guide;
+        return this.guide;
     }
 }

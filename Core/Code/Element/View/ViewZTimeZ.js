@@ -8,19 +8,27 @@ export default class ViewzTimeZ extends ViewZ {
     constructor(elementController) {
         super(elementController);
         this.id = "timeZ";
+
+        this.date = document.createElement('p');
+        this.time = document.createElement('p');
+
+        elementController.timeSubscribe(this);
+    }
+
+    updateTime(){
+        this.date.innerHTML = this.elementController.getDate();
+        this.time.innerHTML = this.elementController.getTime();
     }
 
     setViewActive(){
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
 
-        let date = document.createElement('p');
-        date.innerHTML = this.elementController.getDate();
-        this.card.appendChild(date);
+        this.date.innerHTML = this.elementController.getDate();
+        this.card.appendChild(this.date);
 
-        let time = document.createElement('p');
-        time.innerHTML = this.elementController.getTime();
-        this.card.appendChild(time);
+        this.time.innerHTML = this.elementController.getTime();
+        this.card.appendChild(this.time);
     }
 
     setViewCollapsed(){
@@ -34,10 +42,9 @@ export default class ViewzTimeZ extends ViewZ {
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
 
-        let time = document.createElement('p');
-        time.innerHTML = this.elementController.getTime();
+        this.time.innerHTML = this.elementController.getTime();
 
-        this.card.appendChild(time);
+        this.card.appendChild(this.time);
     }
 }
 /*  */
