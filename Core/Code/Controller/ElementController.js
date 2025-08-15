@@ -39,8 +39,8 @@ export default class ElementController{
 
         //Create element//
         this.background = new Core.BackgroundZ(this);
-        this.viewZList = this.getViewZ();
         this.guide = new Core.GuideZ(this);
+        this.viewZList = this.getViewZ();
 
         //Set elements//
         viewController.setElement(this.background.getBackground());
@@ -91,9 +91,12 @@ export default class ElementController{
             return backgroundFolder + "Texture_Full.jpg";
     }
 
-        /* Get date view */
+    getGuide(){
+        return this.guide.getGuide();
+    }
+
     getDate() {
-        //Return date mm/dd/yyyy
+        //Return date string//
         return (
             daysOfWeek[this.date.getDay()] +
             ", " +
@@ -106,7 +109,6 @@ export default class ElementController{
     }
 
     getTime() {
-        //Create time view
         let hr = this.date.getHours();
         let min = this.date.getMinutes();
         let time = "";
@@ -119,7 +121,7 @@ export default class ElementController{
             time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " AM";
         }
 
-        //Return time view
+        //Return time string//
         return time;
     }
 
@@ -138,10 +140,7 @@ export default class ElementController{
 
     getSize(num){
         let size = num * viewController.gridItemSize;
-        if(size > viewController.minSize)
             return size;
-        else
-            return viewController.minSize;
     }
 
     getActive(){

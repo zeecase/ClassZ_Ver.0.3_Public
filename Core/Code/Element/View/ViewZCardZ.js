@@ -26,9 +26,10 @@ export default class ViewZCardZ extends ViewZ {
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
 
-        this.title.style.setProperty("margin-top", "20px");
-        this.title.innerHTML = "CardZ";
-        this.card.appendChild(this.title);
+        let title = document.createElement('p');
+        title.innerHTML = "CardZ";
+
+        this.card.appendChild(title);
     }
 }
 /*  */

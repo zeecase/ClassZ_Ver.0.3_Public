@@ -39,9 +39,10 @@ export default class ViewzRoutineZ extends ViewZ{
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
 
-        this.title.style.setProperty("margin-top", "20px");
-        this.title.innerHTML = "RoutineZ";
-        this.card.appendChild(this.title);
+        let title = document.createElement('p');
+        title.innerHTML = "RoutineZ";
+
+        this.card.appendChild(title);
     }
 }
 /*  */
