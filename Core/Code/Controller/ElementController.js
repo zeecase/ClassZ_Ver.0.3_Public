@@ -11,6 +11,8 @@ const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Fri
 const months = ["January", "February", "March", "April", "May", "June", "July",
                "August", "September", "October", "November", "December"];
 
+let dataController = null;
+let viewController = null;
 
 /* Manage CSS and elements */
 export default class ElementController{
@@ -26,22 +28,22 @@ export default class ElementController{
     init(data, view) {
 
         //Set controller//
-        this.dataController = data;
-        this.viewController = view;
+        dataController = data;
+        viewController = view;
 
         //Set Font//
         let openDyslexic = new FontFace('OpenDyslexic', 'url("' + fontFolder + 'OpenDyslexic/OpenDyslexic3-Regular.ttf")');
-        this.viewController.addFont(openDyslexic);
+        viewController.addFont(openDyslexic);
+
+        this.timeLoop();
 
         //Create element//
         this.background = new Core.BackgroundZ(this);
         this.viewZList = this.getViewZ();
         this.guide = new Core.GuideZ(this);
 
-        this.timeLoop();
-
         //Set elements//
-        this.viewController.setElement(this.background.getBackground());
+        viewController.setElement(this.background.getBackground());
         this.setViewZ();
 
         this.update();
@@ -50,7 +52,7 @@ export default class ElementController{
     timeLoop() {
         //Set time data//
         this.date = new Date();
-        this.orientation = this.viewController.getOrientation();
+        this.orientation = viewController.getOrientation();
         this.darkMode = this.isNight();
         this.active = this.getActive();
         //Repeat in 1 second//
@@ -72,7 +74,9 @@ export default class ElementController{
     setViewZ(){
         for(let x=0; x<this.viewZList.length; x++){
             let view = this.viewZList[x];
-            this.viewController.setElement(view.getElement(this.active));
+            if(x<4)
+                view.favorite = x;
+            viewController.setElement(view.getElement());
         }
     }
 
@@ -119,12 +123,29 @@ export default class ElementController{
         return time;
     }
 
+    getRoutine() {
+        //Return routine list//
+        return [
+            {time: "2024-11-14T15:30:00.000Z", activity: "Morning Routine"},
+            {time: "2024-11-14T20:00:00.000Z", activity: "Lunch"},
+            {time: "2024-11-15T06:00:00.000Z", activity: "End of Day"}
+        ];
+    }
+
     getViewZ(){
         return [new Core.ViewZCardZ(this), new Core.ViewZRoutineZ(this), new Core.ViewZTimeZ(this)];
     }
 
+    getSize(num){
+        let size = num * viewController.gridItemSize;
+        if(size > viewController.minSize)
+            return size;
+        else
+            return viewController.minSize;
+    }
+
     getActive(){
-        return "TimeZ";
+        return "timeZ";
     }
 
     isNight() {

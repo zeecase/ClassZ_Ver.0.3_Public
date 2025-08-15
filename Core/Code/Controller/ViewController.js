@@ -4,6 +4,10 @@ import DataController from '/Core/Code/Controller/DataController.js';
 import ElementController from '/Core/Code/Controller/ElementController.js';
 /*  */
 
+let dataController = null;
+let elementController = null;
+let viewController = null;
+
 /* Manage the grid view */
 export default class ViewController{
 
@@ -15,16 +19,20 @@ export default class ViewController{
         this.showGrid = false;
         this.numCol = 0;
         this.numRow = 0;
-    }
-
-/* Set properties */
-    init(data, element){
-
+        this.gridItemSize = 0;
         this.body = document.body;
         this.grid = document.createElement('div');
 
         this.setBody();
         this.setGrid();
+    }
+
+/* Set properties */
+    init(data, element){
+        //Set controller//
+        dataController = data;
+        elementController = element;
+        viewController = this;
     }
 
     update(){
@@ -38,17 +46,20 @@ export default class ViewController{
 
         if(this.showGrid)
             this.updateGrid();
+        console.log("resized");
+        elementController.update();
     }
 
     updateGrid(){
         if(this.getOrientation() == "landscape"){
             this.numCol = 30;
             this.numRow = 10;
+            this.gridItemSize = this.screenHeight/10;
         } else {
             this.numCol = 10;
             this.numRow = 30;
+            this.gridItemSize = this.screenWidth/10;
         }
-
         this.setGridItems();
     }
 
@@ -99,6 +110,7 @@ export default class ViewController{
     }
 
     setElement(element){
+        console.log(element);
         document.body.appendChild(element);
     }
 
@@ -112,6 +124,6 @@ export default class ViewController{
 
 /* On Load */
 window.onresize = function(event) {
-    this.update();
+    viewController.update();
 };
 /*  */
