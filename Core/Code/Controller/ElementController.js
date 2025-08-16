@@ -55,9 +55,9 @@ export default class ElementController{
         this.orientation = viewController.getOrientation();
         this.darkMode = this.timeTool.isNight();
         this.active = this.getActive();
-
-        for(let x=0; x<this.timeTool.subscribers.length;x++)
+        for(let x=0; x<this.timeTool.subscribers.length;x++){
             this.timeTool.subscribers[x].updateTime();
+        }
     }
 
     updateViewZ(){
@@ -89,14 +89,6 @@ export default class ElementController{
         return this.guide.getGuide();
     }
 
-    getDate() {
-        return this.timeTool.getDate();
-    }
-
-    getTime() {
-        return this.timeTool.getTime();
-    }
-
     getRoutine() {
         //Return routine list//
         return [
@@ -125,6 +117,7 @@ export default class ElementController{
 
     timeSubscribe(element){
         this.timeTool.addSubscriber(element);
+        return this.timeTool;
     }
 }
 /*  */

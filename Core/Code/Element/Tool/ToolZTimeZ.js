@@ -13,6 +13,7 @@ export default class ToolZTimeZ extends ToolZ {
         super(elementController);
         this.id = "toolZTimeZ";
 
+        this.currentDate = "";
         this.currentTime = "";
     }
 
@@ -24,9 +25,10 @@ export default class ToolZTimeZ extends ToolZ {
         //Set time data//
         this.date = new Date();
         if(this.currentTime != this.getTime()){
+            this.currentDate = this.getDate();
             this.currentTime = this.getTime();
-            this.elementController.updateTime();
         }
+        this.elementController.updateTime();
         //Repeat in 1 second//
         setTimeout(() => {
             this.timeLoop();
@@ -61,6 +63,34 @@ export default class ToolZTimeZ extends ToolZ {
 
         //Return time string//
         return time;
+    }
+
+    getYear(){
+        return this.date.getFullYear();
+    }
+
+    getMonth(){
+        return months[this.date.getMonth()];
+    }
+
+    getDayOfWeek(){
+        return daysOfWeek[this.date.getDay()];
+    }
+
+    getDay(){
+        return this.date.getDate();
+    }
+
+    getHours(){
+        return this.date.getHours();
+    }
+
+    getMinutes(){
+        return this.date.getMinutes();
+    }
+
+    getSeconds(){
+        return this.date.getSeconds();
     }
 
     isNight() {
