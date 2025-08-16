@@ -9,20 +9,29 @@ export default class ViewzRoutineZ extends ViewZ{
     constructor(elementController) {
         super(elementController);
         this.id = "routineZ";
+
+        this.timeTool = elementController.timeSubscribe(this);
+    }
+
+    updateTime(){
+
     }
 
     setViewActive(){
-        this.view.style.setProperty("padding-left", "25px");
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "left");
+        this.view.style.setProperty("font-size", "0.8em");
 
         let routine = this.elementController.getRoutine();
-        let view = "<h1 style='text-align:center'>Routine</h1>";
+        let view = document.createElement('div');
         for(let x=0; x<routine.length;x++){
+            let time = document.createElement('p');
             let d = new Date(routine[x].time);
-            //let t = this.elementController.timeToolZ.getTimeString(d.getHours(), d.getMinutes());
+            let t = this.timeTool.formatTime(d.getHours(), d.getMinutes());
             let a = routine[x].activity;
-            view += "<p>" + d + " -> " + a + "</p>";
+            time.innerHTML =  t + " -> " + a;
+            time.style.setProperty("padding-left", "10px");
+            view.appendChild(time);
         }
 
         this.card.appendChild(view);

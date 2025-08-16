@@ -100,6 +100,22 @@ export default class ToolZTimeZ extends ToolZ {
         else
             return false;
     }
+
+    formatTime(hr, min){
+        let time = "";
+        //Add time 00:00 AM/PM
+        if (hr > 12) {
+            time = String(hr - 12).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
+        } else if (hr == 12) {
+            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
+        } else {
+            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " AM";
+        }
+
+        //Return time string//
+        return time;
+    }
+
 }
 
 Number.prototype.pad = function (n) {

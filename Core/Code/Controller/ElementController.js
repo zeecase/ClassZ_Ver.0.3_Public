@@ -112,7 +112,7 @@ export default class ElementController{
     }
 
     getActive(){
-        return "timeZ";
+        return "routineZ";
     }
 
     timeSubscribe(element){

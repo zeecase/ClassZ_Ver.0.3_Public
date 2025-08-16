@@ -3,7 +3,7 @@ import ElementController from '/Core/Code/Controller/ElementController.js';
 /*  */
 
 const maxSize = 9.5;
-const minSize = 1.5;
+const minSize = 1.8;
 
 /* ObjZ element */
 export default class ViewZ{
