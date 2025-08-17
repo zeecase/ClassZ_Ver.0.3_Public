@@ -42,19 +42,19 @@ export default class GuideZ{
             this.guideImg.style.width = "90%";
             this.guideImg.style.height = "90%";
 
-            this.guideFilter.style.setProperty("background-color", this.elementController.themeColor);
-            this.guideFilter.style.setProperty("position", "fixed");
-            this.guideFilter.style.setProperty("top", "5%");
-            this.guideFilter.style.setProperty("left", "50%");
-            this.guideFilter.style.setProperty("opacity", "25%");
-            this.guideFilter.style.setProperty("-webkit-transform", "translate(-50%, 0)");
-            this.guideFilter.style.setProperty("transform", "translate(-50%, 0)");
-            this.guideFilter.style.height = "90%";
-            this.guideFilter.style.width = "90%";
-            this.guideFilter.style.setProperty("border-radius", "50%");
+            //this.guideFilter.style.setProperty("background-color", this.elementController.themeColor);
+            //this.guideFilter.style.setProperty("position", "fixed");
+            //this.guideFilter.style.setProperty("top", "5%");
+            //this.guideFilter.style.setProperty("left", "50%");
+            //this.guideFilter.style.setProperty("opacity", "25%");
+            //this.guideFilter.style.setProperty("-webkit-transform", "translate(-50%, 0)");
+            //this.guideFilter.style.setProperty("transform", "translate(-50%, 0)");
+            //this.guideFilter.style.height = "90%";
+            //this.guideFilter.style.width = "90%";
+            //this.guideFilter.style.setProperty("border-radius", "50%");
 
             this.guide.appendChild(this.guideImg);
-            this.guide.appendChild(this.guideFilter);
+            //this.guide.appendChild(this.guideFilter);
         }
 
         return this.guide;
