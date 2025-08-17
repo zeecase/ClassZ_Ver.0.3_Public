@@ -52,17 +52,22 @@ export default class ToolZTimeZ extends ToolZ {
         let hr = this.date.getHours();
         let min = this.date.getMinutes();
         let time = "";
-        //Add time 00:00 AM/PM
-        if (hr > 12) {
-            time = String(hr - 12).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
-        } else if (hr == 12) {
-            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " PM";
-        } else {
-            time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0") + " AM";
-        }
+
+        if(hr>12)
+            hr -= 12;
+
+        time = String(hr).padStart(2, "0") + ":" + String(min).padStart(2, "0");
+        time += " " + this.getAMPM();
 
         //Return time string//
         return time;
+    }
+
+    getAMPM(){
+        if (this.date.getHours() >= 12)
+            return "PM";
+        else
+            return "AM";
     }
 
     getYear(){
@@ -114,6 +119,16 @@ export default class ToolZTimeZ extends ToolZ {
 
         //Return time string//
         return time;
+    }
+
+    formatNum(val){
+        let num = "";
+        if (val > 12)
+            num = String(val - 12).padStart(2, "0");
+        else
+            num = String(val).padStart(2, "0");
+
+        return num;
     }
 
 }

@@ -6,8 +6,7 @@ import ViewZ from "/Core/Code/Element/View/ViewZ.js";
 export default class ViewzTimeZ extends ViewZ {
     /* Set properties */
     constructor(elementController) {
-        super(elementController);
-        this.id = "timeZ";
+        super(elementController, "timeZ");
 
         this.date = document.createElement('p');
         this.time = document.createElement('p');
@@ -24,14 +23,20 @@ export default class ViewzTimeZ extends ViewZ {
     }
 
     updateTime(){
-        this.time.innerHTML = this.timeTool.currentTime;
-        this.year.innerHTML = this.timeTool.getYear();
-        this.month.innerHTML = this.timeTool.getMonth();
-        this.dayOfWeek.innerHTML = this.timeTool.getDayOfWeek();
-        this.day.innerHTML = this.timeTool.getDay();
-        this.hour.innerHTML = this.timeTool.getHours();
-        this.minute.innerHTML = this.timeTool.getMinutes();
-        this.second.innerHTML = this.timeTool.getSeconds();
+
+        if(this.active){
+            this.time.innerHTML = this.timeTool.currentTime;
+            this.year.innerHTML = this.timeTool.getYear();
+            this.month.innerHTML = this.timeTool.getMonth();
+            this.dayOfWeek.innerHTML = this.timeTool.getDayOfWeek();
+            this.day.innerHTML = this.timeTool.getDay();
+            this.minute.innerHTML = this.timeTool.getMinutes();
+            this.hour.innerHTML = this.timeTool.getHours();
+            this.second.innerHTML = this.timeTool.getSeconds();
+        } else {
+            this.hour.innerHTML = this.timeTool.formatNum(this.timeTool.getHours());
+            this.minute.innerHTML = this.timeTool.formatNum(this.timeTool.getMinutes());
+        }
     }
 
     setViewActive(){
@@ -75,14 +80,43 @@ export default class ViewzTimeZ extends ViewZ {
 
         this.view.style.setProperty("background-color", this.elementController.mediumColor);
         this.view.style.setProperty("color", this.elementController.lightColor);
-        this.view.style.setProperty("font-size", "0.8em");
+        this.view.style.setProperty("font-size", "1.2em");
         this.view.style.setProperty("margin", "3px");
         this.view.style.setProperty("padding", "0");
         this.view.style.setProperty("overflow-wrap", "break-word");
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
 
-        this.card.appendChild(this.time);
+        let timeTable = document.createElement('table');
+        let tRow = document.createElement('tr');
+        let aRow = document.createElement('tr');
+        let hr = document.createElement('td');
+        let br = document.createElement('td');
+        let min = document.createElement('td');
+        let ampm = document.createElement('td');
+        let sp = document.createElement('td');
+        let icon = document.createElement('td');
+
+        hr.appendChild(this.hour);
+        min.appendChild(this.minute);
+        br.innerHTML = ":";
+        ampm.innerHTML = this.timeTool.getAMPM();
+        tRow.appendChild(hr);
+        tRow.appendChild(br);
+        tRow.appendChild(min);
+        aRow.appendChild(ampm);
+        aRow.appendChild(sp);
+        aRow.appendChild(icon);
+
+        timeTable.style.width = "100%";
+        timeTable.style.height = "100%";
+        hr.style.width = "48%";
+        br.style.width = "2%";
+
+        timeTable.appendChild(tRow);
+        timeTable.appendChild(aRow);
+
+        this.card.appendChild(timeTable);
     }
 }
 /*  */

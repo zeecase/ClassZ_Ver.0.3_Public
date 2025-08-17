@@ -8,11 +8,11 @@ const minSize = 1.8;
 /* ObjZ element */
 export default class ViewZ{
 
-    constructor(elementController) {
+    constructor(elementController, id) {
 
         //Set element controller//
         this.elementController = elementController;
-        this.id = "";
+        this.id = id;
         this.favorite = -1;
         this.colStart = 0;
         this.rowStart = 0;
@@ -23,12 +23,19 @@ export default class ViewZ{
         this.viewTop = document.createElement("div");
         this.card = document.createElement('div');
         this.viewBottom = document.createElement("div");
+
+        this.view.id = id;
     }
 
     updateView(){
-        this.card.innerHTML = "";
 
-        if(this.elementController.getActive() == this.id){
+        this.view.attributeStyleMap.clear();
+        this.card.attributeStyleMap.clear();
+        this.view.innerHTML = "";
+        this.card.innerHTML = "";
+        this.view.id = this.id;
+
+        if(this.elementController.active == this.view.id){
             this.viewTop.appendChild(this.guide);
             this.view.appendChild(this.card);
             this.view.appendChild(this.viewTop);
@@ -98,7 +105,7 @@ export default class ViewZ{
             this.viewBottom.style.borderStyle = "solid";
             this.viewBottom.style.borderColor = this.elementController.darkColor;
 
-
+            this.active = true;
             this.setViewActive();
         }
         else{
@@ -107,10 +114,6 @@ export default class ViewZ{
             this.view.style.height = this.elementController.getSize(minSize) + "px";
             this.view.style.width = this.elementController.getSize(minSize) + "px";
             this.view.style.setProperty("position", "fixed");
-            this.view.style.setProperty("left", "auto");
-            this.view.style.setProperty("right", "auto");
-            this.view.style.setProperty("top", "auto");
-            this.view.style.setProperty("bottom", "auto");
             this.view.style.setProperty("z-index", "10");
             this.view.style.borderRadius = "10px"; // standard
             this.view.style.MozBorderRadius = "10px"; // Mozilla
@@ -118,6 +121,13 @@ export default class ViewZ{
             this.view.style.borderWidth = "3px";
             this.view.style.borderStyle = "solid";
             this.view.style.borderColor = this.elementController.darkColor;
+
+            let size = 100;
+            this.card.style.width = size + "px";
+            this.card.style.height = size + "px";
+
+            let scale = parseInt(this.view.style.width)/size;
+            this.card.style.zoom = scale;
 
             if(this.favorite == 0){
                 this.view.style.setProperty("left", this.elementController.getSize(this.colStart) + "%");
@@ -147,9 +157,11 @@ export default class ViewZ{
 
             this.card.style.width = "100%";
             this.card.style.height = "100%";
+
+            this.active = false;
             this.setViewCollapsed();
         }
-        console.log(this.id + " view update");
+        //console.log(this.id + " view update");
     }
 
      getElement(){

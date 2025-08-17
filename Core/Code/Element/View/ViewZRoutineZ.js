@@ -7,8 +7,7 @@ export default class ViewzRoutineZ extends ViewZ{
 
 /* Set properties */
     constructor(elementController) {
-        super(elementController);
-        this.id = "routineZ";
+        super(elementController, "routineZ");
 
         this.timeTool = elementController.timeSubscribe(this);
     }

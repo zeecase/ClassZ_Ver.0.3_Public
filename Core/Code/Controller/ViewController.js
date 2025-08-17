@@ -111,6 +111,12 @@ export default class ViewController{
     setElement(element){
         console.log(element);
         document.body.appendChild(element);
+        this.setClickListener(element);
+    }
+
+    setClickListener(element){
+        //let self = this;
+        element.addEventListener("click", function(){elementController.setActive(this);});
     }
 
     addFont(font){

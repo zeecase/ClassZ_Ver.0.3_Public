@@ -6,8 +6,7 @@ import ViewZ from "/Core/Code/Element/View/ViewZ.js";
 export default class ViewZCardZ extends ViewZ {
     /* Set properties */
     constructor(elementController) {
-        super(elementController);
-        this.id = "cardZ";
+        super(elementController, "cardZ");
     }
 
     setViewActive(){

@@ -36,6 +36,8 @@ export default class ElementController{
         this.timeTool = this.toolZList[0];
         this.timeTool.init();
 
+        this.active = this.getActive();
+
         //Create element//
         this.background = new Core.BackgroundZ(this);
         this.guide = new Core.GuideZ(this);
@@ -54,7 +56,6 @@ export default class ElementController{
     updateTime(){
         this.orientation = viewController.getOrientation();
         this.darkMode = this.timeTool.isNight();
-        this.active = this.getActive();
         for(let x=0; x<this.timeTool.subscribers.length;x++){
             this.timeTool.subscribers[x].updateTime();
         }
@@ -72,6 +73,12 @@ export default class ElementController{
                 view.favorite = x;
             viewController.setElement(view.getElement());
         }
+    }
+
+    setActive(element){
+        console.log("Set active " + element.id);
+        this.active = element.id;
+        this.update();
     }
 
     getBackgroundImg(size){
@@ -103,7 +110,7 @@ export default class ElementController{
     }
 
     getViewZ(){
-        return [new Core.ViewZCardZ(this), new Core.ViewZRoutineZ(this), new Core.ViewZTimeZ(this)];
+        return [new Core.ViewZTimeZ(this), new Core.ViewZRoutineZ(this), new Core.ViewZCardZ(this)];
     }
 
     getSize(num){
