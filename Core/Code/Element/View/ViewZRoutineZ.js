@@ -31,50 +31,173 @@ export default class ViewzRoutineZ extends ViewZ{
         routineTable.style.height = "100%";
 
         let routine = this.getRoutine();
-        for(let x=0; x<3;x++){
+        //for(let x=0; x<3;x++){
+        //    if(routine[x] != null){
+        //        let d = new Date(routine[x].time);
+        //        let dHr = d.getHours();
+        //        let dMin = d.getMinutes();
+        //        let curHr = this.timeTool.getHours();
+        //        let curMin = this.timeTool.getMinutes();
+        //        let present = false;
+//
+        //        let row = document.createElement('tr');
+        //        let time = document.createElement('td');
+        //        let activity = document.createElement('td');
+//
+        //        time.innerHTML = this.timeTool.formatTime(dHr, dMin);
+        //        activity.innerHTML = routine[x].activity;
+        //        row.appendChild(time);
+        //        row.appendChild(activity);
+        //        routineTable.appendChild(row);
+//
+//
+        //        if((dHr == curHr && dMin < curMin)||(dHr < curHr)){
+        //            if(present){ //past
+        //                time.style.setProperty("background-color", this.elementController.darkColor);
+        //                time.style.setProperty("color", this.elementController.mediumColor);
+        //                time.style.width = "50%";
+//
+        //                activity.style.setProperty("background", this.elementController.mediumColor);
+        //                activity.style.setProperty("color", this.elementController.darkColor);
+//
+        //            } else { //present
+        //                present = true;
+        //                time.style.setProperty("background-color", this.elementController.darkColor);
+        //                time.style.setProperty("color", this.elementController.themeColor);
+        //                time.style.width = "50%";
+        //                time.style.borderWidth = "1px";
+        //                time.style.borderStyle = "solid";
+        //                time.style.borderColor = this.elementController.themeColor;
+//
+        //                activity.style.setProperty("background", this.elementController.themeColor);
+        //                activity.style.setProperty("color", this.elementController.darkColor);
+        //                activity.style.borderWidth = "1px";
+        //                activity.style.borderStyle = "solid";
+        //                activity.style.borderColor = this.elementController.themeColor;
+        //            }
+        //        } else { //future
+        //            time.style.setProperty("background-color", this.elementController.darkColor);
+        //            time.style.setProperty("color", this.elementController.lightColor);
+        //            time.style.width = "50%";
+//
+        //            activity.style.setProperty("background", this.elementController.lightColor);
+        //            activity.style.setProperty("color", this.elementController.darkColor);
+        //            activity.style.borderWidth = "1px";
+        //            activity.style.borderStyle = "solid";
+        //            activity.style.borderColor = this.elementController.darkColor;
+        //        }
+        //    }
+        //}
+
+        //Loop backwards and find get first past time
+        let present = -1;
+        for(let x = (routine.length-1); x >= 0; x--){
+
             if(routine[x] != null){
                 let d = new Date(routine[x].time);
                 let dHr = d.getHours();
                 let dMin = d.getMinutes();
-                let curHr = this.timeTool.getHours();
-                let curMin = this.timeTool.getMinutes();
-                let present = false;
+                let cHr = this.timeTool.getHours();
+                let cMin = this.timeTool.getMinutes();
 
-                let row = document.createElement('tr');
-                let time = document.createElement('td');
-                let activity = document.createElement('td');
+                if((dHr == cHr && dMin < cMin)||(dHr < cHr)){
+                    present = x;
+                    break;
+                }
+            }
+        }
 
-                time.innerHTML = this.timeTool.formatTime(dHr, dMin);
-                activity.innerHTML = routine[x].activity;
-                row.appendChild(time);
-                row.appendChild(activity);
-                routineTable.appendChild(row);
+        if(present != -1){ //present exists
 
+            let pastRow = document.createElement('tr');
+            let pastTime = document.createElement('td');
+            let pastActivity = document.createElement('td');
+            let presentRow = document.createElement('tr');
+            let presentTime = document.createElement('td');
+            let presentActivity = document.createElement('td');
+            let futureRow = document.createElement('tr');
+            let futureTime = document.createElement('td');
+            let futureActivity = document.createElement('td');
 
-                if((dHr == curHr && dMin < curMin)||(dHr < curHr)){
-                    if(present){ //past
-                        time.style.setProperty("background-color", this.elementController.darkColor);
-                        time.style.setProperty("color", this.elementController.mediumColor);
-                        time.style.width = "50%";
+            //set present element
+            let d = new Date(routine[present].time);
+            let dHr = d.getHours();
+            let dMin = d.getMinutes();
+            presentTime.innerHTML = this.timeTool.formatTime(dHr, dMin);
+            presentActivity.innerHTML = routine[present].activity;
 
-                        activity.style.setProperty("background", this.elementController.mediumColor);
-                        activity.style.setProperty("color", this.elementController.darkColor);
+            presentTime.style.setProperty("background-color", this.elementController.darkColor);
+            presentTime.style.setProperty("color", this.elementController.themeColor);
+            presentTime.style.width = "50%";
+            presentTime.style.borderWidth = "1px";
+            presentTime.style.borderStyle = "solid";
+            presentTime.style.borderColor = this.elementController.themeColor;
 
-                    } else { //present
-                        time.style.setProperty("background-color", this.elementController.darkColor);
-                        time.style.setProperty("color", this.elementController.themeColor);
-                        time.style.width = "50%";
-                        time.style.borderWidth = "1px";
-                        time.style.borderStyle = "solid";
-                        time.style.borderColor = this.elementController.themeColor;
+            presentActivity.style.setProperty("background", this.elementController.themeColor);
+            presentActivity.style.setProperty("color", this.elementController.darkColor);
+            presentActivity.style.borderWidth = "1px";
+            presentActivity.style.borderStyle = "solid";
+            presentActivity.style.borderColor = this.elementController.themeColor;
 
-                        activity.style.setProperty("background", this.elementController.themeColor);
-                        activity.style.setProperty("color", this.elementController.darkColor);
-                        activity.style.borderWidth = "1px";
-                        activity.style.borderStyle = "solid";
-                        activity.style.borderColor = this.elementController.themeColor;
-                    }
-                } else { //future
+            //set past element
+            if(routine[present-1] != null){
+                d = new Date(routine[present-1].time);
+                dHr = d.getHours();
+                dMin = d.getMinutes();
+                pastTime.innerHTML = this.timeTool.formatTime(dHr, dMin);
+                pastActivity.innerHTML = routine[present-1].activity;
+
+                pastTime.style.setProperty("background-color", this.elementController.darkColor);
+                pastTime.style.setProperty("color", this.elementController.mediumColor);
+                pastTime.style.width = "50%";
+
+                pastActivity.style.setProperty("background", this.elementController.mediumColor);
+                pastActivity.style.setProperty("color", this.elementController.darkColor);
+            }
+
+            //set future element
+            if(routine[present+1] != null){
+                d = new Date(routine[present+1].time);
+                dHr = d.getHours();
+                dMin = d.getMinutes();
+                futureTime.innerHTML = this.timeTool.formatTime(dHr, dMin);
+                futureActivity.innerHTML = routine[present+1].activity;
+
+                futureTime.style.setProperty("background-color", this.elementController.darkColor);
+                futureTime.style.setProperty("color", this.elementController.lightColor);
+                futureTime.style.width = "50%";
+
+                futureActivity.style.setProperty("background", this.elementController.lightColor);
+                futureActivity.style.setProperty("color", this.elementController.darkColor);
+                futureActivity.style.borderWidth = "1px";
+                futureActivity.style.borderStyle = "solid";
+                futureActivity.style.borderColor = this.elementController.darkColor;
+            } else {
+                //TODO: add to routine button
+            }
+
+            pastRow.appendChild(pastTime);
+            pastRow.appendChild(pastActivity);
+            presentRow.appendChild(presentTime);
+            presentRow.appendChild(presentActivity);
+            futureRow.appendChild(futureTime);
+            futureRow.appendChild(futureActivity);
+            routineTable.appendChild(pastRow);
+            routineTable.appendChild(presentRow);
+            routineTable.appendChild(futureRow);
+
+        } else { //routine not started
+            for(let x = 0; x < 3; x++){
+                if(routine[x] != null){
+                    let d = new Date(routine[x].time);
+                    let dHr = d.getHours();
+                    let dMin = d.getMinutes();
+                    let row = document.createElement('tr');
+                    let time = document.createElement('td');
+                    let activity = document.createElement('td');
+                    time.innerHTML = this.timeTool.formatTime(dHr, dMin);
+                    activity.innerHTML = routine[x].activity;
+
                     time.style.setProperty("background-color", this.elementController.darkColor);
                     time.style.setProperty("color", this.elementController.lightColor);
                     time.style.width = "50%";
@@ -84,78 +207,17 @@ export default class ViewzRoutineZ extends ViewZ{
                     activity.style.borderWidth = "1px";
                     activity.style.borderStyle = "solid";
                     activity.style.borderColor = this.elementController.darkColor;
+
+                    row.appendChild(time);
+                    row.appendChild(activity);
+                    routineTable.appendChild(row);
                 }
             }
 
-            //if((dHr == curHr && dMin > curMin)||(dHr > curHr)){
-            //    let rPast = document.createElement('tr');
-            //    let rPresent = document.createElement('tr');
-            //    let rFuture = document.createElement('tr');
-//
-            //    let tPast = document.createElement('td');
-            //    let aPast = document.createElement('td');
-            //    let tPresent = document.createElement('td');
-            //    let aPresent = document.createElement('td');
-            //    let tFuture = document.createElement('td');
-            //    let aFuture = document.createElement('td');
-//
-            //    if(routine[x-2] != null){
-            //        d = new Date(routine[x-2].time);
-            //        tPast.innerHTML = this.timeTool.formatTime(d.getHours(), d.getMinutes());
-            //        aPast.innerHTML = routine[x-2].activity;
-            //        rPast.appendChild(tPast);
-            //        rPast.appendChild(aPast);
-            //        routineTable.appendChild(rPast);
-//
-            //        tPast.style.setProperty("background-color", this.elementController.darkColor);
-            //        tPast.style.setProperty("color", this.elementController.mediumColor);
-            //        tPast.style.width = "50%";
-//
-            //        aPast.style.setProperty("background", this.elementController.mediumColor);
-            //        aPast.style.setProperty("color", this.elementController.darkColor);
-            //    }
-//
-            //    if(routine[x-1] != null){
-            //        d = new Date(routine[x-1].time);
-            //        tPresent.innerHTML = this.timeTool.formatTime(d.getHours(), d.getMinutes());
-            //        aPresent.innerHTML = routine[x-1].activity;
-            //        rPresent.appendChild(tPresent);
-            //        rPresent.appendChild(aPresent);
-            //        routineTable.appendChild(rPresent);
-//
-            //        tPresent.style.setProperty("background-color", this.elementController.darkColor);
-            //        tPresent.style.setProperty("color", this.elementController.themeColor);
-            //        tPresent.style.width = "50%";
-            //        tPresent.style.borderWidth = "1px";
-            //        tPresent.style.borderStyle = "solid";
-            //        tPresent.style.borderColor = this.elementController.themeColor;
-//
-            //        aPresent.style.setProperty("background", this.elementController.themeColor);
-            //        aPresent.style.setProperty("color", this.elementController.darkColor);
-            //        aPresent.style.borderWidth = "1px";
-            //        aPresent.style.borderStyle = "solid";
-            //        aPresent.style.borderColor = this.elementController.themeColor;
-            //    }
-//
-            //    d = new Date(routine[x].time);
-            //    tFuture.innerHTML = this.timeTool.formatTime(d.getHours(), d.getMinutes());
-            //    aFuture.innerHTML = routine[x].activity;
-            //    rFuture.appendChild(tFuture);
-            //    rFuture.appendChild(aFuture);
-            //    routineTable.appendChild(rFuture);
-//
-            //    tFuture.style.setProperty("background-color", this.elementController.darkColor);
-            //    tFuture.style.setProperty("color", this.elementController.lightColor);
-            //    tFuture.style.width = "50%";
-//
-            //    aFuture.style.setProperty("background", this.elementController.lightColor);
-            //    aFuture.style.borderWidth = "1px";
-            //    aFuture.style.borderStyle = "solid";
-            //    aFuture.style.borderColor = this.elementController.darkColor;
-            //    break;
-            //}
+            if(routine.length < 3){
+                //TODO: add to routine button
+            }
         }
-
         this.card.appendChild(routineTable);
     }
 

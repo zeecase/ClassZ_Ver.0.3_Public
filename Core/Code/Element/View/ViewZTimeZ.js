@@ -38,7 +38,10 @@ export default class ViewzTimeZ extends ViewZ {
             this.hour.innerHTML = this.timeTool.getHours();
             this.second.innerHTML = this.timeTool.getSeconds();
         } else {
-            this.hour.innerHTML = this.timeTool.formatNum(this.timeTool.getHours());
+            let hr = this.timeTool.getHours();
+            if(hr > 12)
+                hr-=12;
+            this.hour.innerHTML = this.timeTool.formatNum(hr);
             this.minute.innerHTML = this.timeTool.formatNum(this.timeTool.getMinutes());
         }
     }
@@ -100,6 +103,8 @@ export default class ViewzTimeZ extends ViewZ {
         let ampm = document.createElement('td');
         let sp = document.createElement('td');
         let icon = document.createElement('td');
+
+
 
         hr.appendChild(this.hour);
         min.appendChild(this.minute);
