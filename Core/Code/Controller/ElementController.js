@@ -1,7 +1,10 @@
 /* Import */
 import DataController from '/Core/Code/Controller/DataController.js';
 import ViewController from '/Core/Code/Controller/ViewController.js';
-import * as Core from '/Core/Code/Element/ElementZ.js';
+import ElementZ from '/Core/Code/Element/ElementZ.js';
+import ViewZ from '/Core/Code/Element/View/ViewZ.js';
+import ToolZ from '/Core/Code/Element/Tool/ToolZ.js';
+import * as Core from '/Core/Code/Element/Index.js';
 import * as User from '/User/Code/Element/ElementZ.js';
 /*  */
 
@@ -19,6 +22,10 @@ export default class ElementController{
         this.lightColor = "#f1f1f1";
         this.mediumColor = "#373a38";
         this.darkColor = "#111111";
+
+        this.active = "timeZ";
+        this.timeTool = null;
+        this.darkMode = false;
     }
 
 /* Set properties */
@@ -32,25 +39,16 @@ export default class ElementController{
         let openDyslexic = new FontFace('OpenDyslexic', 'url("' + fontFolder + 'OpenDyslexic/OpenDyslexic3-Regular.ttf")');
         viewController.addFont(openDyslexic);
 
-        this.toolZList = this.getToolZ();
-        this.timeTool = this.toolZList[0];
-        this.timeTool.init();
+        this.elementZList = Core.getElements();
+        this.setElementZ();
 
-        this.active = this.getActive();
-
-        //Create element//
-        this.background = new Core.BackgroundZ(this);
-        this.guide = new Core.GuideZ(this);
-        this.viewZList = this.getViewZ();
-
-        //Set elements//
-        viewController.setElement(this.background.getBackground());
-        this.setViewZ();
     }
 
     update(){
-        this.background.update();
-        this.updateViewZ();
+        for(let x=0; x<this.elementZList.length; x++){
+            let element = this.elementZList[x];
+            element.update();
+        }
     }
 
     updateTime(){
@@ -61,9 +59,21 @@ export default class ElementController{
         }
     }
 
-    updateViewZ(){
-        for(let x=0; x<this.viewZList.length; x++)
-            this.viewZList[x].updateView();
+    setElementZ(){
+        for(let x=0; x<this.elementZList.length; x++){
+            let element = this.elementZList[x];
+            element.init(this);
+            console.log("adding " + element.id);
+            if(element.id == "toolZTimeZ"){
+                this.timeTool = element;
+                element.timeLoop();
+                this.darkMode = element.isNight();
+            }
+            element.start();
+            let view = element.getView();
+            if(view != null)
+                viewController.setElement(view);
+        }
     }
 
     setViewZ(){
@@ -93,24 +103,11 @@ export default class ElementController{
     }
 
     getGuide(){
-        return this.guide.getGuide();
-    }
-
-    getRoutine() {
-        //Return routine list//
-        return [
-            {time: "2024-11-14T15:30:00.000Z", activity: "Morning Routine"},
-            {time: "2024-11-14T20:00:00.000Z", activity: "Lunch"},
-            {time: "2024-11-15T06:00:00.000Z", activity: "End of Day"}
-        ];
-    }
-
-    getToolZ(){
-        return [new Core.ToolZTimeZ(this)];
-    }
-
-    getViewZ(){
-        return [new Core.ViewZTimeZ(this), new Core.ViewZRoutineZ(this), new Core.ViewZCardZ(this)];
+        for(let x=0; x<this.elementZList.length; x++){
+            let guide = this.elementZList[x];
+            if(guide.id == "guideZ")
+                return guide.getView();
+        }
     }
 
     getSize(num){
@@ -118,13 +115,14 @@ export default class ElementController{
             return size;
     }
 
-    getActive(){
-        return "routineZ";
-    }
-
-    timeSubscribe(element){
-        this.timeTool.addSubscriber(element);
-        return this.timeTool;
+    subscribe(element, toolID){
+        for(let x=0; x<this.elementZList.length; x++){
+            let tool = this.elementZList[x];
+            if(tool.id == toolID){
+                tool.addSubscriber(element);
+                return tool;
+            }
+        }
     }
 }
 /*  */

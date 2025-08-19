@@ -1,18 +1,25 @@
 /* Import */
-import ElementController from '/Core/Code/Controller/ElementController.js';
+import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
-export default class ToolZ{
+export default class ToolZ extends ElementZ{
 
-    constructor(elementController) {
-        this.elementController = elementController;
-        this.id = "";
+    constructor(id) {
+        super(id);
 
         this.subscribers = [];
     }
 
+    start(){
+
+    }
+
     update(){
 
+    }
+
+    getView(){
+        return null;
     }
 
     addSubscriber(element){

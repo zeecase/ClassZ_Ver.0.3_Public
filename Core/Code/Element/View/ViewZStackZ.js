@@ -3,10 +3,11 @@ import ViewZ from "/Core/Code/Element/View/ViewZ.js";
 /*  */
 
 /* Manage Goal elements */
-export default class ViewZCardZ extends ViewZ {
+export default class ViewZStackZ extends ViewZ {
     /* Set properties */
-    constructor(elementController) {
-        super(elementController, "cardZ");
+    constructor() {
+        super("stackZ");
+        this.favorite = 2;
     }
 
     setViewActive(){
@@ -26,7 +27,7 @@ export default class ViewZCardZ extends ViewZ {
         this.view.style.setProperty("text-align", "center");
 
         let title = document.createElement('p');
-        title.innerHTML = "CardZ";
+        title.innerHTML = "StackZ";
 
         this.card.appendChild(title);
     }

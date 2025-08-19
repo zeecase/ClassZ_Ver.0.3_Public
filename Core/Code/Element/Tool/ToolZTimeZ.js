@@ -9,16 +9,17 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
 /* Manage Goal elements */
 export default class ToolZTimeZ extends ToolZ {
     /* Set properties */
-    constructor(elementController) {
-        super(elementController);
-        this.id = "toolZTimeZ";
+    constructor() {
+        super("toolZTimeZ");
 
         this.currentDate = "";
         this.currentTime = "";
+        this.date = new Date();
     }
 
-    init(){
-        this.timeLoop();
+    start(){
+        super.start();
+        //this.timeLoop();
     }
 
     timeLoop() {
@@ -122,13 +123,13 @@ export default class ToolZTimeZ extends ToolZ {
     }
 
     formatNum(val){
-        let num = "";
-        if (val > 12)
-            num = String(val - 12).padStart(2, "0");
-        else
-            num = String(val).padStart(2, "0");
+        //let num = "";
+        //if (val > 12)
+        //    num = String(val - 12).padStart(2, "0");
+        //else
+        //    num = String(val).padStart(2, "0");
 
-        return num;
+        return String(val).padStart(2, "0");
     }
 
 }

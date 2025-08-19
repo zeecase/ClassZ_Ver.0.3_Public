@@ -1,23 +1,19 @@
 /* Import */
-import ElementController from '/Core/Code/Controller/ElementController.js';
+import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
 const maxSize = 9.5;
 const minSize = 1.8;
 
 /* ObjZ element */
-export default class ViewZ{
+export default class ViewZ extends ElementZ{
 
-    constructor(elementController, id) {
+    constructor(id) {
+        super(id);
 
-        //Set element controller//
-        this.elementController = elementController;
-        this.id = id;
         this.favorite = -1;
         this.colStart = 0;
         this.rowStart = 0;
-
-        this.guide = this.elementController.getGuide();
 
         this.view = document.createElement("div");
         this.viewTop = document.createElement("div");
@@ -27,7 +23,11 @@ export default class ViewZ{
         this.view.id = id;
     }
 
-    updateView(){
+    start(){
+        this.guide = this.elementController.getGuide();
+    }
+
+    update(){
 
         this.view.attributeStyleMap.clear();
         this.card.attributeStyleMap.clear();
@@ -164,8 +164,8 @@ export default class ViewZ{
         //console.log(this.id + " view update");
     }
 
-     getElement(){
-        this.updateView();
+     getView(){
+        this.update();
         return this.view;
      }
 }

@@ -1,17 +1,19 @@
 /* Import */
-import ElementController from '/Core/Code/Controller/ElementController.js';
+import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
 /* ObjZ element */
-export default class BackgroudZ{
-    constructor(elementController) {
-
-        //Set element controller//
-        this.elementController = elementController;
+export default class BackgroudZ extends ElementZ{
+    constructor() {
+        super("backgroundZ");
 
         this.background = document.createElement('div');
         this.backgroundImg = document.createElement("img");
         this.backgroundFilter = document.createElement("div");
+    }
+
+    start(){
+
     }
 
     update(){
@@ -26,7 +28,7 @@ export default class BackgroudZ{
         this.backgroundFilter.style.setProperty("background", gradient);
     }
 
-    getBackground(){
+    getView(){
         this.background.style.setProperty("width", "100vw");
         this.background.style.setProperty("height", "100vh");
         this.background.appendChild(this.backgroundImg);

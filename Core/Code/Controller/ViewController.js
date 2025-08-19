@@ -111,7 +111,8 @@ export default class ViewController{
     setElement(element){
         console.log(element);
         document.body.appendChild(element);
-        this.setClickListener(element);
+        if(!element.active)
+            this.setClickListener(element);
     }
 
     setClickListener(element){

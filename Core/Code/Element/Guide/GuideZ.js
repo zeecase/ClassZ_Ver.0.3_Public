@@ -1,27 +1,30 @@
 /* Import */
-import ElementController from '/Core/Code/Controller/ElementController.js';
+import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
 const states = ["away", "focus", "rest", "happy", "super"];
 
 /* ObjZ element */
-export default class GuideZ{
+export default class GuideZ extends ElementZ{
 
-    constructor(elementController) {
+    constructor() {
+        super("guideZ");
 
-        //Set element controller//
-        this.elementController = elementController;
         this.state = "away";
         this.guide = document.createElement("div");
         this.guideImg = document.createElement("img");
         this.guideFilter = document.createElement("div");
     }
 
+    start(){
+
+    }
+
     update(){
 
     }
 
-    getGuide(){
+    getView(){
 
         if(this.state != "away"){
             this.guide.style.setProperty("background-color", this.elementController.darkColor);

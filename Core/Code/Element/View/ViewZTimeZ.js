@@ -5,8 +5,9 @@ import ViewZ from "/Core/Code/Element/View/ViewZ.js";
 /* Manages Time elements */
 export default class ViewzTimeZ extends ViewZ {
     /* Set properties */
-    constructor(elementController) {
-        super(elementController, "timeZ");
+    constructor() {
+        super("timeZ");
+        this.favorite = 0;
 
         this.date = document.createElement('p');
         this.time = document.createElement('p');
@@ -18,8 +19,11 @@ export default class ViewzTimeZ extends ViewZ {
         this.minute = document.createElement('div');
         this.second = document.createElement('div');
 
+    }
 
-        this.timeTool = elementController.timeSubscribe(this);
+    start(){
+        super.start();
+        this.timeTool = this.elementController.subscribe(this, "toolZTimeZ");
     }
 
     updateTime(){
