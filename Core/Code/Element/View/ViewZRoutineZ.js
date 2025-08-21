@@ -31,76 +31,17 @@ export default class ViewzRoutineZ extends ViewZ{
         routineTable.style.height = "100%";
 
         let routine = this.getRoutine();
-        //for(let x=0; x<3;x++){
-        //    if(routine[x] != null){
-        //        let d = new Date(routine[x].time);
-        //        let dHr = d.getHours();
-        //        let dMin = d.getMinutes();
-        //        let curHr = this.timeTool.getHours();
-        //        let curMin = this.timeTool.getMinutes();
-        //        let present = false;
-//
-        //        let row = document.createElement('tr');
-        //        let time = document.createElement('td');
-        //        let activity = document.createElement('td');
-//
-        //        time.innerHTML = this.timeTool.formatTime(dHr, dMin);
-        //        activity.innerHTML = routine[x].activity;
-        //        row.appendChild(time);
-        //        row.appendChild(activity);
-        //        routineTable.appendChild(row);
-//
-//
-        //        if((dHr == curHr && dMin < curMin)||(dHr < curHr)){
-        //            if(present){ //past
-        //                time.style.setProperty("background-color", this.elementController.darkColor);
-        //                time.style.setProperty("color", this.elementController.mediumColor);
-        //                time.style.width = "50%";
-//
-        //                activity.style.setProperty("background", this.elementController.mediumColor);
-        //                activity.style.setProperty("color", this.elementController.darkColor);
-//
-        //            } else { //present
-        //                present = true;
-        //                time.style.setProperty("background-color", this.elementController.darkColor);
-        //                time.style.setProperty("color", this.elementController.themeColor);
-        //                time.style.width = "50%";
-        //                time.style.borderWidth = "1px";
-        //                time.style.borderStyle = "solid";
-        //                time.style.borderColor = this.elementController.themeColor;
-//
-        //                activity.style.setProperty("background", this.elementController.themeColor);
-        //                activity.style.setProperty("color", this.elementController.darkColor);
-        //                activity.style.borderWidth = "1px";
-        //                activity.style.borderStyle = "solid";
-        //                activity.style.borderColor = this.elementController.themeColor;
-        //            }
-        //        } else { //future
-        //            time.style.setProperty("background-color", this.elementController.darkColor);
-        //            time.style.setProperty("color", this.elementController.lightColor);
-        //            time.style.width = "50%";
-//
-        //            activity.style.setProperty("background", this.elementController.lightColor);
-        //            activity.style.setProperty("color", this.elementController.darkColor);
-        //            activity.style.borderWidth = "1px";
-        //            activity.style.borderStyle = "solid";
-        //            activity.style.borderColor = this.elementController.darkColor;
-        //        }
-        //    }
-        //}
 
         //Loop backwards and find get first past time
         let present = -1;
         for(let x = (routine.length-1); x >= 0; x--){
 
             if(routine[x] != null){
-                let d = new Date(routine[x].time);
-                let dHr = d.getHours();
-                let dMin = d.getMinutes();
-                let cHr = this.timeTool.getHours();
-                let cMin = this.timeTool.getMinutes();
+                let t = routine[x].time;
+                let curHr = this.timeTool.getHours();
+                let curMin = this.timeTool.getMinutes();
 
-                if((dHr == cHr && dMin < cMin)||(dHr < cHr)){
+                if((t.hours == curHr && t.minutes < curMin)||(t.hours < curHr)){
                     present = x;
                     break;
                 }
@@ -120,10 +61,8 @@ export default class ViewzRoutineZ extends ViewZ{
             let futureActivity = document.createElement('td');
 
             //set present element
-            let d = new Date(routine[present].time);
-            let dHr = d.getHours();
-            let dMin = d.getMinutes();
-            presentTime.innerHTML = this.timeTool.formatTime(dHr, dMin);
+            let t = routine[present].time;
+            presentTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
             presentActivity.innerHTML = routine[present].activity;
 
             presentTime.style.setProperty("background-color", this.elementController.darkColor);
@@ -141,10 +80,8 @@ export default class ViewzRoutineZ extends ViewZ{
 
             //set past element
             if(routine[present-1] != null){
-                d = new Date(routine[present-1].time);
-                dHr = d.getHours();
-                dMin = d.getMinutes();
-                pastTime.innerHTML = this.timeTool.formatTime(dHr, dMin);
+                t = routine[present-1].time;
+                pastTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
                 pastActivity.innerHTML = routine[present-1].activity;
 
                 pastTime.style.setProperty("background-color", this.elementController.darkColor);
@@ -157,10 +94,8 @@ export default class ViewzRoutineZ extends ViewZ{
 
             //set future element
             if(routine[present+1] != null){
-                d = new Date(routine[present+1].time);
-                dHr = d.getHours();
-                dMin = d.getMinutes();
-                futureTime.innerHTML = this.timeTool.formatTime(dHr, dMin);
+                t = routine[present+1].time;
+                futureTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
                 futureActivity.innerHTML = routine[present+1].activity;
 
                 futureTime.style.setProperty("background-color", this.elementController.darkColor);
@@ -189,13 +124,11 @@ export default class ViewzRoutineZ extends ViewZ{
         } else { //routine not started
             for(let x = 0; x < 3; x++){
                 if(routine[x] != null){
-                    let d = new Date(routine[x].time);
-                    let dHr = d.getHours();
-                    let dMin = d.getMinutes();
+                    let t = routine[x].time;
                     let row = document.createElement('tr');
                     let time = document.createElement('td');
                     let activity = document.createElement('td');
-                    time.innerHTML = this.timeTool.formatTime(dHr, dMin);
+                    time.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
                     activity.innerHTML = routine[x].activity;
 
                     time.style.setProperty("background-color", this.elementController.darkColor);
@@ -218,6 +151,11 @@ export default class ViewzRoutineZ extends ViewZ{
                 //TODO: add to routine button
             }
         }
+
+        if(routine.length > 3){
+            //TODO: add stack buttons
+        }
+
         this.card.appendChild(routineTable);
     }
 
@@ -239,11 +177,20 @@ export default class ViewzRoutineZ extends ViewZ{
     }
 
     getRoutine() {
-        //Return routine list//
+
+        //TODO: Return routine list - sorted past->future//
+
+        //Default//
         return [
-            {time: "2024-11-14T15:30:00.000Z", activity: "Morning Routine"},
-            {time: "2024-11-14T20:00:00.000Z", activity: "Lunch"},
-            {time: "2024-11-15T06:00:00.000Z", activity: "End of Day"}
+            {time: {hours: 6, minutes:0}, activity: "Morning Routine"},
+            {time: {hours: 7, minutes:0}, activity: "Breakfast"},
+            {time: {hours: 8, minutes:0}, activity: "Activity 1"},
+            {time: {hours: 12, minutes:0}, activity: "Lunch"},
+            {time: {hours: 13, minutes:0}, activity: "Activity 2"},
+            {time: {hours: 17, minutes:0}, activity: "Dinner"},
+            {time: {hours: 18, minutes:0}, activity: "Relax"},
+            {time: {hours: 20, minutes:0}, activity: "Night Routine"},
+            {time: {hours: 21, minutes:0}, activity: "Sleep"}
         ];
     }
 }
