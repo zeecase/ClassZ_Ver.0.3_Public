@@ -9,8 +9,8 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
 /* Manage Goal elements */
 export default class ToolZTimeZ extends ToolZ {
     /* Set properties */
-    constructor() {
-        super("toolZTimeZ");
+    constructor(id) {
+        super(id);
 
         this.currentDate = "";
         this.currentTime = "";

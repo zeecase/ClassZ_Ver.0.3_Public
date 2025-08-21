@@ -5,8 +5,8 @@ import ViewZ from "/Core/Code/Element/View/ViewZ.js";
 /* Manages Time elements */
 export default class ViewzTimeZ extends ViewZ {
     /* Set properties */
-    constructor() {
-        super("timeZ");
+    constructor(id) {
+        super(id);
         this.favorite = 0;
 
         this.date = document.createElement('p');

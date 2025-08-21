@@ -5,8 +5,8 @@ import ViewZ from "/Core/Code/Element/View/ViewZ.js";
 /* Manage Goal elements */
 export default class ViewZStackZ extends ViewZ {
     /* Set properties */
-    constructor() {
-        super("stackZ");
+    constructor(id) {
+        super(id);
         this.favorite = 2;
     }
 

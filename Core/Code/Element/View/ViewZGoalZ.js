@@ -6,8 +6,8 @@ import ViewZ from '/Core/Code/Element/View/ViewZ.js';
 export default class ViewZGoalZ extends ViewZ{
 
 /* Set properties */
-    constructor() {
-        super("goalZ");
+    constructor(id) {
+        super(id);
     }
 
     start(){

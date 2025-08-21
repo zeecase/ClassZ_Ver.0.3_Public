@@ -7,8 +7,8 @@ const states = ["away", "focus", "rest", "happy", "super"];
 /* ObjZ element */
 export default class GuideZ extends ElementZ{
 
-    constructor() {
-        super("guideZ");
+    constructor(id) {
+        super(id);
 
         this.state = "away";
         this.guide = document.createElement("div");

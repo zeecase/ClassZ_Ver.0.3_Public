@@ -6,8 +6,8 @@ import ViewZ from '/Core/Code/Element/View/ViewZ.js';
 export default class ViewzRoutineZ extends ViewZ{
 
 /* Set properties */
-    constructor() {
-        super("routineZ");
+    constructor(id) {
+        super(id);
         this.favorite = 1;
     }
 

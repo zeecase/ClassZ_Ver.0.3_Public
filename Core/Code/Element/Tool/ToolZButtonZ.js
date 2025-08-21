@@ -5,8 +5,8 @@ import ToolZ from "/Core/Code/Element/Tool/ToolZ.js";
 /* Manage Goal elements */
 export default class ToolZButtonZ extends ToolZ {
     /* Set properties */
-    constructor() {
-        super("toolZButtonZ");
+    constructor(id) {
+        super(id);
 
         this.buttons = {};
         this.buttons.add = function(){self.subscribers[0].add();};

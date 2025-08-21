@@ -6,12 +6,12 @@ import ViewZMakerZ from '/User/Code/Element/View/ViewZMakerZ.js';
 import ViewZMarketZ from '/User/Code/Element/View/ViewZMarketZ.js';
 
 const elements = [
-    new ToolZClassZ(),
-    new ToolZMakerZ(),
-    new ToolZMarketZ(),
-    new ViewZClassZ(),
-    new ViewZMakerZ(),
-    new ViewZMarketZ(),
+    new ToolZClassZ("toolZClassZ"),
+    new ToolZMakerZ("toolZMakerZ"),
+    new ToolZMarketZ("toolZMarketZ"),
+    new ViewZClassZ("classZ"),
+    new ViewZMakerZ("makerZ"),
+    new ViewZMarketZ("marketZ"),
 ];
 
 export function getElements(){

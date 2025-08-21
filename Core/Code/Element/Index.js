@@ -20,17 +20,17 @@ import ViewZRoutineZ from '/Core/Code/Element/View/ViewZRoutineZ.js';
 import ViewZGoalZ from '/Core/Code/Element/View/ViewZGoalZ.js';
 
 const elements = [
-    new ToolZTimeZ(),
-    new ToolZStackZ(),
-    new ToolZRoutineZ(),
-    new ToolZGoalZ(),
-    new ToolZButtonZ(),
-    new BackgroundZ(),
-    new GuideZ(),
-    new ViewZTimeZ(),
-    new ViewZStackZ(),
-    new ViewZRoutineZ(),
-    new ViewZgoalZ()
+    new ToolZTimeZ("toolZTimeZ"),
+    new ToolZStackZ("toolZStackZ"),
+    new ToolZRoutineZ("toolZRoutineZ"),
+    new ToolZGoalZ("toolZGoalZ"),
+    new ToolZButtonZ("toolZButtonZ"),
+    new BackgroundZ("backgroundZ"),
+    new GuideZ("guideZ"),
+    new ViewZTimeZ("timeZ"),
+    new ViewZStackZ("stackZ"),
+    new ViewZRoutineZ("routineZ"),
+    new ViewZgoalZ("goalZ")
 ];
 
 export function getElements(){

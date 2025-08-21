@@ -4,8 +4,8 @@ import ElementZ from '/Core/Code/Element/ElementZ.js';
 
 /* ObjZ element */
 export default class BackgroudZ extends ElementZ{
-    constructor() {
-        super("backgroundZ");
+    constructor(id) {
+        super(id);
 
         this.background = document.createElement('div');
         this.backgroundImg = document.createElement("img");
