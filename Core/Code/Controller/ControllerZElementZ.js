@@ -22,9 +22,8 @@ export default class ControllerZElementZ extends ControllerZ{
             light: "#E7E7E7", medium: "#373a38", dark: "#131313",
             red: "#ab595a", orange: "#b38945", yellow: "#b6a243",
             green: "#7e8750", blue: "#3c70a5", purple: "#8348a5",
-            theme: "#b38945"
         };
-        this.colors.theme = this.colors.orange;
+        this.theme = "orange";
         this.darkMode = false;
 
         this.active = "timeZ";
@@ -98,7 +97,7 @@ export default class ControllerZElementZ extends ControllerZ{
     getGuide(){
         for(let x=0; x<this.elementZList.length; x++){
             let guide = this.elementZList[x];
-            if(guide.id == "guideZ")
+            if(guide.id == "FuZ")
                 return guide.getView();
         }
     }
