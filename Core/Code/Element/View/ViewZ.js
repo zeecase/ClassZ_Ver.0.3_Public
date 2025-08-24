@@ -45,11 +45,11 @@ export default class ViewZ extends ElementZ{
             this.view.style.width = this.elementController.getSize(maxSize) + "px";
             this.view.style.setProperty("position", "fixed");
             if(this.elementController.darkMode){
-                this.card.style.setProperty("background-color", this.elementController.darkColor);
-                this.view.style.setProperty("color", this.elementController.lightColor);
+                this.card.style.setProperty("background-color", this.elementController.colors.dark);
+                this.view.style.setProperty("color", this.elementController.colors.light);
             } else {
-                this.card.style.setProperty("background-color", this.elementController.lightColor);
-                this.view.style.setProperty("color", this.elementController.darkColor);
+                this.card.style.setProperty("background-color", this.elementController.colors.light);
+                this.view.style.setProperty("color", this.elementController.colors.dark);
             }
             this.view.style.setProperty("top", "50%");
             this.view.style.setProperty("left", "50%");
@@ -59,7 +59,7 @@ export default class ViewZ extends ElementZ{
             this.view.style.setProperty("overflow-wrap", "break-word");
 
             this.viewTop.style.setProperty("position", "fixed");
-            this.viewTop.style.setProperty("background-color", this.elementController.mediumColor);
+            this.viewTop.style.setProperty("background-color", this.elementController.colors.medium);
             this.viewTop.style.width = "100%";
             this.viewTop.style.height = this.elementController.getSize(2) + "px";
             this.viewTop.style.setProperty("top", "0");
@@ -71,7 +71,7 @@ export default class ViewZ extends ElementZ{
             this.viewTop.style.WebkitBorderRadius = '10px'; // WebKit
             this.viewTop.style.borderWidth = "3px";
             this.viewTop.style.borderStyle = "solid";
-            this.viewTop.style.borderColor = this.elementController.darkColor;
+            this.viewTop.style.borderColor = this.elementController.colors.dark;
 
             let scale = parseInt(this.viewTop.style.height)/parseInt(this.guide.style.height);
             this.guide.style.zoom = scale;
@@ -91,7 +91,7 @@ export default class ViewZ extends ElementZ{
             this.card.style.zoom = scale;
 
             this.viewBottom.style.setProperty("position", "fixed");
-            this.viewBottom.style.setProperty("background-color", this.elementController.mediumColor);
+            this.viewBottom.style.setProperty("background-color", this.elementController.colors.medium);
             this.viewBottom.style.width = "100%";
             this.viewBottom.style.height = this.elementController.getSize(2) + "px";
             this.viewBottom.style.setProperty("bottom", "0");
@@ -103,7 +103,7 @@ export default class ViewZ extends ElementZ{
             this.viewBottom.style.WebkitBorderRadius = '10px'; // WebKit
             this.viewBottom.style.borderWidth = "3px";
             this.viewBottom.style.borderStyle = "solid";
-            this.viewBottom.style.borderColor = this.elementController.darkColor;
+            this.viewBottom.style.borderColor = this.elementController.colors.dark;
 
             this.active = true;
             this.setViewActive();
@@ -120,7 +120,7 @@ export default class ViewZ extends ElementZ{
             this.view.style.WebkitBorderRadius = "10px"; // WebKit
             this.view.style.borderWidth = "3px";
             this.view.style.borderStyle = "solid";
-            this.view.style.borderColor = this.elementController.darkColor;
+            this.view.style.borderColor = this.elementController.colors.dark;
 
             let size = 100;
             this.card.style.width = size + "px";

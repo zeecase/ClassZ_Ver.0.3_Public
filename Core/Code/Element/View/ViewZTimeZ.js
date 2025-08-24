@@ -49,7 +49,7 @@ export default class ViewzTimeZ extends ViewZ {
     setViewActive(){
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("font-size", "0.6em");
-        this.card.style.setProperty("background-color", this.elementController.darkColor);
+        this.card.style.setProperty("background-color", this.elementController.colors.dark);
 
         let timeTable = document.createElement('table');
         let row = document.createElement('tr');
@@ -72,12 +72,12 @@ export default class ViewzTimeZ extends ViewZ {
 
         timeTable.style.width = "100%";
         timeTable.style.height = "100%";
-        label.style.setProperty("background-color", this.elementController.mediumColor);
-        label.style.setProperty("color", this.elementController.lightColor);
+        label.style.setProperty("background-color", this.elementController.colors.medium);
+        label.style.setProperty("color", this.elementController.colors.light);
         label.style.setProperty("text-align", "right");
         label.style.setProperty("padding-right", "5px");
         label.style.width = "50%";
-        value.style.setProperty("color", this.elementController.lightColor);
+        value.style.setProperty("color", this.elementController.colors.light);
         value.style.setProperty("padding-left", "5px");
 
         this.card.appendChild(timeTable);
@@ -85,8 +85,8 @@ export default class ViewzTimeZ extends ViewZ {
 
     setViewCollapsed(){
 
-        this.view.style.setProperty("background-color", this.elementController.mediumColor);
-        this.view.style.setProperty("color", this.elementController.lightColor);
+        this.view.style.setProperty("background-color", this.elementController.colors.medium);
+        this.view.style.setProperty("color", this.elementController.colors.light);
         this.view.style.setProperty("font-size", "1.2em");
         this.view.style.setProperty("margin", "3px");
         this.view.style.setProperty("padding", "0");

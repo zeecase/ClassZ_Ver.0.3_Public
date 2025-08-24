@@ -24,7 +24,7 @@ export default class ViewzRoutineZ extends ViewZ{
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
         this.view.style.setProperty("font-size", "0.6em");
-        this.card.style.setProperty("background-color", this.elementController.darkColor);
+        this.card.style.setProperty("background-color", this.elementController.colors.dark);
 
         let routineTable = document.createElement('table');
         routineTable.style.width = "100%";
@@ -65,18 +65,18 @@ export default class ViewzRoutineZ extends ViewZ{
             presentTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
             presentActivity.innerHTML = routine[present].activity;
 
-            presentTime.style.setProperty("background-color", this.elementController.darkColor);
-            presentTime.style.setProperty("color", this.elementController.themeColor);
+            presentTime.style.setProperty("background-color", this.elementController.colors.dark);
+            presentTime.style.setProperty("color", this.elementController.colors.theme);
             presentTime.style.width = "50%";
             presentTime.style.borderWidth = "1px";
             presentTime.style.borderStyle = "solid";
-            presentTime.style.borderColor = this.elementController.themeColor;
+            presentTime.style.borderColor = this.elementController.colors.theme;
 
-            presentActivity.style.setProperty("background", this.elementController.themeColor);
-            presentActivity.style.setProperty("color", this.elementController.darkColor);
+            presentActivity.style.setProperty("background", this.elementController.colors.theme);
+            presentActivity.style.setProperty("color", this.elementController.colors.dark);
             presentActivity.style.borderWidth = "1px";
             presentActivity.style.borderStyle = "solid";
-            presentActivity.style.borderColor = this.elementController.themeColor;
+            presentActivity.style.borderColor = this.elementController.colors.theme;
 
             //set past element
             if(routine[present-1] != null){
@@ -84,12 +84,12 @@ export default class ViewzRoutineZ extends ViewZ{
                 pastTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
                 pastActivity.innerHTML = routine[present-1].activity;
 
-                pastTime.style.setProperty("background-color", this.elementController.darkColor);
-                pastTime.style.setProperty("color", this.elementController.mediumColor);
+                pastTime.style.setProperty("background-color", this.elementController.colors.dark);
+                pastTime.style.setProperty("color", this.elementController.colors.medium);
                 pastTime.style.width = "50%";
 
-                pastActivity.style.setProperty("background", this.elementController.mediumColor);
-                pastActivity.style.setProperty("color", this.elementController.darkColor);
+                pastActivity.style.setProperty("background", this.elementController.colors.medium);
+                pastActivity.style.setProperty("color", this.elementController.colors.dark);
             }
 
             //set future element
@@ -98,15 +98,15 @@ export default class ViewzRoutineZ extends ViewZ{
                 futureTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
                 futureActivity.innerHTML = routine[present+1].activity;
 
-                futureTime.style.setProperty("background-color", this.elementController.darkColor);
-                futureTime.style.setProperty("color", this.elementController.lightColor);
+                futureTime.style.setProperty("background-color", this.elementController.colors.dark);
+                futureTime.style.setProperty("color", this.elementController.colors.light);
                 futureTime.style.width = "50%";
 
-                futureActivity.style.setProperty("background", this.elementController.lightColor);
-                futureActivity.style.setProperty("color", this.elementController.darkColor);
+                futureActivity.style.setProperty("background", this.elementController.colors.light);
+                futureActivity.style.setProperty("color", this.elementController.colors.dark);
                 futureActivity.style.borderWidth = "1px";
                 futureActivity.style.borderStyle = "solid";
-                futureActivity.style.borderColor = this.elementController.darkColor;
+                futureActivity.style.borderColor = this.elementController.colors.dark;
             } else {
                 //TODO: add to routine button
             }
@@ -131,15 +131,15 @@ export default class ViewzRoutineZ extends ViewZ{
                     time.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
                     activity.innerHTML = routine[x].activity;
 
-                    time.style.setProperty("background-color", this.elementController.darkColor);
-                    time.style.setProperty("color", this.elementController.lightColor);
+                    time.style.setProperty("background-color", this.elementController.colors.dark);
+                    time.style.setProperty("color", this.elementController.colors.light);
                     time.style.width = "50%";
 
-                    activity.style.setProperty("background", this.elementController.lightColor);
-                    activity.style.setProperty("color", this.elementController.darkColor);
+                    activity.style.setProperty("background", this.elementController.colors.light);
+                    activity.style.setProperty("color", this.elementController.colors.dark);
                     activity.style.borderWidth = "1px";
                     activity.style.borderStyle = "solid";
-                    activity.style.borderColor = this.elementController.darkColor;
+                    activity.style.borderColor = this.elementController.colors.dark;
 
                     row.appendChild(time);
                     row.appendChild(activity);
@@ -161,8 +161,8 @@ export default class ViewzRoutineZ extends ViewZ{
 
     setViewCollapsed(){
 
-        this.view.style.setProperty("background-color", this.elementController.mediumColor);
-        this.view.style.setProperty("color", this.elementController.lightColor);
+        this.view.style.setProperty("background-color", this.elementController.colors.medium);
+        this.view.style.setProperty("color", this.elementController.colors.light);
         this.view.style.setProperty("font-size", "0.8em");
         this.view.style.setProperty("margin", "3px");
         this.view.style.setProperty("padding", "0");

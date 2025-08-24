@@ -17,14 +17,18 @@ export default class ControllerZElementZ extends ControllerZ{
 
     constructor(){
         super();
-        this.themeColor = "#FFA500";
-        this.lightColor = "#E7E7E7";
-        this.mediumColor = "#373a38";
-        this.darkColor = "#131313";
+
+        this.colors = {
+            light: "#E7E7E7", medium: "#373a38", dark: "#131313",
+            red: "#ab595a", orange: "#b38945", yellow: "#b6a243",
+            green: "#7e8750", blue: "#3c70a5", purple: "#8348a5",
+            theme: "#b38945"
+        };
+        this.colors.theme = this.colors.orange;
+        this.darkMode = false;
 
         this.active = "timeZ";
         this.timeTool = null;
-        this.darkMode = false;
     }
 
 /* Set properties */

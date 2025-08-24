@@ -27,8 +27,8 @@ export default class ViewZStackZ extends ViewZ {
 
     setViewCollapsed(){
 
-        this.view.style.setProperty("background-color", this.elementController.mediumColor);
-        this.view.style.setProperty("color", this.elementController.lightColor);
+        this.view.style.setProperty("background-color", this.elementController.colors.medium);
+        this.view.style.setProperty("color", this.elementController.colors.light);
         this.view.style.setProperty("font-size", "0.8em");
         this.view.style.setProperty("margin", "3px");
         this.view.style.setProperty("padding", "0");

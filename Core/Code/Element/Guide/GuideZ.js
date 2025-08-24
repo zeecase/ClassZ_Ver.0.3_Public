@@ -3,7 +3,9 @@ import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
 const guideFolder = "/Core/Asset/Image/Guide/";
-const emotes = ["away", "focus", "rest", "left", "right", "up", "down", "tense", "worry", "blink", "question", "happy", "super"];
+const emotes = ["away", "focus", "rest", "left", "right", "up", "down", "tense",
+               "sus", "worry", "blink", "question", "happy", "super"
+              ];
 
 /* ObjZ element */
 export default class GuideZ extends ElementZ{
@@ -30,7 +32,7 @@ export default class GuideZ extends ElementZ{
     getView(){
 
         if(this.emote != "away"){
-            this.guide.style.setProperty("background-color", this.elementController.darkColor);
+            this.guide.style.setProperty("background-color", this.elementController.colors.dark);
             this.guide.style.setProperty("position", "fixed");
             this.guide.style.setProperty("left", "50%");
             this.guide.style.setProperty("-webkit-transform", "translate(-50%, 0)");

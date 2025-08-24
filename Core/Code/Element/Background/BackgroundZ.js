@@ -22,11 +22,11 @@ export default class BackgroudZ extends ElementZ{
         let gradient = "linear-gradient(";
         if( this.elementController.orientation == "landscape")
             gradient+= "-9";
-        gradient += "0deg, " + this.elementController.darkColor + " 50%, ";
+        gradient += "0deg, " + this.elementController.colors.dark + " 50%, ";
         if(this.elementController.darkMode)
-            gradient += this.elementController.mediumColor + " 100%)";
+            gradient += this.elementController.colors.medium + " 100%)";
         else
-            gradient += this.elementController.themeColor + " 100%)";
+            gradient += this.elementController.colors.theme + " 100%)";
         this.backgroundFilter.style.setProperty("background", gradient);
     }
 
