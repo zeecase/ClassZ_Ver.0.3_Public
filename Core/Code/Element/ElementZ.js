@@ -1,6 +1,5 @@
-
 /* Import */
-import ElementController from '/Core/Code/Controller/ElementController.js';
+import ElementController from '/Core/Code/Controller/ControllerZElementZ.js';
 /*  */
 
 export default class ElementZ{

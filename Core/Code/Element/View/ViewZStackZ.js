@@ -10,9 +10,19 @@ export default class ViewZStackZ extends ViewZ {
         this.favorite = 2;
     }
 
+    start(){
+        super.start();
+        this.buttonTool = this.elementController.subscribe(this, "toolZButtonZ");
+    }
+
+    next(){
+        console.log("Next");
+    }
+
     setViewActive(){
 
-        this.card.innerHTML = ""; //TODO: get card
+        let button = this.buttonTool.getButton("next");
+        this.card.appendChild(button);
     }
 
     setViewCollapsed(){

@@ -26,7 +26,7 @@ export default class ToolZButtonZ extends ToolZ {
         button.style.height = "50px";
         button.style.setProperty("text-align", "center");
 
-        button.innerHTML = this.type;
+        button.innerHTML = type;
         button.addEventListener("click", this.buttons[type]);
 
         return button;

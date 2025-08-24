@@ -1,17 +1,17 @@
 /* Import */
 //Core//
-import DataController from '/Core/Code/Controller/DataController.js';
-import ElementController from '/Core/Code/Controller/ElementController.js';
+import ControllerZ from '/Core/Code/Controller/ControllerZ.js';
+import ControllerZDataZ from '/Core/Code/Controller/ControllerZDataZ.js';
+import ControllerZElementZ from '/Core/Code/Controller/ControllerZElementZ.js';
 /*  */
 
-let dataController = null;
-let elementController = null;
 let viewController = null;
 
-/* Manage the grid view */
-export default class ViewController{
+/* Manage the grid view and window*/
+export default class ControllerZViewZ extends ControllerZ{
 
     constructor(){
+        super();
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
         this.minSize = 250;
@@ -29,9 +29,7 @@ export default class ViewController{
 
 /* Set properties */
     init(data, element){
-        //Set controller//
-        dataController = data;
-        elementController = element;
+        super.init(data, element, this);
         viewController = this;
     }
 
@@ -46,7 +44,7 @@ export default class ViewController{
 
         this.updateGrid();
 
-        elementController.update();
+        this.getElementController().update();
     }
 
     updateGrid(){
@@ -117,7 +115,12 @@ export default class ViewController{
 
     setClickListener(element){
         //let self = this;
-        element.addEventListener("click", function(){elementController.setActive(this);});
+        element.addEventListener("click", function setActive(){viewController.getElementController().setActive(this);});
+    }
+
+    removeClickListener(element){
+        //let self = this;
+        element.removeEventListener("click", setActive);
     }
 
     addFont(font){

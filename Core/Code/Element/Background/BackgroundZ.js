@@ -2,6 +2,8 @@
 import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
+const backgroundFolder = "/Core/Asset/Image/Background/";
+
 /* ObjZ element */
 export default class BackgroudZ extends ElementZ{
     constructor(id) {
@@ -34,7 +36,7 @@ export default class BackgroudZ extends ElementZ{
         this.background.appendChild(this.backgroundImg);
         this.background.appendChild(this.backgroundFilter);
 
-        this.backgroundImg.src = this.elementController.getBackgroundImg();
+        this.backgroundImg.src = this.getBackgroundImg();
         this.backgroundImg.style.setProperty("position", "fixed");
         this.backgroundImg.style.setProperty("top", "50%");
         this.backgroundImg.style.setProperty("left", "50%");
@@ -48,6 +50,17 @@ export default class BackgroudZ extends ElementZ{
         this.update();
 
         return this.background;
+    }
+
+    getBackgroundImg(size){
+        if(size == "large")
+            return backgroundFolder + "Texture_Large.jpg";
+        else if(size == "medium")
+            return backgroundFolder + "Texture_Medium.jpg";
+        else if(size == "small")
+            return backgroundFolder + "Texture_Small.jpg";
+        else
+            return backgroundFolder + "Texture_Full.jpg";
     }
 }
 /* */

@@ -2,7 +2,8 @@
 import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
-const states = ["away", "focus", "rest", "happy", "super"];
+const guideFolder = "/Core/Asset/Image/Guide/";
+const emotes = ["away", "focus", "rest", "left", "right", "up", "down", "tense", "worry", "blink", "question", "happy", "super"];
 
 /* ObjZ element */
 export default class GuideZ extends ElementZ{
@@ -10,10 +11,12 @@ export default class GuideZ extends ElementZ{
     constructor(id) {
         super(id);
 
-        this.state = "away";
+        this.emote = "away";
         this.guide = document.createElement("div");
-        this.guideImg = document.createElement("img");
-        this.guideFilter = document.createElement("div");
+        this.guideBody = document.createElement("img");
+        this.guideEyeL = document.createElement("img");
+        this.guideEyeR = document.createElement("img");
+        this.guideAccessory = document.createElement("img");
     }
 
     start(){
@@ -26,7 +29,7 @@ export default class GuideZ extends ElementZ{
 
     getView(){
 
-        if(this.state != "away"){
+        if(this.emote != "away"){
             this.guide.style.setProperty("background-color", this.elementController.darkColor);
             this.guide.style.setProperty("position", "fixed");
             this.guide.style.setProperty("left", "50%");
@@ -45,19 +48,7 @@ export default class GuideZ extends ElementZ{
             this.guideImg.style.width = "90%";
             this.guideImg.style.height = "90%";
 
-            //this.guideFilter.style.setProperty("background-color", this.elementController.themeColor);
-            //this.guideFilter.style.setProperty("position", "fixed");
-            //this.guideFilter.style.setProperty("top", "5%");
-            //this.guideFilter.style.setProperty("left", "50%");
-            //this.guideFilter.style.setProperty("opacity", "25%");
-            //this.guideFilter.style.setProperty("-webkit-transform", "translate(-50%, 0)");
-            //this.guideFilter.style.setProperty("transform", "translate(-50%, 0)");
-            //this.guideFilter.style.height = "90%";
-            //this.guideFilter.style.width = "90%";
-            //this.guideFilter.style.setProperty("border-radius", "50%");
-
             this.guide.appendChild(this.guideImg);
-            //this.guide.appendChild(this.guideFilter);
         }
 
         return this.guide;
