@@ -66,17 +66,17 @@ export default class ViewzRoutineZ extends ViewZ{
             presentActivity.innerHTML = routine[present].activity;
 
             presentTime.style.setProperty("background-color", this.elementController.colors.dark);
-            presentTime.style.setProperty("color", this.elementController.colors.theme);
+            presentTime.style.setProperty("color", this.elementController.colors[this.elementController.theme]);
             presentTime.style.width = "50%";
             presentTime.style.borderWidth = "1px";
             presentTime.style.borderStyle = "solid";
             presentTime.style.borderColor = this.elementController.colors.theme;
 
-            presentActivity.style.setProperty("background", this.elementController.colors.theme);
+            presentActivity.style.setProperty("background", this.elementController.colors[this.elementController.theme]);
             presentActivity.style.setProperty("color", this.elementController.colors.dark);
             presentActivity.style.borderWidth = "1px";
             presentActivity.style.borderStyle = "solid";
-            presentActivity.style.borderColor = this.elementController.colors.theme;
+            presentActivity.style.borderColor = this.elementController.colors[this.elementController.theme];
 
             //set past element
             if(routine[present-1] != null){
