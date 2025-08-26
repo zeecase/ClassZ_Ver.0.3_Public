@@ -15,14 +15,31 @@ export default class ViewZStackZ extends ViewZ {
         this.buttonTool = this.elementController.subscribe(this, "toolZButtonZ");
     }
 
-    next(){
+    left(){
+        console.log("Back");
+    }
+
+    right(){
         console.log("Next");
     }
 
     setViewActive(){
 
-        let button = this.buttonTool.getButton("next");
-        this.card.appendChild(button);
+        let back = this.buttonTool.getButton("left");
+        let next = this.buttonTool.getButton("right");
+
+        back.style.setProperty("position", "fixed");
+        back.style.setProperty("left", "10px");
+        back.style.setProperty("top", "50%");
+        back.style.setProperty("transform", "translate(0, -50%)");
+
+        next.style.setProperty("position", "fixed");
+        next.style.setProperty("right", "10px");
+        next.style.setProperty("top", "50%");
+        next.style.setProperty("transform", "translate(0, -50%)");
+
+        this.viewBottom.appendChild(back);
+        this.viewBottom.appendChild(next);
     }
 
     setViewCollapsed(){
