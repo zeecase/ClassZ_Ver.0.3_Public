@@ -1,10 +1,10 @@
 /* Import Core/Code/Element/ */
 
 //Background//
-import BackgroundZ from '/Core/Code/Element/Background/BackgroundZ.js';
+import BackgroundZClassZ from '/Core/Code/Element/Background/BackgroundZClassZ.js';
 
 const backgrounds = [
-    new BackgroundZ("backgroundZ")
+    new BackgroundZClassZ("backgroundZClassZ")
 ];
 
 export function getBackgrounds(){
@@ -12,10 +12,10 @@ export function getBackgrounds(){
 }
 
 //Guide//
-import GuideZ from '/Core/Code/Element/Guide/GuideZ.js';
+import GuideZFuZ from '/Core/Code/Element/Guide/GuideZFuZ.js';
 
 const guides = [
-    new GuideZ("guideZ")
+    new GuideZFuZ("FuZ")
 ];
 
 export function getGuides(){

@@ -19,24 +19,16 @@ export default class BackgroudZ extends ElementZ{
     }
 
     update(){
-        let gradient = "linear-gradient(";
-        if( this.elementController.orientation == "landscape")
-            gradient+= "-9";
-        gradient += "0deg, " + this.elementController.colors.dark + " 50%, ";
-        if(this.elementController.darkMode)
-            gradient += this.elementController.colors.medium + " 100%)";
-        else
-            gradient += this.elementController.colors.theme + " 100%)";
-        this.backgroundFilter.style.setProperty("background", gradient);
+
     }
 
-    getView(){
+    setView(image){
         this.background.style.setProperty("width", "100vw");
         this.background.style.setProperty("height", "100vh");
         this.background.appendChild(this.backgroundImg);
         this.background.appendChild(this.backgroundFilter);
 
-        this.backgroundImg.src = this.getBackgroundImg();
+        this.backgroundImg.src = backgroundFolder + image;
         this.backgroundImg.style.setProperty("position", "fixed");
         this.backgroundImg.style.setProperty("top", "50%");
         this.backgroundImg.style.setProperty("left", "50%");
@@ -47,20 +39,6 @@ export default class BackgroudZ extends ElementZ{
         this.backgroundFilter.style.setProperty("width", "100%");
         this.backgroundFilter.style.setProperty("height", "100%");
         this.backgroundFilter.style.setProperty("opacity", "75%");
-        this.update();
-
-        return this.background;
-    }
-
-    getBackgroundImg(size){
-        if(size == "large")
-            return backgroundFolder + "Texture_Large.jpg";
-        else if(size == "medium")
-            return backgroundFolder + "Texture_Medium.jpg";
-        else if(size == "small")
-            return backgroundFolder + "Texture_Small.jpg";
-        else
-            return backgroundFolder + "Texture_Full.jpg";
     }
 }
 /* */
