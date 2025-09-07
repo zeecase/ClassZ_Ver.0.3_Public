@@ -13,7 +13,7 @@ export default class GuideZ extends ElementZ{
     constructor(id) {
         super(id);
 
-        this.emote = "focus";
+        this.emote = "away";
         this.guide = document.createElement("div");
         this.guideBody = document.createElement("img");
         this.guideEyeL = document.createElement("img");

@@ -33,17 +33,32 @@ export default class ToolZButtonZ extends ToolZ {
     }
 
     clickButton(type){
-        if(type == "add")
-            this.subscribers[0].add();
-        else if(type == "delete")
-            this.subscribers[0].delete();
-        else if(type == "left")
-            this.subscribers[0].left();
-        else if(type == "right")
-            this.subscribers[0].right();
-        else if(type == "up")
-            this.subscribers[0].up();
-        else if(type == "down")
-            this.subscribers[0].down();
+        for(let x=0; x< this.subscribers.length; x++){
+            if(this.subscribers[x].id == this.elementController.active){
+                switch (type) {
+                    case "add":
+                        this.subscribers[x].add();
+                        break;
+                    case "delete":
+                        this.subscribers[x].delete();
+                        break;
+                    case "left":
+                        this.subscribers[x].left();
+                        break;
+                    case "right":
+                        this.subscribers[x].right();
+                        break;
+                    case "up":
+                        this.subscribers[x].up();
+                        break;
+                    case "down":
+                        this.subscribers[x].down();
+                        break;
+                    default:
+                        console.log("Button doesn't have a function");
+                }
+            }
+        }
+
     }
 }

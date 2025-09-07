@@ -9,154 +9,156 @@ export default class ViewzRoutineZ extends ViewZ{
     constructor(id) {
         super(id);
         this.favorite = 1;
+        this.present = -1;
+
+        this.routineTable = document.createElement('table');
     }
 
     start(){
         super.start();
         this.timeTool = this.elementController.subscribe(this, "toolZTimeZ");
+        this.buttonTool = this.elementController.subscribe(this, "toolZButtonZ");
+        this.routine = this.getRoutine();
+        this.downButton = this.buttonTool.getButton("down");
+        this.upButton = this.buttonTool.getButton("up");
     }
 
     updateTime(){
 
     }
 
+    up(){
+        console.log("Up");
+        for(let x=0; x < this.routine.length; x++){
+            if(this.routineTable.rows[x].style.display != "none" && (x-1) >= 0){
+                this.routineTable.rows[x-1].style.display = "";
+                if(x+2 <= this.routine.length-1)
+                    this.routineTable.rows[x+2].style.display = "none";
+                if(x-1 == 0)
+                    this.upButton.style.display = "none";
+                this.downButton.style.display = "";
+                break;
+            }
+        }
+    }
+
+    down(){
+        console.log("Down");
+        for(let x=0; x < this.routine.length; x++){
+            if(this.routineTable.rows[x].style.display != "none" && (x+3) < this.routine.length){
+                this.routineTable.rows[x].style.display = "none";
+                this.routineTable.rows[x+3].style.display = "";
+                if(x+3 == this.routine.length-1)
+                    this.downButton.style.display = "none";
+                this.upButton.style.display = "";
+                break;
+            }
+        }
+    }
+
+    add(){
+        console.log("Add");
+    }
+
+    delete(){
+        console.log("Delete");
+    }
+
     setViewActive(){
+        this.routineTable.innerHTML = "";
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
         this.view.style.setProperty("font-size", "0.6em");
         this.card.style.setProperty("background-color", this.elementController.colors.dark);
 
-        let routineTable = document.createElement('table');
-        routineTable.style.width = "100%";
-        routineTable.style.height = "100%";
-
-        let routine = this.getRoutine();
+        this.routineTable.style.width = "100%";
+        this.routineTable.style.height = "100%";
 
         //Loop backwards and find get first past time
-        let present = -1;
-        for(let x = (routine.length-1); x >= 0; x--){
-
-            if(routine[x] != null){
-                let t = routine[x].time;
+        for(let x = (this.routine.length-1); x >= 0; x--){
+            if(this.routine[x] != null){
+                let t = this.routine[x].time;
                 let curHr = this.timeTool.getHours();
                 let curMin = this.timeTool.getMinutes();
 
                 if((t.hours == curHr && t.minutes < curMin)||(t.hours < curHr)){
-                    present = x;
+                    this.present = x;
                     break;
                 }
             }
         }
 
-        if(present != -1){ //present exists
+        for(let x=0; x < this.routine.length; x++){
+            let row = document.createElement('tr');
+            let time = document.createElement('td');
+            let activity = document.createElement('td');
+            let t = this.routine[x].time;
 
-            let pastRow = document.createElement('tr');
-            let pastTime = document.createElement('td');
-            let pastActivity = document.createElement('td');
-            let presentRow = document.createElement('tr');
-            let presentTime = document.createElement('td');
-            let presentActivity = document.createElement('td');
-            let futureRow = document.createElement('tr');
-            let futureTime = document.createElement('td');
-            let futureActivity = document.createElement('td');
+            if(x == this.present){
+                time.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
+                activity.innerHTML = this.routine[x].activity;
 
-            //set present element
-            let t = routine[present].time;
-            presentTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
-            presentActivity.innerHTML = routine[present].activity;
+                row.appendChild(time);
+                row.appendChild(activity);
 
-            presentTime.style.setProperty("background-color", this.elementController.colors.dark);
-            presentTime.style.setProperty("color", this.elementController.colors[this.elementController.theme]);
-            presentTime.style.width = "50%";
-            presentTime.style.borderWidth = "1px";
-            presentTime.style.borderStyle = "solid";
-            presentTime.style.borderColor = this.elementController.colors.theme;
+                this.setPresent(row);
+            } else if(x < this.present){
+                time.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
+                activity.innerHTML = this.routine[x].activity;
 
-            presentActivity.style.setProperty("background", this.elementController.colors[this.elementController.theme]);
-            presentActivity.style.setProperty("color", this.elementController.colors.dark);
-            presentActivity.style.borderWidth = "1px";
-            presentActivity.style.borderStyle = "solid";
-            presentActivity.style.borderColor = this.elementController.colors[this.elementController.theme];
+                row.appendChild(time);
+                row.appendChild(activity);
 
-            //set past element
-            if(routine[present-1] != null){
-                t = routine[present-1].time;
-                pastTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
-                pastActivity.innerHTML = routine[present-1].activity;
-
-                pastTime.style.setProperty("background-color", this.elementController.colors.dark);
-                pastTime.style.setProperty("color", this.elementController.colors.medium);
-                pastTime.style.width = "50%";
-
-                pastActivity.style.setProperty("background", this.elementController.colors.medium);
-                pastActivity.style.setProperty("color", this.elementController.colors.dark);
-            }
-
-            //set future element
-            if(routine[present+1] != null){
-                t = routine[present+1].time;
-                futureTime.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
-                futureActivity.innerHTML = routine[present+1].activity;
-
-                futureTime.style.setProperty("background-color", this.elementController.colors.dark);
-                futureTime.style.setProperty("color", this.elementController.colors.light);
-                futureTime.style.width = "50%";
-
-                futureActivity.style.setProperty("background", this.elementController.colors.light);
-                futureActivity.style.setProperty("color", this.elementController.colors.dark);
-                futureActivity.style.borderWidth = "1px";
-                futureActivity.style.borderStyle = "solid";
-                futureActivity.style.borderColor = this.elementController.colors.dark;
+                this.setPast(row);
             } else {
-                //TODO: add to routine button
+                time.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
+                activity.innerHTML = this.routine[x].activity;
+
+                row.appendChild(time);
+                row.appendChild(activity);
+
+                this.setFuture(row);
             }
 
-            pastRow.appendChild(pastTime);
-            pastRow.appendChild(pastActivity);
-            presentRow.appendChild(presentTime);
-            presentRow.appendChild(presentActivity);
-            futureRow.appendChild(futureTime);
-            futureRow.appendChild(futureActivity);
-            routineTable.appendChild(pastRow);
-            routineTable.appendChild(presentRow);
-            routineTable.appendChild(futureRow);
-
-        } else { //routine not started
-            for(let x = 0; x < 3; x++){
-                if(routine[x] != null){
-                    let t = routine[x].time;
-                    let row = document.createElement('tr');
-                    let time = document.createElement('td');
-                    let activity = document.createElement('td');
-                    time.innerHTML = this.timeTool.formatTime(t.hours, t.minutes);
-                    activity.innerHTML = routine[x].activity;
-
-                    time.style.setProperty("background-color", this.elementController.colors.dark);
-                    time.style.setProperty("color", this.elementController.colors.light);
-                    time.style.width = "50%";
-
-                    activity.style.setProperty("background", this.elementController.colors.light);
-                    activity.style.setProperty("color", this.elementController.colors.dark);
-                    activity.style.borderWidth = "1px";
-                    activity.style.borderStyle = "solid";
-                    activity.style.borderColor = this.elementController.colors.dark;
-
-                    row.appendChild(time);
-                    row.appendChild(activity);
-                    routineTable.appendChild(row);
-                }
+            if(this.present != -1){
+                if(x < this.present-1 || x > this.present+1)
+                    row.style.display = "none";
+            } else {
+                if(x >= 3)
+                    row.style.display = "none";
             }
 
-            if(routine.length < 3){
-                //TODO: add to routine button
-            }
+            this.routineTable.appendChild(row);
         }
 
-        if(routine.length > 3){
-            //TODO: add stack buttons
+        //add buttons
+        if(this.routine.length < 3){
+                //TODO: add to this.routine button
+        } else if(this.routine.length > 3){
+            this.downButton.style.display = "none";
+            this.downButton.style.setProperty("position", "fixed");
+            this.downButton.style.setProperty("left", "10px");
+            this.downButton.style.setProperty("top", "50%");
+            this.downButton.style.setProperty("transform", "translate(0, -50%)");
+
+            this.upButton.style.display = "none";
+            this.upButton.style.setProperty("position", "fixed");
+            this.upButton.style.setProperty("left", "10px");
+            this.upButton.style.setProperty("top", "50%");
+            this.upButton.style.setProperty("transform", "translate(0, -50%)");
+
+            this.viewBottom.appendChild(this.downButton);
+            this.viewTop.appendChild(this.upButton);
+
+            if(this.present+2 < this.routine.length)
+                this.downButton.style.display = "";
+            if(this.present > 1)
+                this.upButton.style.display = "";
         }
 
-        this.card.appendChild(routineTable);
+        this.card.appendChild(this.routineTable);
+
+        console.log("Center: " + this.center);
     }
 
     setViewCollapsed(){
@@ -176,22 +178,174 @@ export default class ViewzRoutineZ extends ViewZ{
         this.card.appendChild(title);
     }
 
+    setPast(row){
+        let time = row.cells[0];
+        let activity = row.cells[1];
+
+        time.style.setProperty("background-color", this.elementController.colors.dark);
+        time.style.setProperty("color", this.elementController.colors.medium);
+        time.style.width = "50%";
+        time.style.border = "0";
+
+        activity.style.setProperty("background-color", this.elementController.colors.medium);
+        activity.style.setProperty("color", this.elementController.colors.dark);
+    }
+
+    setPresent(row){
+        let time = row.cells[0];
+        let activity = row.cells[1];
+
+        time.style.setProperty("background-color", this.elementController.colors.dark);
+        time.style.setProperty("color", this.elementController.colors[this.elementController.theme]);
+        time.style.width = "50%";
+        time.style.borderWidth = "1px";
+        time.style.borderStyle = "solid";
+        time.style.borderColor = this.elementController.colors[this.elementController.theme];
+
+        activity.style.setProperty("background-color", this.elementController.colors[this.elementController.theme]);
+        activity.style.setProperty("color", this.elementController.colors.dark);
+    }
+
+    setFuture(row){
+        let time = row.cells[0];
+        let activity = row.cells[1];
+
+        time.style.setProperty("background-color", this.elementController.colors.dark);
+        time.style.setProperty("color", this.elementController.colors.light);
+        time.style.width = "50%";
+        time.style.border = "0";
+
+        activity.style.setProperty("background-color", this.elementController.colors.light);
+        activity.style.setProperty("color", this.elementController.colors.dark);
+    }
+
     getRoutine() {
 
-        //TODO: Return routine list - sorted past->future//
+        //TODO: Return this.routine list - sorted past->future//
+        let routine = [];
+        let dow = this.timeTool.getDayOfWeek();
+
+        if(dow == "Sunday" ){
+            routine = [
+                {time: {hours: 10, minutes:0}, activity: "Morning Routine"},
+                {time: {hours: 11, minutes:0}, activity: "Brunch"},
+                {time: {hours: 12, minutes:0}, activity: "Activity"},
+                {time: {hours: 16, minutes:0}, activity: "Relax"},
+                {time: {hours: 18, minutes:0}, activity: "Dinner"},
+                {time: {hours: 19, minutes:0}, activity: "Relax"},
+                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+            ];
+        } else if(dow == "Monday"){
+            routine = [
+                {time: {hours: 6, minutes:30}, activity: "Morning Routine"},
+                {time: {hours: 7, minutes:0}, activity: "Breakfast"},
+                {time: {hours: 8, minutes:0}, activity: "Work Morning"},
+                {time: {hours: 8, minutes:30}, activity: "Room 34"},
+                {time: {hours: 9, minutes:18}, activity: "Room 52"},
+                {time: {hours: 10, minutes:0}, activity: "Brunch"},
+                {time: {hours: 10, minutes:19}, activity: "Room 17"},
+                {time: {hours: 11, minutes:7}, activity: "Room 83"},
+                {time: {hours: 11, minutes:43}, activity: "Room 43"},
+                {time: {hours: 12, minutes:25}, activity: "Lunch"},
+                {time: {hours: 13, minutes:2}, activity: "Room 35"},
+                {time: {hours: 13, minutes:50}, activity: "Gym"},
+                {time: {hours: 14, minutes:38}, activity: "Room 52"},
+                {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon this.routine"},
+                {time: {hours: 18, minutes:0}, activity: "Dinner"},
+                {time: {hours: 19, minutes:0}, activity: "Relax"},
+                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+            ];
+        } else if(dow == "Tuesday"){
+            routine = [
+                {time: {hours: 6, minutes:30}, activity: "Morning Routine"},
+                {time: {hours: 7, minutes:0}, activity: "Breakfast"},
+                {time: {hours: 8, minutes:0}, activity: "Work Morning"},
+                {time: {hours: 8, minutes:30}, activity: "Room 34"},
+                {time: {hours: 10, minutes:9}, activity: "Brunch"},
+                {time: {hours: 10, minutes:22}, activity: "Room 17"},
+                {time: {hours: 12, minutes:7}, activity: "Lunch"},
+                {time: {hours: 12, minutes:44}, activity: "Room 35"},
+                {time: {hours: 14, minutes:29}, activity: "Room 52"},
+                {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon this.routine"},
+                {time: {hours: 18, minutes:0}, activity: "Dinner"},
+                {time: {hours: 19, minutes:0}, activity: "Relax"},
+                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+            ];
+
+        } else if(dow == "Wednesday"){
+            routine = [
+                {time: {hours: 6, minutes:30}, activity: "Morning Routine"},
+                {time: {hours: 7, minutes:0}, activity: "Breakfast"},
+                {time: {hours: 8, minutes:0}, activity: "Morning Patrol"},
+                {time: {hours: 8, minutes:30}, activity: "Room 52"},
+                {time: {hours: 10, minutes:9}, activity: "Brunch"},
+                {time: {hours: 10, minutes:28}, activity: "Room 43"},
+                {time: {hours: 12, minutes:7}, activity: "Lunch"},
+                {time: {hours: 12, minutes:44}, activity: "Gym"},
+                {time: {hours: 14, minutes:29}, activity: "Room 52"},
+                {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon Patrol"},
+                {time: {hours: 18, minutes:0}, activity: "Dinner"},
+                {time: {hours: 19, minutes:0}, activity: "Relax"},
+                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+            ];
+        } else if(dow == "Thursday"){
+            routine = [
+                {time: {hours: 6, minutes:30}, activity: "Morning Routine"},
+                {time: {hours: 7, minutes:0}, activity: "Breakfast"},
+                {time: {hours: 8, minutes:0}, activity: "Work Morning"},
+                {time: {hours: 8, minutes:30}, activity: "Room 34"},
+                {time: {hours: 10, minutes:9}, activity: "Brunch"},
+                {time: {hours: 10, minutes:22}, activity: "Room 17"},
+                {time: {hours: 12, minutes:7}, activity: "Lunch"},
+                {time: {hours: 12, minutes:44}, activity: "Room 35"},
+                {time: {hours: 14, minutes:29}, activity: "Room 52"},
+                {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon this.routine"},
+                {time: {hours: 18, minutes:0}, activity: "Dinner"},
+                {time: {hours: 19, minutes:0}, activity: "Relax"},
+                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+            ];
+        } else if(dow == "Friday"){
+           routine = [
+                {time: {hours: 6, minutes:30}, activity: "Morning Routine"},
+                {time: {hours: 7, minutes:0}, activity: "Breakfast"},
+                {time: {hours: 8, minutes:0}, activity: "Morning Patrol"},
+                {time: {hours: 8, minutes:30}, activity: "Room 52"},
+                {time: {hours: 10, minutes:9}, activity: "Brunch"},
+                {time: {hours: 10, minutes:28}, activity: "Room 43"},
+                {time: {hours: 12, minutes:7}, activity: "Lunch"},
+                {time: {hours: 12, minutes:44}, activity: "Gym"},
+                {time: {hours: 14, minutes:29}, activity: "Room 52"},
+                {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon Patrol"},
+                {time: {hours: 18, minutes:0}, activity: "Dinner"},
+                {time: {hours: 19, minutes:0}, activity: "Relax"},
+                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+            ];
+        } else if(dow == "Saturday"){
+            routine = [
+                {time: {hours: 10, minutes:0}, activity: "Morning Routine"},
+                {time: {hours: 11, minutes:0}, activity: "Brunch"},
+                {time: {hours: 12, minutes:0}, activity: "Activity"},
+                {time: {hours: 16, minutes:0}, activity: "Relax"},
+                {time: {hours: 18, minutes:0}, activity: "Dinner"},
+                {time: {hours: 19, minutes:0}, activity: "Relax"},
+                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+            ];
+        }
 
         //Default//
-        return [
-            {time: {hours: 6, minutes:0}, activity: "Morning Routine"},
-            {time: {hours: 7, minutes:0}, activity: "Breakfast"},
-            {time: {hours: 8, minutes:0}, activity: "Activity 1"},
-            {time: {hours: 12, minutes:0}, activity: "Lunch"},
-            {time: {hours: 13, minutes:0}, activity: "Activity 2"},
-            {time: {hours: 17, minutes:0}, activity: "Dinner"},
-            {time: {hours: 18, minutes:0}, activity: "Relax"},
-            {time: {hours: 20, minutes:0}, activity: "Night Routine"},
-            {time: {hours: 21, minutes:0}, activity: "Sleep"}
-        ];
+        return routine;
     }
 }
 /*  */
