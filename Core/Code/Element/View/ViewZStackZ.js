@@ -12,7 +12,6 @@ export default class ViewZStackZ extends ViewZ {
 
     start(){
         super.start();
-        this.buttonTool = this.elementController.subscribe(this, "toolZButtonZ");
     }
 
     left(){
@@ -25,21 +24,6 @@ export default class ViewZStackZ extends ViewZ {
 
     setViewActive(){
 
-        let back = this.buttonTool.getButton("left");
-        let next = this.buttonTool.getButton("right");
-
-        back.style.setProperty("position", "fixed");
-        back.style.setProperty("left", "5px");
-        back.style.setProperty("top", "5px");
-        //back.style.setProperty("transform", "translate(-50%, 0)");
-
-        next.style.setProperty("position", "fixed");
-        next.style.setProperty("right", "5px");
-        next.style.setProperty("top", "5px");
-        //next.style.setProperty("transform", "translate(-50%, 0)");
-
-        this.viewBottom.appendChild(back);
-        this.viewBottom.appendChild(next);
     }
 
     setViewCollapsed(){

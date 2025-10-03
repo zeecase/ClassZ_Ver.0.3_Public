@@ -2,7 +2,7 @@
 import ElementZ from '/Core/Code/Element/ElementZ.js';
 /*  */
 
-const maxSize = 9.5;
+const maxSize = 9.0;
 const minSize = 1.8;
 
 /* ObjZ element */
@@ -19,12 +19,16 @@ export default class ViewZ extends ElementZ{
         this.viewTop = document.createElement("div");
         this.card = document.createElement('div');
         this.viewBottom = document.createElement("div");
+        this.toolTop = document.createElement("table");
+        this.toolBottom = document.createElement("table");
 
         this.view.id = id;
     }
 
     start(){
         this.guide = this.elementController.getGuide();
+        this.timeTool = this.elementController.subscribe(this, "toolZTimeZ");
+        this.boxTool = this.elementController.subscribe(this, "toolZBoxZ");
     }
 
     update(){
@@ -36,14 +40,20 @@ export default class ViewZ extends ElementZ{
         this.view.id = this.id;
 
         if(this.elementController.active == this.view.id){
-            this.viewTop.appendChild(this.guide);
-            this.view.appendChild(this.card);
+            this.viewTop.appendChild(this.toolTop);
+            this.viewBottom.appendChild(this.toolBottom);
             this.view.appendChild(this.viewTop);
+            this.view.appendChild(this.card);
             this.view.appendChild(this.viewBottom);
 
-            this.view.style.height = this.elementController.getSize(maxSize) + "px";
-            this.view.style.width = this.elementController.getSize(maxSize) + "px";
+            let size = this.elementController.getSize(maxSize);
+            let scale = parseInt(this.view.style.width)/size;
+
+            this.view.style.height = size + "px";
+            this.view.style.width = size + "px";
             this.view.style.setProperty("position", "fixed");
+            this.view.style.setProperty("top", "50%");
+            this.view.style.setProperty("left", "50%");
             if(this.elementController.darkMode){
                 this.card.style.setProperty("background-color", this.elementController.colors.dark);
                 this.view.style.setProperty("color", this.elementController.colors.light);
@@ -51,63 +61,53 @@ export default class ViewZ extends ElementZ{
                 this.card.style.setProperty("background-color", this.elementController.colors.light);
                 this.view.style.setProperty("color", this.elementController.colors.dark);
             }
-            this.view.style.setProperty("top", "50%");
-            this.view.style.setProperty("left", "50%");
             this.view.style.setProperty("-webkit-transform", "translate(-50%, -50%)");
             this.view.style.setProperty("transform", "translate(-50%, -50%)");
             this.view.style.setProperty("padding", "0");
             this.view.style.setProperty("overflow-wrap", "break-word");
 
+            this.viewTop.style.width = size + "px";
+            this.viewTop.style.height = this.elementController.getSize(this.boxTool.toolTopSize) + "px";
+            this.viewTop.style.zoom = scale;
             this.viewTop.style.setProperty("position", "fixed");
-            this.viewTop.style.setProperty("background-color", this.elementController.colors.medium);
-            this.viewTop.style.width = "100%";
-            this.viewTop.style.height = this.elementController.getSize(4) + "px";
             this.viewTop.style.setProperty("top", "0");
             this.viewTop.style.setProperty("left", "50%");
+            this.viewTop.style.setProperty("background-color", this.elementController.colors.medium);
             this.viewTop.style.setProperty("-webkit-transform", "translate(-50%, 0)");
             this.viewTop.style.setProperty("transform", "translate(-50%, 0)");
-            this.viewTop.style.borderRadius = '10px'; // standard
-            this.viewTop.style.MozBorderRadius = '10px'; // Mozilla
-            this.viewTop.style.WebkitBorderRadius = '10px'; // WebKit
             this.viewTop.style.borderWidth = "3px";
             this.viewTop.style.borderStyle = "solid";
             this.viewTop.style.borderColor = this.elementController.colors.dark;
-            this.viewTop.style.display = "none";
 
-            let scale = parseInt(this.viewTop.style.height)/parseInt(this.guide.style.height);
-            this.guide.style.zoom = scale;
-
+            this.card.style.width = size + "px";
+            this.card.style.height = size*0.5625 + "px";
+            this.card.style.zoom = scale;
             this.card.style.setProperty("position", "fixed");
-            this.card.style.setProperty("top", this.elementController.getSize(0.2) + "px");
+            this.card.style.setProperty("top", this.elementController.getSize(this.boxTool.toolTopSize) + "px");
             this.card.style.setProperty("left", "50%");
             this.card.style.setProperty("-webkit-transform", "translate(-50%, 0%)");
             this.card.style.setProperty("transform", "translate(-50%, 0%)");
             this.card.style.setProperty("font-size", "1em");
 
+            this.viewBottom.style.width = size + "px";
+            this.viewBottom.style.height = this.elementController.getSize(this.boxTool.toolBottomSize) + "px";
+            this.viewBottom.style.zoom = scale;
             this.viewBottom.style.setProperty("position", "fixed");
-            this.viewBottom.style.setProperty("background-color", this.elementController.colors.medium);
-            this.viewBottom.style.height = this.elementController.getSize(4) + "px";
-            this.viewBottom.style.setProperty("bottom", "0");
+            this.viewBottom.style.setProperty("top", size*0.5625 + this.elementController.getSize(this.boxTool.toolTopSize) + "px");
             this.viewBottom.style.setProperty("left", "50%");
+            this.viewBottom.style.setProperty("background-color", this.elementController.colors.medium);
             this.viewBottom.style.setProperty("-webkit-transform", "translate(-50%, 0)");
             this.viewBottom.style.setProperty("transform", "translate(-50%, 0)");
-            //this.viewBottom.style.borderRadius = '10px'; // standard
-            //this.viewBottom.style.MozBorderRadius = '10px'; // Mozilla
-            //this.viewBottom.style.WebkitBorderRadius = '10px'; // WebKit
             this.viewBottom.style.borderWidth = "3px";
             this.viewBottom.style.borderStyle = "solid";
             this.viewBottom.style.borderColor = this.elementController.colors.dark;
 
-            let size = this.elementController.getSize(10);
-            this.card.style.width = size + "px";
-            this.card.style.height = size*0.5625 + "px";
+            this.toolTop.style.width = "100%";
+            this.toolTop.style.height = "100%";
+            this.toolBottom.style.width = "100%";
+            this.toolBottom.style.height = "100%";
 
-            scale = parseInt(this.view.style.width)/size;
-            this.card.style.zoom = scale;
-
-            this.viewBottom.style.width = size + "px";
-            this.viewBottom.style.height = this.elementController.getSize(4) + "px";
-            this.viewBottom.style.zoom = scale;
+            this.addTools();
 
             this.active = true;
             this.setViewActive();
@@ -166,6 +166,28 @@ export default class ViewZ extends ElementZ{
             this.setViewCollapsed();
         }
         //console.log(this.id + " view update");
+    }
+
+    addTools(){
+        for(let x=0; x < 4; x++){
+            let row = document.createElement("tr");
+            for(let t=0; t < 10; t++){
+                let tool = this.boxTool.toolBox[x][t];
+                let cell = document.createElement("td");
+                cell.style.width = "10%";
+                if(tool != '')
+                    cell.appendChild(this.boxTool.getTool(tool));
+                row.appendChild(cell);
+            }
+
+            if(x<this.boxTool.toolTopSize){
+                //add tool row to top view
+                this.toolTop.appendChild(row);
+            } else {
+                //add tool row to bottom view
+                this.toolBottom.appendChild(row);
+            }
+        }
     }
 
      getView(){

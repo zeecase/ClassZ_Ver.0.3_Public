@@ -23,7 +23,6 @@ export default class ViewzTimeZ extends ViewZ {
 
     start(){
         super.start();
-        this.timeTool = this.elementController.subscribe(this, "toolZTimeZ");
     }
 
     updateTime(){

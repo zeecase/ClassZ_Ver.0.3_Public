@@ -16,13 +16,7 @@ export default class ViewzRoutineZ extends ViewZ{
 
     start(){
         super.start();
-        this.timeTool = this.elementController.subscribe(this, "toolZTimeZ");
-        this.buttonTool = this.elementController.subscribe(this, "toolZButtonZ");
         this.routine = this.getRoutine();
-        this.downButton = this.buttonTool.getButton("down");
-        this.upButton = this.buttonTool.getButton("up");
-        this.addButton = this.buttonTool.getButton("add");
-        this.deleteButton = this.buttonTool.getButton("delete");
     }
 
     updateTime(){
@@ -62,8 +56,8 @@ export default class ViewzRoutineZ extends ViewZ{
         console.log("Add");
     }
 
-    delete(){
-        console.log("Delete");
+    min(){
+        console.log("Min");
     }
 
     setViewActive(){
@@ -131,44 +125,6 @@ export default class ViewzRoutineZ extends ViewZ{
             }
 
             this.routineTable.appendChild(row);
-        }
-
-        //add buttons
-        if(this.routine.length < 3){
-                //TODO: add to this.routine button
-        } else if(this.routine.length > 3){
-
-            this.downButton.style.setProperty("position", "fixed");
-            this.downButton.style.setProperty("left", "5px");
-            this.downButton.style.setProperty("top", this.elementController.getSize(1)+10 + "px");
-            //this.downButton.style.setProperty("transform", "translate(0, -50%)");
-
-            this.upButton.style.setProperty("position", "fixed");
-            this.upButton.style.setProperty("left", "5px");
-            this.upButton.style.setProperty("top", "5px");
-            //this.upButton.style.setProperty("transform", "translate(0, -50%)");
-
-            this.addButton.style.setProperty("position", "fixed");
-            this.addButton.style.setProperty("left", this.elementController.getSize(1)+10 + "px");
-            this.addButton.style.setProperty("bottom", "5px");
-            //this.addButton.style.setProperty("transform", "translate(0, -50%)");
-            this.addButton.style.opacity = "25%";
-
-            this.deleteButton.style.setProperty("position", "fixed");
-            this.deleteButton.style.setProperty("left", "5px");
-            this.deleteButton.style.setProperty("bottom", "5px");
-            //this.deleteButton.style.setProperty("transform", "translate(0, -50%)");
-            this.deleteButton.style.opacity = "25%";
-
-            this.viewBottom.appendChild(this.downButton);
-            this.viewBottom.appendChild(this.upButton);
-            this.viewBottom.appendChild(this.addButton);
-            this.viewBottom.appendChild(this.deleteButton);
-
-            if(this.present+2 < this.routine.length)
-                this.downButton.style.display = "";
-            if(this.present > 1)
-                this.upButton.style.display = "";
         }
 
         this.card.appendChild(this.routineTable);

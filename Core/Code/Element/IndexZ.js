@@ -27,14 +27,14 @@ import ToolZTimeZ from '/Core/Code/Element/Tool/ToolZTimeZ.js';
 import ToolZStackZ from '/Core/Code/Element/Tool/ToolZStackZ.js';
 import ToolZRoutineZ from '/Core/Code/Element/Tool/ToolZRoutineZ.js';
 import ToolZGoalZ from '/Core/Code/Element/Tool/ToolZGoalZ.js';
-import ToolZButtonZ from '/Core/Code/Element/Tool/ToolZButtonZ.js';
+import ToolZBoxZ from '/Core/Code/Element/Tool/ToolZBoxZ.js';
 
 const tools = [
     new ToolZTimeZ("toolZTimeZ"),
     new ToolZStackZ("toolZStackZ"),
     new ToolZRoutineZ("toolZRoutineZ"),
     new ToolZGoalZ("toolZGoalZ"),
-    new ToolZButtonZ("toolZButtonZ")
+    new ToolZBoxZ("toolZBoxZ")
 ];
 
 export function getTools(){
