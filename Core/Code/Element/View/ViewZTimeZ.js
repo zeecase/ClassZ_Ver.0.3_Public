@@ -48,7 +48,7 @@ export default class ViewzTimeZ extends ViewZ {
 
     setViewActive(){
         this.view.style.fontFamily = "OpenDyslexic";
-        this.view.style.setProperty("font-size", "0.6em");
+        //this.view.style.setProperty("font-size", "0.6em");
         this.card.style.setProperty("background-color", this.elementController.colors.dark);
 
         let timeTable = document.createElement('table');

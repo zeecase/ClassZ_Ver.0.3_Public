@@ -21,6 +21,8 @@ export default class ViewzRoutineZ extends ViewZ{
         this.routine = this.getRoutine();
         this.downButton = this.buttonTool.getButton("down");
         this.upButton = this.buttonTool.getButton("up");
+        this.addButton = this.buttonTool.getButton("add");
+        this.deleteButton = this.buttonTool.getButton("delete");
     }
 
     updateTime(){
@@ -35,8 +37,8 @@ export default class ViewzRoutineZ extends ViewZ{
                 if(x+2 <= this.routine.length-1)
                     this.routineTable.rows[x+2].style.display = "none";
                 if(x-1 == 0)
-                    this.upButton.style.display = "none";
-                this.downButton.style.display = "";
+                    this.upButton.style.opacity = "25%";
+                this.downButton.style.opacity = "";
                 break;
             }
         }
@@ -49,8 +51,8 @@ export default class ViewzRoutineZ extends ViewZ{
                 this.routineTable.rows[x].style.display = "none";
                 this.routineTable.rows[x+3].style.display = "";
                 if(x+3 == this.routine.length-1)
-                    this.downButton.style.display = "none";
-                this.upButton.style.display = "";
+                    this.downButton.style.opacity = "25%";
+                this.upButton.style.opacity = "";
                 break;
             }
         }
@@ -68,7 +70,7 @@ export default class ViewzRoutineZ extends ViewZ{
         this.routineTable.innerHTML = "";
         this.view.style.fontFamily = "OpenDyslexic";
         this.view.style.setProperty("text-align", "center");
-        this.view.style.setProperty("font-size", "0.6em");
+        //this.view.style.setProperty("font-size", "1em");
         this.card.style.setProperty("background-color", this.elementController.colors.dark);
 
         this.routineTable.style.width = "100%";
@@ -135,20 +137,33 @@ export default class ViewzRoutineZ extends ViewZ{
         if(this.routine.length < 3){
                 //TODO: add to this.routine button
         } else if(this.routine.length > 3){
-            this.downButton.style.display = "none";
-            this.downButton.style.setProperty("position", "fixed");
-            this.downButton.style.setProperty("left", "10px");
-            this.downButton.style.setProperty("top", "50%");
-            this.downButton.style.setProperty("transform", "translate(0, -50%)");
 
-            this.upButton.style.display = "none";
+            this.downButton.style.setProperty("position", "fixed");
+            this.downButton.style.setProperty("left", "5px");
+            this.downButton.style.setProperty("top", this.elementController.getSize(1)+10 + "px");
+            //this.downButton.style.setProperty("transform", "translate(0, -50%)");
+
             this.upButton.style.setProperty("position", "fixed");
-            this.upButton.style.setProperty("left", "10px");
-            this.upButton.style.setProperty("top", "50%");
-            this.upButton.style.setProperty("transform", "translate(0, -50%)");
+            this.upButton.style.setProperty("left", "5px");
+            this.upButton.style.setProperty("top", "5px");
+            //this.upButton.style.setProperty("transform", "translate(0, -50%)");
+
+            this.addButton.style.setProperty("position", "fixed");
+            this.addButton.style.setProperty("left", this.elementController.getSize(1)+10 + "px");
+            this.addButton.style.setProperty("bottom", "5px");
+            //this.addButton.style.setProperty("transform", "translate(0, -50%)");
+            this.addButton.style.opacity = "25%";
+
+            this.deleteButton.style.setProperty("position", "fixed");
+            this.deleteButton.style.setProperty("left", "5px");
+            this.deleteButton.style.setProperty("bottom", "5px");
+            //this.deleteButton.style.setProperty("transform", "translate(0, -50%)");
+            this.deleteButton.style.opacity = "25%";
 
             this.viewBottom.appendChild(this.downButton);
-            this.viewTop.appendChild(this.upButton);
+            this.viewBottom.appendChild(this.upButton);
+            this.viewBottom.appendChild(this.addButton);
+            this.viewBottom.appendChild(this.deleteButton);
 
             if(this.present+2 < this.routine.length)
                 this.downButton.style.display = "";
@@ -234,7 +249,7 @@ export default class ViewzRoutineZ extends ViewZ{
                 {time: {hours: 18, minutes:0}, activity: "Dinner"},
                 {time: {hours: 19, minutes:0}, activity: "Relax"},
                 {time: {hours: 23, minutes:0}, activity: "Night Routine"},
-                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+                {time: {hours: 0, minutes:0}, activity: "Sleep"}
             ];
         } else if(dow == "Monday"){
             routine = [
@@ -249,14 +264,14 @@ export default class ViewzRoutineZ extends ViewZ{
                 {time: {hours: 11, minutes:43}, activity: "Room 43"},
                 {time: {hours: 12, minutes:25}, activity: "Lunch"},
                 {time: {hours: 13, minutes:2}, activity: "Room 35"},
-                {time: {hours: 13, minutes:50}, activity: "Gym"},
+                {time: {hours: 13, minutes:50}, activity: "Room 35"},
                 {time: {hours: 14, minutes:38}, activity: "Room 52"},
                 {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
-                {time: {hours: 15, minutes:30}, activity: "Afternoon this.routine"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon Routine"},
                 {time: {hours: 18, minutes:0}, activity: "Dinner"},
                 {time: {hours: 19, minutes:0}, activity: "Relax"},
-                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
-                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+                {time: {hours: 22, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 23, minutes:0}, activity: "Sleep"}
             ];
         } else if(dow == "Tuesday"){
             routine = [
@@ -270,11 +285,11 @@ export default class ViewzRoutineZ extends ViewZ{
                 {time: {hours: 12, minutes:44}, activity: "Room 35"},
                 {time: {hours: 14, minutes:29}, activity: "Room 52"},
                 {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
-                {time: {hours: 15, minutes:30}, activity: "Afternoon this.routine"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon Routine"},
                 {time: {hours: 18, minutes:0}, activity: "Dinner"},
                 {time: {hours: 19, minutes:0}, activity: "Relax"},
-                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
-                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+                {time: {hours: 22, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 23, minutes:0}, activity: "Sleep"}
             ];
 
         } else if(dow == "Wednesday"){
@@ -286,14 +301,14 @@ export default class ViewzRoutineZ extends ViewZ{
                 {time: {hours: 10, minutes:9}, activity: "Brunch"},
                 {time: {hours: 10, minutes:28}, activity: "Room 43"},
                 {time: {hours: 12, minutes:7}, activity: "Lunch"},
-                {time: {hours: 12, minutes:44}, activity: "Gym"},
+                {time: {hours: 12, minutes:44}, activity: "Room 35"},
                 {time: {hours: 14, minutes:29}, activity: "Room 52"},
                 {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
-                {time: {hours: 15, minutes:30}, activity: "Afternoon Patrol"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon Routine"},
                 {time: {hours: 18, minutes:0}, activity: "Dinner"},
                 {time: {hours: 19, minutes:0}, activity: "Relax"},
-                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
-                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+                {time: {hours: 22, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 23, minutes:0}, activity: "Sleep"}
             ];
         } else if(dow == "Thursday"){
             routine = [
@@ -307,11 +322,11 @@ export default class ViewzRoutineZ extends ViewZ{
                 {time: {hours: 12, minutes:44}, activity: "Room 35"},
                 {time: {hours: 14, minutes:29}, activity: "Room 52"},
                 {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
-                {time: {hours: 15, minutes:30}, activity: "Afternoon this.routine"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon Routine"},
                 {time: {hours: 18, minutes:0}, activity: "Dinner"},
                 {time: {hours: 19, minutes:0}, activity: "Relax"},
-                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
-                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+                {time: {hours: 22, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 23, minutes:0}, activity: "Sleep"}
             ];
         } else if(dow == "Friday"){
            routine = [
@@ -322,25 +337,25 @@ export default class ViewzRoutineZ extends ViewZ{
                 {time: {hours: 10, minutes:9}, activity: "Brunch"},
                 {time: {hours: 10, minutes:28}, activity: "Room 43"},
                 {time: {hours: 12, minutes:7}, activity: "Lunch"},
-                {time: {hours: 12, minutes:44}, activity: "Gym"},
+                {time: {hours: 12, minutes:44}, activity: "Room 35"},
                 {time: {hours: 14, minutes:29}, activity: "Room 52"},
                 {time: {hours: 15, minutes:20}, activity: "Work Afternoon"},
-                {time: {hours: 15, minutes:30}, activity: "Afternoon Patrol"},
+                {time: {hours: 15, minutes:30}, activity: "Afternoon Routine"},
                 {time: {hours: 18, minutes:0}, activity: "Dinner"},
                 {time: {hours: 19, minutes:0}, activity: "Relax"},
-                {time: {hours: 23, minutes:0}, activity: "Night Routine"},
-                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+                {time: {hours: 22, minutes:0}, activity: "Night Routine"},
+                {time: {hours: 23, minutes:0}, activity: "Sleep"}
             ];
         } else if(dow == "Saturday"){
             routine = [
                 {time: {hours: 10, minutes:0}, activity: "Morning Routine"},
                 {time: {hours: 11, minutes:0}, activity: "Brunch"},
-                {time: {hours: 12, minutes:0}, activity: "Activity"},
+                {time: {hours: 13, minutes:0}, activity: "Activity"},
                 {time: {hours: 16, minutes:0}, activity: "Relax"},
                 {time: {hours: 18, minutes:0}, activity: "Dinner"},
                 {time: {hours: 19, minutes:0}, activity: "Relax"},
                 {time: {hours: 23, minutes:0}, activity: "Night Routine"},
-                {time: {hours: 24, minutes:0}, activity: "Sleep"}
+                //{time: {hours: 0, minutes:0}, activity: "Sleep"}
             ];
         }
 

@@ -29,14 +29,14 @@ export default class ViewZStackZ extends ViewZ {
         let next = this.buttonTool.getButton("right");
 
         back.style.setProperty("position", "fixed");
-        back.style.setProperty("left", "10px");
-        back.style.setProperty("top", "50%");
-        back.style.setProperty("transform", "translate(0, -50%)");
+        back.style.setProperty("left", "5px");
+        back.style.setProperty("top", "5px");
+        //back.style.setProperty("transform", "translate(-50%, 0)");
 
         next.style.setProperty("position", "fixed");
-        next.style.setProperty("right", "10px");
-        next.style.setProperty("top", "50%");
-        next.style.setProperty("transform", "translate(0, -50%)");
+        next.style.setProperty("right", "5px");
+        next.style.setProperty("top", "5px");
+        //next.style.setProperty("transform", "translate(-50%, 0)");
 
         this.viewBottom.appendChild(back);
         this.viewBottom.appendChild(next);

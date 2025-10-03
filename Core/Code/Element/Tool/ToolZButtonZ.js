@@ -13,8 +13,9 @@ export default class ToolZButtonZ extends ToolZ {
         let button = document.createElement('div');
 
         button.style.setProperty("background-color", this.elementController.colors.light);
-        button.style.width = "50px";
-        button.style.height = "50px";
+        button.style.setProperty("color", this.elementController.colors.dark);
+        button.style.width = this.elementController.getSize(1) + "px";
+        button.style.height = this.elementController.getSize(1) + "px";
         button.style.borderRadius = "10px"; // standard
         button.style.MozBorderRadius = "10px"; // Mozilla
         button.style.WebkitBorderRadius = "10px"; // WebKit

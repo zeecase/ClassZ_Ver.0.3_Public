@@ -61,7 +61,7 @@ export default class ViewZ extends ElementZ{
             this.viewTop.style.setProperty("position", "fixed");
             this.viewTop.style.setProperty("background-color", this.elementController.colors.medium);
             this.viewTop.style.width = "100%";
-            this.viewTop.style.height = this.elementController.getSize(2) + "px";
+            this.viewTop.style.height = this.elementController.getSize(4) + "px";
             this.viewTop.style.setProperty("top", "0");
             this.viewTop.style.setProperty("left", "50%");
             this.viewTop.style.setProperty("-webkit-transform", "translate(-50%, 0)");
@@ -72,38 +72,42 @@ export default class ViewZ extends ElementZ{
             this.viewTop.style.borderWidth = "3px";
             this.viewTop.style.borderStyle = "solid";
             this.viewTop.style.borderColor = this.elementController.colors.dark;
+            this.viewTop.style.display = "none";
 
             let scale = parseInt(this.viewTop.style.height)/parseInt(this.guide.style.height);
             this.guide.style.zoom = scale;
 
             this.card.style.setProperty("position", "fixed");
-            this.card.style.setProperty("top", "50%");
+            this.card.style.setProperty("top", this.elementController.getSize(0.2) + "px");
             this.card.style.setProperty("left", "50%");
-            this.card.style.setProperty("-webkit-transform", "translate(-50%, -50%)");
-            this.card.style.setProperty("transform", "translate(-50%, -50%)");
+            this.card.style.setProperty("-webkit-transform", "translate(-50%, 0%)");
+            this.card.style.setProperty("transform", "translate(-50%, 0%)");
             this.card.style.setProperty("font-size", "1em");
 
-            let size = 250;
+            this.viewBottom.style.setProperty("position", "fixed");
+            this.viewBottom.style.setProperty("background-color", this.elementController.colors.medium);
+            this.viewBottom.style.height = this.elementController.getSize(4) + "px";
+            this.viewBottom.style.setProperty("bottom", "0");
+            this.viewBottom.style.setProperty("left", "50%");
+            this.viewBottom.style.setProperty("-webkit-transform", "translate(-50%, 0)");
+            this.viewBottom.style.setProperty("transform", "translate(-50%, 0)");
+            //this.viewBottom.style.borderRadius = '10px'; // standard
+            //this.viewBottom.style.MozBorderRadius = '10px'; // Mozilla
+            //this.viewBottom.style.WebkitBorderRadius = '10px'; // WebKit
+            this.viewBottom.style.borderWidth = "3px";
+            this.viewBottom.style.borderStyle = "solid";
+            this.viewBottom.style.borderColor = this.elementController.colors.dark;
+
+            let size = this.elementController.getSize(10);
             this.card.style.width = size + "px";
             this.card.style.height = size*0.5625 + "px";
 
             scale = parseInt(this.view.style.width)/size;
             this.card.style.zoom = scale;
 
-            this.viewBottom.style.setProperty("position", "fixed");
-            this.viewBottom.style.setProperty("background-color", this.elementController.colors.medium);
-            this.viewBottom.style.width = "100%";
-            this.viewBottom.style.height = this.elementController.getSize(2) + "px";
-            this.viewBottom.style.setProperty("bottom", "0");
-            this.viewBottom.style.setProperty("left", "50%");
-            this.viewBottom.style.setProperty("-webkit-transform", "translate(-50%, 0)");
-            this.viewBottom.style.setProperty("transform", "translate(-50%, 0)");
-            this.viewBottom.style.borderRadius = '10px'; // standard
-            this.viewBottom.style.MozBorderRadius = '10px'; // Mozilla
-            this.viewBottom.style.WebkitBorderRadius = '10px'; // WebKit
-            this.viewBottom.style.borderWidth = "3px";
-            this.viewBottom.style.borderStyle = "solid";
-            this.viewBottom.style.borderColor = this.elementController.colors.dark;
+            this.viewBottom.style.width = size + "px";
+            this.viewBottom.style.height = this.elementController.getSize(4) + "px";
+            this.viewBottom.style.zoom = scale;
 
             this.active = true;
             this.setViewActive();
