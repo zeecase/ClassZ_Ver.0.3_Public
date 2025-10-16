@@ -9,15 +9,6 @@ export default class ToolZBoxZ extends ToolZ {
         super(id);
 
         this.toollist = ["+", "-", "<", ">", + "^" + "v"];
-
-        this.toolBox = [ ['','','','','','','','','^',''],
-                        ['','','','','','','','<','','>'],
-                        ['','','','','','','','','v',''],
-                        ['-','+','','','','','','','','']
-        ];
-
-        this.toolTopSize = 0;
-        this.toolBottomSize = 4-this.toolTopSize;
     }
 
     getTool(type){
@@ -25,8 +16,8 @@ export default class ToolZBoxZ extends ToolZ {
 
         tool.style.setProperty("background-color", this.elementController.colors.light);
         tool.style.setProperty("color", this.elementController.colors.dark);
-        //tool.style.width = this.elementController.getSize(1) + "px";
-        //tool.style.height = this.elementController.getSize(1) + "px";
+        tool.style.width = this.elementController.getSize(0.8) + "px";
+        tool.style.height = this.elementController.getSize(0.8) + "px";
         tool.style.borderRadius = "10px"; // standard
         tool.style.MozBorderRadius = "10px"; // Mozilla
         tool.style.WebkitBorderRadius = "10px"; // WebKit
@@ -72,5 +63,39 @@ export default class ToolZBoxZ extends ToolZ {
             }
         }
 
+    }
+
+    getToolbox(){
+        if(this.toolBox.length != 0)
+            return this.toolBox;
+        else {
+            return [ ['-','+','','','','','','',''],
+                    ['^','','','','','','','',''],
+                    ['v','','','','','','','',''],
+                    ['<','>','','','','','','','']
+                ];
+        }
+    }
+
+    addTools(toolBox){
+        for(let x=0; x < 4; x++){
+            let row = document.createElement("tr");
+            for(let t=0; t < 9; t++){
+                let tool = toolBox[x][t];
+                let cell = document.createElement("td");
+                cell.style.width = "10%";
+                if(tool != '')
+                    cell.appendChild(this.boxTool.getTool(tool));
+                row.appendChild(cell);
+            }
+
+            if(x<this.boxTool.toolTopSize){
+                //add tool row to top view
+                this.toolTop.appendChild(row);
+            } else {
+                //add tool row to bottom view
+                this.toolBottom.appendChild(row);
+            }
+        }
     }
 }

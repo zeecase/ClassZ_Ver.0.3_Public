@@ -19,6 +19,13 @@ export default class ViewzTimeZ extends ViewZ {
         this.minute = document.createElement('div');
         this.second = document.createElement('div');
 
+        this.setTopSize(2);
+        this.tools = [ ['','','','','','','','',''],
+                    ['','','','','','','','',''],
+                    ['','','','','','','','',''],
+                    ['','','','','','','','','']
+                ];
+
     }
 
     start(){
@@ -26,7 +33,7 @@ export default class ViewzTimeZ extends ViewZ {
     }
 
     updateTime(){
-
+        super.updateTime();
         if(this.active){
             this.time.innerHTML = this.timeTool.currentTime;
             this.year.innerHTML = this.timeTool.getYear();
@@ -80,6 +87,7 @@ export default class ViewzTimeZ extends ViewZ {
         value.style.setProperty("padding-left", "5px");
 
         this.card.appendChild(timeTable);
+        this.addTools(this.tools);
     }
 
     setViewCollapsed(){
